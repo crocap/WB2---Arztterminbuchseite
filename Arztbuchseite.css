@@ -9,11 +9,61 @@ body {
 }
 
 header {
-    background-color: rgb(255,255,255,0.6);
+    background-color: rgba(255, 255, 255, 0.707);
     text-align: center;
     padding: 10px;
     font-size: x-large;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.backButton {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: rgb(0,198,255,0.8);
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  margin-right: 20px;
+}
+
+.backButton span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.backButton span:after {
+  content: '\2039';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.backButton:hover span {
+  padding-right: 25px;
+}
+
+.backButton:hover span:after {
+  opacity: 1;
+  right: 0;
 }
 
 nav a {
@@ -59,3 +109,4 @@ ul {
     text-align: center;
     font-size: large;
   }
+
