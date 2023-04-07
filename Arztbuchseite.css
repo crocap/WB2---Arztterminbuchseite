@@ -2,18 +2,24 @@
     font-family: Helvetica,Arial,sans-serif; 
 }
 
+body {
+    background-image: url("pics/arzt.jpg"); 
+    background-size: cover;
+    background-attachment: fixed;
+}
+
 header {
     background-color: rgb(255,255,255,0.6);
     text-align: center;
     padding: 10px;
-    font-size: 150%;
+    font-size: x-large;
     font-weight: bold;
 }
 
 nav a {
     text-align: center;
     color: black;
-    font-size: 120%;
+    font-size: larger;
     font-weight: bold;
     border-radius: 6px;
 }
@@ -45,8 +51,11 @@ ul {
   }
 
   article {
-    display: contents;
+    display: block;
+    margin: 10%;
+    padding: 1%;
     background-color: white;
     border-radius: 6px;
     text-align: center;
+    font-size: large;
   }
