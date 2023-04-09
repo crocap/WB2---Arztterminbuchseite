@@ -22,10 +22,12 @@
         </ul>
     </nav>
     <article>
-        <label>ID:</label> 
-        <input type="text" id="id" placeholder="Geben Sie Ihr ID-Nummer ein.">
-        <button>Suche</button>
-        <div style="overflow-x: auto;">
+        <hgroup>
+            <label>ID:</label> 
+            <input type="number" id="id" placeholder="Geben Sie Ihr ID-Nummer ein.">
+            <button class="searchButton"><span>Suche</span></button>
+        </hgroup>
+        <section style="overflow-x: auto;">
             <table>
                 <tr>
                     <th>Nr.</th>
@@ -72,7 +74,7 @@
                     <td><button>x</button></td>
                 </tr>
             </table>
-        </div>
+        </section>
     </article>
 </body>
 </html>
