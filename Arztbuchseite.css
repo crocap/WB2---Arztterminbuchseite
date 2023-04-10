@@ -109,6 +109,7 @@ article {
   border-radius: 6px;
   text-align: center;
   font-size: large;
+  overflow: auto;
 }
 
 th, td {
