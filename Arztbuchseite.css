@@ -297,6 +297,13 @@ h2{
   background-color:rgb(39, 155, 16);
 }
 
+footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+}
+
 @media only screen and (max-width:1000px) {
   .anliegen{
     width: 230px;
