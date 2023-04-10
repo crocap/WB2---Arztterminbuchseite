@@ -21,5 +21,103 @@
                 <li><a href="Kontakt.html">Kontakt</a></li>
             </ul>
         </nav>
+        <main>
+            <!--left main-->
+            <section class="main-left">
+                <h3>Ihre Informationen:</h3>
+                <table>
+                    <tr>
+                        <form>
+                            <td><label for="name">Name:</label></th>
+                            <td><input type="text" id="name" name="name"></td>
+                        </form>
+                    </tr>
+                    <tr>
+                        <form>
+                            <td><label for="plz">PLZ:</th>
+                            <td><input type="text" id="plz" name="plz"></td>
+                        </form>
+                    </tr>
+                    <tr>
+                        <td><label for="ort">Ort:</label></td>
+                        <td><input type="text" id="ort" name="ort"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="straße">Straße:</label></td>
+                        <td><input type="text" id="straße" name="straße"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="email">E-Mail:</td>
+                        <td><input type="text" id="email" name="email"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="telefonnummer">Telefonnummer:</label></td>
+                        <td><input type="text" id="telefonnummer" name="telefonnummer"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="beschwerden">Beschwerden:</label></td>
+                        <td><input type="text" id="beschwerden" name="beschwerden"></td>
+                    </tr>
+                </table>
+        
+            </section>  
+            <!--right main-->
+            <section class="main-right">
+                <h3>Wählen Sie Ihren Arzt aus:</h3>
+                <table>
+                    <tr>
+                        <form>
+                            <td><label for="aerzte">Name:</label></th>
+                            <td><input list="aerzte">
+                                <datalist id="aerzte">
+                                    <option value="Arztname">
+                                    <option value="Muster"> 
+                                </datalist>
+                            </td>
+                        </form>
+                    </tr>
+                    <tr>
+                        <form>
+                            <td><label>Standort:</label></th>
+                            <td class="arzt-standort">Albstadt</td>
+                        </form>
+                    </tr>
+                    <tr>
+                        <td><label>Schwerpunkt:</label></td>
+                        <td class="arzt-schwerpunkt">Hausarzt</td>
+                    </tr>
+                    <tr>
+                        <td><label>E-Mail:</label></td>
+                        <td class="arzt-email">maxmustermann@hotmail.de</td>
+                    </tr>
+                    <tr>
+                        <td><label>Telefonnummer:</label></td>
+                        <td class="arzt-telefonnnummer">012345678</td>
+                    </tr>
+                    <tr>
+                        <td><label>Fax:</label></td>
+                        <td class="arzt-fax">0123456789</td>
+                    </tr>
+                    <tr>
+                        <td><label>Termin:</label></td>
+                        <td><input type="date" id="arzt-termin" name="arzt-termin"></td>
+                        <td><input list="uhrzeit">
+                            <datalist id="uhrzeit">
+                                <option value="8.15">
+                                <option value="9.15">
+                                <option value="10.15">
+                                <option value="11.15">
+                                <option value="14.15">
+                                <option value="15.15">
+                            </datalist>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Termin buchen"></td>
+                    </tr>
+                </table>
+            </section>
+        </main> 
+        <footer></footer>
 </body>
 </html>
