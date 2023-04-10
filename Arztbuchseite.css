@@ -305,8 +305,9 @@ h2{
 .arzt-buttons {
   border-radius: 8px;
   padding: 10px 20px;
+  background-color: rgb(11, 197, 11);
 }
 
 .arzt-buttons:hover {
-  background-color:rgb(156, 156, 156);
+  background-color:rgb(39, 155, 16);
 }
