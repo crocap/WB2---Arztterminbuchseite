@@ -28,41 +28,41 @@
                     <tr>
                         <form>
                             <td><label for="name">Name:</label></th>
-                            <td><input type="text" id="name" name="name"></td>
+                            <td><input type="text" id="name" name="name" class="buchen-felder"></td>
                         </form>
                     </tr>
                     <tr>
                         <form>
                             <td><label for="plz">PLZ:</th>
-                            <td><input type="text" id="plz" name="plz"></td>
+                            <td><input type="text" id="plz" name="plz" class="buchen-felder"></td>
                         </form>
                     </tr>
                     <tr>
                         <td><label for="ort">Ort:</label></td>
-                        <td><input type="text" id="ort" name="ort"></td>
+                        <td><input type="text" id="ort" name="ort" class="buchen-felder"></td>
                     </tr>
                     <tr>
                         <td><label for="straße">Straße:</label></td>
-                        <td><input type="text" id="straße" name="straße"></td>
+                        <td><input type="text" id="straße" name="straße" class="buchen-felder"></td>
                     </tr>
                     <tr>
                         <td><label for="email">E-Mail:</td>
-                        <td><input type="text" id="email" name="email"></td>
+                        <td><input type="text" id="email" name="email" class="buchen-felder"></td>
                     </tr>
                     <tr>
                         <td><label for="telefonnummer">Telefonnummer:</label></td>
-                        <td><input type="text" id="telefonnummer" name="telefonnummer"></td>
+                        <td><input type="text" id="telefonnummer" name="telefonnummer" class="buchen-felder"></td>
                     </tr>
                     <tr>
                         <td><label for="beschwerden">Beschwerden:</label></td>
-                        <td><input type="text" id="beschwerden" name="beschwerden"></td>
+                        <td><input type="text" id="beschwerden" name="beschwerden" class="buchen-felder"></td>
                     </tr>
                 </table>
         
             </section>  
             <!--right main-->
             <section class="rechts">
-                <h3>Wählen Sie Ihren Arzt aus:</h3>
+                <h3>Ihr gewählter Arzt:</h3>
                 <table>
                     <tr>
                         <form>
@@ -94,22 +94,10 @@
                     </tr>
                     <tr>
                         <td><label>Termin:</label></td>
-                        <td><input type="date" id="arzt-termin" name="arzt-termin"></td>
-                        <td><input list="uhrzeit">
-                            <datalist id="uhrzeit">
-                                <option value="8.15">
-                                <option value="9.15">
-                                <option value="10.15">
-                                <option value="11.15">
-                                <option value="14.15">
-                                <option value="15.15">
-                            </datalist>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><input class="searchButton" type="submit" value="Termin buchen"></td>
-                    </tr>
+                        <td id="datum-termin">12.04.2023    9:15 Uhr</td>
+                    </tr>      
                 </table>
+                <td colspan="2"><input class="searchButton" type="submit" value="Termin buchen" onclick="window.location.href='Bestatigung.html';"></td>
             </section>
         </article> 
     </body>
