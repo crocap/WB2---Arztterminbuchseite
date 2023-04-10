@@ -137,6 +137,7 @@ input {
   margin: 4px 2px;
   cursor: pointer;
   font-size: large;
+  width: 5cm;
 }
 
 .searchButton:hover {
