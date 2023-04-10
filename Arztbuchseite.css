@@ -103,7 +103,7 @@ li a {
 
 article {
   display: block;
-  margin: 10%;
+  margin: 3%;
   padding: 1%;
   background-color: white;
   border-radius: 6px;
@@ -216,21 +216,6 @@ h2{
   background-color: rgba(172, 31, 31, 0.8);
 }
 
-@media only screen and (max-width:1000px) {
-  .anliegen{
-    width: 230px;
-  }
-  .title{
-    font-size: xx-large;
-  }
-  .backButton{
-    font-size: large;
-  }
-  nav a {
-    font-size: medium;
-  }
-}
-
 .main-links {
   float: left;
   width: 49%;
@@ -309,4 +294,25 @@ h2{
 
 .arzt-buttons:hover {
   background-color:rgb(156, 156, 156);
+}
+
+@media only screen and (max-width:1000px) {
+  .anliegen{
+    width: 230px;
+  }
+  .title{
+    font-size: xx-large;
+  }
+  .backButton{
+    font-size: large;
+  }
+  nav a {
+    font-size: medium;
+  }
+  .main-links {
+    width: 100%;
+  }
+  .main-rechts {
+    width: 100%;
+  }
 }
