@@ -228,4 +228,84 @@ h2{
   nav a {
     font-size: medium;
   }
-} 
+}
+
+.main-links {
+  float: left;
+  width: 49%;
+  padding: auto;
+  border-right: solid;
+  border-width: 1px;
+  border-color: rgb(78, 78, 78);
+}
+
+.main-rechts {
+  float: left;
+  width: 49%;
+  padding: auto;
+}
+
+.upper {
+  background-color: rgb(230, 230, 230);
+  width: 50%;
+  margin-left: 20%;
+  border-radius: 8px;
+}
+
+.lower {
+  width: 90%;
+  margin-top: 50px;
+  margin-left: 40px;
+}
+
+
+.arztbild {
+  border-radius: 50%;
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
+}
+
+.arzt-name {
+  text-align: center;
+}
+
+.arzt-schwerpunkt {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.arzt-links {
+  text-align: left;
+  border-style: none;
+}
+
+.arzt-rechts {
+  text-align: right;
+  width: 220px;
+  border: none;
+}
+
+.arzt-table {
+  border:none;
+}
+
+.p-termin {
+  margin-right: 200px;
+}
+
+.termin {
+  width: 200px;
+  margin-right: 70px;
+}
+
+.arzt-buttons {
+  border-radius: 8px;
+  padding: 10px 20px;
+}
+
+.arzt-buttons:hover {
+  background-color:rgb(156, 156, 156);
+}
