@@ -144,15 +144,16 @@ input {
   border: 0px;
   text-align: left;
   margin: auto;
+  width: 50%;
 }
 
-.madeby {
-  float: right;
+footer{
+  width: 100%;
+  color: rgb(70, 70, 70);
+  background-color: rgb(240, 238, 238);
   text-align: center;
-  border-width: 2px;
-  border-style: solid;
-  margin-top: 25%;
-  width: 4cm;
+  padding: 5px;
+  clear: both;
 }
 
 .bestätigung1 {
@@ -181,4 +182,29 @@ table{
   margin: auto;
 }
 
+.anliegen{
+  width: 10cm;
+  height: 5cm;
+}
+
+.inputkontakt{
+  width: 70%;
+}
+
+@media only screen and (max-width:1000px) {
+
+  .anliegen{
+    width: 230px;
+  }
+  .title{
+    font-size: xx-large;
+  }
+  .backButton{
+    font-size: large;
+  }
+  nav a {
+    font-size: medium;
+}
+  
+}
 
