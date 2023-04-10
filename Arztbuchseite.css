@@ -117,7 +117,7 @@ th, td {
   text-align:center;
 }
 
-hgroup {
+.id {
   padding-bottom: 20px;
 }
 
@@ -174,7 +174,7 @@ footer{
   margin: auto;
 }
 
-section {
+div {
   overflow-x: auto;
 }
 
