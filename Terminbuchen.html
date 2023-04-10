@@ -21,9 +21,8 @@
                 <li><a href="Kontakt.html">Kontakt</a></li>
             </ul>
         </nav>
-        <main>
-            <!--left main-->
-            <section class="main-left">
+        <article>
+            <section class="main-links">
                 <h3>Ihre Informationen:</h3>
                 <table>
                     <tr>
@@ -62,41 +61,36 @@
         
             </section>  
             <!--right main-->
-            <section class="main-right">
+            <section class="rechts">
                 <h3>Wählen Sie Ihren Arzt aus:</h3>
                 <table>
                     <tr>
                         <form>
                             <td><label for="aerzte">Name:</label></th>
-                            <td><input list="aerzte">
-                                <datalist id="aerzte">
-                                    <option value="Arztname">
-                                    <option value="Muster"> 
-                                </datalist>
-                            </td>
+                            <td class=buchen_td" id="arzt-name">Max Mustermann</td>
                         </form>
                     </tr>
                     <tr>
                         <form>
                             <td><label>Standort:</label></th>
-                            <td class="arzt-standort">Albstadt</td>
+                            <td class="buchen_td" id="arzt-standort">Albstadt</td>
                         </form>
                     </tr>
                     <tr>
                         <td><label>Schwerpunkt:</label></td>
-                        <td class="arzt-schwerpunkt">Hausarzt</td>
+                        <td class="buchen_td" id="arzt-schwerpunkt">Hausarzt</td>
                     </tr>
                     <tr>
                         <td><label>E-Mail:</label></td>
-                        <td class="arzt-email">maxmustermann@hotmail.de</td>
+                        <td class="buchen_td" id="arzt-email">maxmustermann@hotmail.de</td>
                     </tr>
                     <tr>
                         <td><label>Telefonnummer:</label></td>
-                        <td class="arzt-telefonnnummer">012345678</td>
+                        <td class="buchen_td" id="arzt-telefonnnummer">012345678</td>
                     </tr>
                     <tr>
                         <td><label>Fax:</label></td>
-                        <td class="arzt-fax">0123456789</td>
+                        <td class="buchen_td" id="arzt-fax">0123456789</td>
                     </tr>
                     <tr>
                         <td><label>Termin:</label></td>
@@ -117,7 +111,7 @@
                     </tr>
                 </table>
             </section>
-        </main> 
-        <footer></footer>
+        </article> 
+    </body>
 </body>
 </html>
