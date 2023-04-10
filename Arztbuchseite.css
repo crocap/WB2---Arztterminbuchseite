@@ -110,7 +110,7 @@ article {
   font-size: large;
 }
 
-table, th, td {
+th, td {
   border: 2px solid;
   padding: 10px;
   text-align:center;
@@ -171,4 +171,14 @@ input {
   border: 2px solid;
   margin: auto;
 }
+
+section {
+  overflow-x: auto;
+}
+
+table{
+  margin: auto;
+}
+
+
 
