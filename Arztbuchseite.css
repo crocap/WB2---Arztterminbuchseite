@@ -191,8 +191,11 @@ table{
   width: 70%;
 }
 
-@media only screen and (max-width:1000px) {
+h2{
+  margin: auto;
+}
 
+@media only screen and (max-width:1000px) {
   .anliegen{
     width: 230px;
   }
@@ -204,7 +207,5 @@ table{
   }
   nav a {
     font-size: medium;
-}
-  
-}
-
+  }
+} 
