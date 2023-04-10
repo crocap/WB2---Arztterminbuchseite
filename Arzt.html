@@ -21,9 +21,8 @@
                 <li><a href="Kontakt.html">Kontakt</a></li>
             </ul>
         </nav>
-        <!--Left Main-->
-        <main>
-            <section class="main-left">
+        <article>
+            <section class="main-links">
                 <!--Bild des Arztes, Arztname und Schwerpunkt-->
                 <section class="upper">
                     <img class="arztbild" src="arzt.jpg" alt="Bild des Arztes">
@@ -35,57 +34,57 @@
                     <table>
                         <tr>
                             <form>
-                                <td><label>Erfahrung:</label></th>
-                                <td class="arzt-erfahrung">20 Jahre</td>
+                                <td class="arzt-links"><label>Erfahrung:</label></th>
+                                <td class="arzt-rechts" id="arzt_erfahrung">20 Jahre</td>
                             </form>
                         </tr>
                         <tr>
                             <form>
-                                <td><label>Geschlecht:</th>
-                                <td class="arzt-geschlecht"></td>
+                                <td class="arzt-links"><label>Geschlecht:</th>
+                                <td class="arzt-rechts" id="arzt_geschlecht"></td>
                             </form>
                         </tr>
                         <tr>
-                            <td><label>Telefon:</label></td>
-                            <td class="arzt-telefonnummer"></td>
+                            <td class="arzt-links"><label>Telefon:</label></td>
+                            <td class="arzt-rechts" id="arzt_tele"></td>
                         </tr>
                         <tr>
-                            <td><label>Fax:</label></td>
-                            <td class="arzt-fax"></td>
+                            <td class="arzt-links"><label>Fax:</label></td>
+                            <td class="arzt-rechts" id="arzt_fax"></td>
                         </tr>
                         <tr>
-                            <td><label for="email">E-Mail:</td>
-                            <td class="arzt-email"></td>
+                            <td class="arzt-links"><label for="email">E-Mail:</td>
+                            <td class="arzt-rechts" id="arzt_email"></td>
                         </tr>
                         <tr>
-                            <td><label>Adresse:</label></td>
-                            <td class="arzt-adresse"></td>
+                            <td class="arzt-links"><label>Adresse:</label></td>
+                            <td class="arzt-rechts" id="arzt_adress"></td>
                         </tr>
                         <tr>
-                            <td><label>Öffnungszeiten:</label></td>
-                            <td class="arzt-öffnungszeiten"></td>
+                            <td class="arzt-links"><label>Öffnungszeiten:</label></td>
+                            <td class="arzt-rechts" id="arzt_oeffnungszeiten"></td>
                         </tr>
                     </table>
                 </section>
             </section>
             <!--Main Right-->
-            <section class="main-right">
-                <p>Termine</p>
-                <input type="date" id="termin" name="termin">
+            <section class="main-rechts">
+                <p class="p-termin">Termine</p>
+                <input type="date" class="termin" id="termin" name="termin">
                 <table>
                     <tr>
-                        <th><button class="8">8:15</button></th>
-                        <th><button class="9">9.15</button></th>
-                        <th><button class="10">10.15</button></th>
+                        <th class="arzt-table"><button class="arzt-buttons" id="8">8:15</button></th>
+                        <th class="arzt-table"><button class="arzt-buttons" id="9">9.15</button></th>
+                        <th class="arzt-table"><button class="arzt-buttons" id="10">10.15</button></th>
                     </tr>
                     <tr>
-                        <th><button class="11">11.15</button></th>
-                        <th><button class="14">14.15</button></th>
-                        <th><button class="15">15.15</button></th>
+                        <th class="arzt-table"><button class="arzt-buttons" id="11">11.15</button></th>
+                        <th class="arzt-table"><button class="arzt-buttons" id="14">14.15</button></th>
+                        <th class="arzt-table"><button class="arzt-buttons" id="15">15.15</button></th>
                     </tr>
                 </table>
             </section>   
-        </main>  
+        </article>  
         <footer></footer>
 </body>
 </html>
