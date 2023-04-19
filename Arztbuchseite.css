@@ -2,30 +2,64 @@
     font-family: Helvetica,Arial,sans-serif; 
 }
 
-body {
-    background-image: url("pics/arzt.jpg"); 
-    background-size: cover;
-    background-attachment: fixed;
-    height: 100%;
-    text-align: center;
+.anliegen{
+  width: 10cm;
+  height: 5cm;
 }
 
-header {
-    background-color: rgba(255, 255, 255, 0.707);
-    text-align: center;
-    padding: 10px;
-    font-size: x-large;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.title{
-  margin: 0;
-  flex-grow: 1;
+article {
+  display: block;
+  margin: 3%;
+  margin-bottom: 100px;
+  padding: 1%;
+  background-color: white;
+  border-radius: 6px;
   text-align: center;
-  margin-right: 8%;
+  font-size: large;
+  overflow: auto;
+}
+
+.arztbild {
+  border-radius: 50%;
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
+}
+
+.arzt-name {
+  text-align: center;
+}
+
+.arzt-schwerpunkt {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.arzt-links {
+  text-align: left;
+  border-style: none;
+}
+
+.arzt-rechts {
+  text-align: right;
+  width: 220px;
+  border: none;
+}
+
+.arzt-table {
+  border:none;
+}
+
+.arzt-buttons {
+  border-radius: 8px;
+  padding: 10px 20px;
+  background-color: rgb(11, 197, 11);
+}
+
+.arzt-buttons:hover {
+  background-color:rgb(39, 155, 16);
 }
 
 .backButton {
@@ -69,92 +103,6 @@ header {
   right: 0;
 }
 
-nav a {
-    text-align: center;
-    color: black;
-    font-size: larger;
-    font-weight: bold;
-    border-radius: 6px;
-}
-
-nav a:hover {
-    background-color: rgb(255,255,255,0.8);
-}
-
-ul {
-    display: flex;
-    justify-content: center;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: rgb(0,198,255,0.8);
-}
-  
-li {
-  flex-grow: 1;
-  float: left;
-}
-
-li a {
-  display: block;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-article {
-  display: block;
-  margin: 3%;
-  margin-bottom: 100px;
-  padding: 1%;
-  background-color: white;
-  border-radius: 6px;
-  text-align: center;
-  font-size: large;
-  overflow: auto;
-}
-
-th, td {
-  border: 2px solid;
-  padding: 10px;
-  text-align:center;
-}
-
-.id {
-  padding-bottom: 20px;
-}
-
-input {
-  width: 50%;
-  padding: 10px 25px;
-  box-sizing:border-box;
-}
-
-.searchButton {
-  background-color: rgb(0,198,255,0.8);
-  border-radius: 4px;
-  border: none;
-  color: white;
-  padding: 11px 32px;
-  text-decoration: none;
-  margin: 4px 2px;
-  cursor: pointer;
-  font-size: large;
-  width: 5cm;
-}
-
-.searchButton:hover {
-  background-color: rgba(0, 174, 255, 0.925);
-}
-
-.kontakt {
-  border: 0px;
-  text-align: left;
-  margin: auto;
-  width: 50%;
-}
-
 .bestätigung1 {
   background-color: yellowgreen;
   width: 80%;
@@ -174,25 +122,150 @@ input {
   margin: auto;
 }
 
+body {
+    background-image: url("pics/arzt.jpg"); 
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100%;
+    text-align: center;
+}
+
+.buchen-felder{
+  width: 100%;
+  border: 0cm;
+}
+
+.buchen-felder{
+  width: 100%;
+  border: 0cm;
+}
+
 div {
   overflow-x: auto;
 }
 
-table{
+footer{
+  position: fixed;
+  bottom: 0; 
+  width: 100%; 
+  background-color: #f5f5f5; 
+  padding: 10px;
+  z-index: 1;
+}
+
+h2{
   margin: auto;
 }
 
-.anliegen{
-  width: 10cm;
-  height: 5cm;
+header {
+    background-color: rgba(255, 255, 255, 0.707);
+    text-align: center;
+    padding: 10px;
+    font-size: x-large;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ 
+.id {
+  padding-bottom: 20px;
+}
+
+input {
+  width: 50%;
+  padding: 10px 25px;
+  box-sizing:border-box;
 }
 
 .inputkontakt{
   width: 70%;
 }
 
-h2{
+.kontakt {
+  border: 0px;
+  text-align: left;
   margin: auto;
+  width: 50%;
+}
+
+.kunde_links {
+  border-style: none;
+}
+
+.kunde_feld {
+  border-style: none;
+  width: 50%;
+}
+
+.kunde_feld input {
+  width: 100%;
+}
+
+li {
+  flex-grow: 1;
+  float: left;
+}
+
+li a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.lower {
+  width: 90%;
+  margin-top: 50px;
+  margin-left: 40px;
+}
+
+.main-links {
+  float: left;
+  width: 49%;
+  padding: auto;
+  border-right: solid;
+  border-width: 1px;
+  border-color: rgb(78, 78, 78);
+}
+
+.main-rechts {
+  float: left;
+  width: 49%;
+  padding: auto;
+}
+
+nav a {
+    text-align: center;
+    color: black;
+    font-size: larger;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+nav a:hover {
+    background-color: rgb(255,255,255,0.8);
+}
+
+.p-termin {
+  margin-right: 200px;
+}
+
+.searchButton {
+  background-color: rgb(0,198,255,0.8);
+  border-radius: 4px;
+  border: none;
+  color: white;
+  padding: 11px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-size: large;
+  width: 5cm;
+}
+
+.searchButton:hover {
+  background-color: rgba(0, 174, 255, 0.925);
 }
 
 .stornoButton{
@@ -211,70 +284,8 @@ h2{
   background-color: rgba(172, 31, 31, 0.8);
 }
 
-.main-links {
-  float: left;
-  width: 49%;
-  padding: auto;
-  border-right: solid;
-  border-width: 1px;
-  border-color: rgb(78, 78, 78);
-}
-
-.main-rechts {
-  float: left;
-  width: 49%;
-  padding: auto;
-}
-
-.upper {
-  background-color: rgb(230, 230, 230);
-  width: 50%;
-  margin-left: 20%;
-  border-radius: 8px;
-}
-
-.lower {
-  width: 90%;
-  margin-top: 50px;
-  margin-left: 40px;
-}
-
-
-.arztbild {
-  border-radius: 50%;
-  width: 50%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  height: auto;
-}
-
-.arzt-name {
-  text-align: center;
-}
-
-.arzt-schwerpunkt {
-  text-align: center;
-  padding-bottom: 20px;
-}
-
-.arzt-links {
-  text-align: left;
-  border-style: none;
-}
-
-.arzt-rechts {
-  text-align: right;
-  width: 220px;
-  border: none;
-}
-
-.arzt-table {
-  border:none;
-}
-
-.p-termin {
-  margin-right: 200px;
+table{
+  margin: auto;
 }
 
 .termin {
@@ -282,46 +293,34 @@ h2{
   margin-right: 70px;
 }
 
-.arzt-buttons {
-  border-radius: 8px;
-  padding: 10px 20px;
-  background-color: rgb(11, 197, 11);
+.title{
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+  margin-right: 8%;
 }
-
-.arzt-buttons:hover {
-  background-color:rgb(39, 155, 16);
-}
-
-footer{
-  position: fixed;
-  bottom: 0; 
-  width: 100%; 
-  background-color: #f5f5f5; 
+ 
+th, td {
+  border: 2px solid;
   padding: 10px;
-  z-index: 1;
+  text-align:center;
 }
 
-.buchen-felder{
-  width: 100%;
-  border: 0cm;
+ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(0,198,255,0.8);
 }
 
-.buchen-felder{
-  width: 100%;
-  border: 0cm;
-}
-
-.kunde_links {
-  border-style: none;
-}
-
-.kunde_feld {
-  border-style: none;
+.upper {
+  background-color: rgb(230, 230, 230);
   width: 50%;
-}
-
-.kunde_feld input {
-  width: 100%;
+  margin-left: 20%;
+  border-radius: 8px;
 }
 
 @media only screen and (max-width:1000px) {
