@@ -70,7 +70,7 @@
             <!--Main Right-->
             <section class="main-rechts">
                 <p class="p-termin">Termine</p>
-                <input type="date" class="termin" id="termin" name="termin">
+                <input type="date" class="termin" id="date" name="date" value="">
                 <p class="arzt_beschr">Über die unteren Felder können Sie die passende Zeit für diesen Tag auswählen.</p>
                 <p class="arzt_beschr">Wenn der Button grün ist, können Sie per Klick den freien Termin buchen.</p>
                 <p class="arzt_beschr">Falls der Button rot ist, ist der Termin bereits belegt.</p>
@@ -95,4 +95,8 @@
                 E-Mail: test@test.com - Adresse: Hochschule Albstadt-Sigmaringen, Jakobstraße 6, 72458 Albstadt
         </footer> 
 </body>
+<script>
+    document.getElementById('date').valueAsDate = new Date();
+
+</script>
 </html>
