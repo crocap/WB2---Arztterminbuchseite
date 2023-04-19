@@ -6,6 +6,7 @@ body {
     background-image: url("pics/arzt.jpg"); 
     background-size: cover;
     background-attachment: fixed;
+    height: 100%;
 }
 
 header {
@@ -152,7 +153,9 @@ input {
   width: 50%;
 }
 
-footer{
+body > footer{
+  position: sticky;
+  top: 100vh;
   width: 100%;
   color: rgb(70, 70, 70);
   background-color: rgb(240, 238, 238);
