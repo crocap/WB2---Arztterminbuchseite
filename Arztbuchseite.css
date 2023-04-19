@@ -323,6 +323,10 @@ ul {
   border-radius: 8px;
 }
 
+textarea{
+  width: 100%;
+}
+
 @media only screen and (max-width:1000px) {
   .anliegen{
     width: 230px;
