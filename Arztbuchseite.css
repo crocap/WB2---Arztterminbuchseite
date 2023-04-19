@@ -7,6 +7,7 @@ body {
     background-size: cover;
     background-attachment: fixed;
     height: 100%;
+    text-align: center;
 }
 
 header {
@@ -152,17 +153,6 @@ input {
   text-align: left;
   margin: auto;
   width: 50%;
-}
-
-body{
-  position: sticky;
-  top: 100vh;
-  width: 100%;
-  color: rgb(70, 70, 70);
-  background-color: rgb(240, 238, 238);
-  text-align: center;
-  padding: 5px;
-  clear: both;
 }
 
 .bestätigung1 {
