@@ -10,7 +10,7 @@
     </head>    
     <body>
         <header>
-            <img src="pics/aeskulabstab.png">
+            <button class="backButton" onclick="history.back()"><span>Zurück</span></button>
             <h1 class="title">Arztterminbuchseite</h1>
         </header>
         <nav>
@@ -22,88 +22,90 @@
             </ul>
         </nav>
         <article>
+            <!--left main-->
             <section class="main-links">
-                <h3>Ihre Informationen:</h3>
-                <table>
-                    <tr>
-                        <form>
-                            <td><label for="name">Name:</label></th>
-                            <td><input type="text" id="name" name="name" class="buchen-felder"></td>
-                        </form>
-                    </tr>
-                    <tr>
-                        <form>
-                            <td><label for="plz">PLZ:</th>
-                            <td><input type="text" id="plz" name="plz" class="buchen-felder"></td>
-                        </form>
-                    </tr>
-                    <tr>
-                        <td><label for="ort">Ort:</label></td>
-                        <td><input type="text" id="ort" name="ort" class="buchen-felder"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="straße">Straße:</label></td>
-                        <td><input type="text" id="straße" name="straße" class="buchen-felder"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="email">E-Mail:</td>
-                        <td><input type="text" id="email" name="email" class="buchen-felder"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="telefonnummer">Telefonnummer:</label></td>
-                        <td><input type="text" id="telefonnummer" name="telefonnummer" class="buchen-felder"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="beschwerden">Beschwerden:</label></td>
-                        <td><input type="text" id="beschwerden" name="beschwerden" class="buchen-felder"></td>
-                    </tr>
-                </table>
-        
-            </section>  
-            <!--right main-->
-            <section class="rechts">
                 <h3>Ihr gewählter Arzt:</h3>
                 <table>
                     <tr>
                         <form>
-                            <td><label for="aerzte">Name:</label></th>
-                            <td class=buchen_td" id="arzt-name">Max Mustermann</td>
+                            <td class="arzt-links"><label for="aerzte">Name:</label></th>
+                            <td class="arzt-rechts" id="arzt-name">Max Mustermann</td>
                         </form>
                     </tr>
                     <tr>
                         <form>
-                            <td><label>Standort:</label></th>
-                            <td class="buchen_td" id="arzt-standort">Albstadt</td>
+                            <td class="arzt-links"><label>Standort:</label></th>
+                            <td class="arzt-rechts" id="arzt-standort">Albstadt</td>
                         </form>
                     </tr>
                     <tr>
-                        <td><label>Schwerpunkt:</label></td>
-                        <td class="buchen_td" id="arzt-schwerpunkt">Hausarzt</td>
+                        <td class="arzt-links"><label>Schwerpunkt:</label></td>
+                        <td class="arzt-rechts" id="arzt-schwerpunkt">Hausarzt</td>
                     </tr>
                     <tr>
-                        <td><label>E-Mail:</label></td>
-                        <td class="buchen_td" id="arzt-email">maxmustermann@hotmail.de</td>
+                        <td class="arzt-links"><label>E-Mail:</label></td>
+                        <td class="arzt-rechts" id="arzt-email">maxmustermann@hotmail.de</td>
                     </tr>
                     <tr>
-                        <td><label>Telefonnummer:</label></td>
-                        <td class="buchen_td" id="arzt-telefonnnummer">012345678</td>
+                        <td class="arzt-links"><label>Telefonnummer:</label></td>
+                        <td class="arzt-rechts" id="arzt-telefonnnummer">012345678</td>
                     </tr>
                     <tr>
-                        <td><label>Fax:</label></td>
-                        <td class="buchen_td" id="arzt-fax">0123456789</td>
+                        <td class="arzt-links"><label>Fax:</label></td>
+                        <td class="arzt-rechts" id="arzt-fax">0123456789</td>
                     </tr>
                     <tr>
-                        <td><label>Termin:</label></td>
-                        <td id="datum-termin">12.04.2023    9:15 Uhr</td>
+                        <td class="arzt-links"><label>Termin:</label></td>
+                        <td  class="arzt-rechts" id="datum-termin">12.04.2023    9:15 Uhr</td>
                     </tr>      
                 </table>
-                <button class="backButton" onclick="history.back()"><span>Zurück</span></button>
-                <td colspan="2"><input class="backButton" type="submit" value="Buchen" onclick="window.location.href='Bestatigung.html';"></td>
             </section>
-        </article>
+            <section class="main-rechts">
+                <h3>Ihre Informationen:</h3>
+                <table>
+                    <tr>
+                        <form>
+                            <td class="kunde_links"><label for="name">Name:</label></th>
+                            <td class="kunde_feld"><input type="text" id="name" name="name" ></td>
+                            <td class="kunde_links"><label for="vorname">Vorname:</label></th>
+                            <td class="kunde_feld"><input type="text" id="vorname" name="vorname" ></td>
+                        </form>
+                    </tr>
+                    <tr>
+                        <form>
+                            <td class="kunde_links"><label for="plz">PLZ:</th>
+                            <td class="kunde_feld"><input type="text" id="plz" name="plz" ></td>
+                            <td class="kunde_links"><label for="ort">Ort:</label></td>
+                            <td class="kunde_feld"><input type="text" id="ort" name="ort"></td>
+                        </form>
+                    </tr>
+                    <tr>
+                        <form>
+                            <td class="kunde_links"><label for="straße">Straße:</label></td>
+                            <td class="kunde_feld"><input type="text" id="straße" name="straße"></td>
+                            <td class="kunde_links"><label for="email">E-Mail:</td>
+                            <td class="kunde_feld"><input type="text" id="email" name="email"></td>
+                        </form>
+                    </tr>
+                    <tr>
+                        <form>
+                            <td class="kunde_links"><label for="telefonnummer">*Telefonnummer:</label></td>
+                            <td class="kunde_feld"><input type="text" id="telefonnummer" name="telefonnummer"></td>
+                    <tr>
+                        <form> 
+                            <td class="kunde_links"><label for="beschwerden">Beschwerden:</label></td>
+                            <td class="kunde_feld"><input type="textarea" id="beschwerden" name="beschwerden" rows="10" cols="20"></td>
+                        </form>
+                    </tr>
+                </table>
+                <button class="backButton" onclick="history.back()"><span>Zurück</span></button>
+                <td colspan="2"><input class="searchButton" type="submit" value="Termin buchen" onclick="window.location.href='Bestatigung.html';"></td>
+            </section>  
+        </article> 
         <footer>
             Made by: Sven Kovacevic, Dennis Essert, Fabio Merkt, Maximilian Stutz<br>
             E-Mail: test@test.com - Adresse: Hochschule Albstadt-Sigmaringen, Jakobstraße 6, 72458 Albstadt
         </footer>
+    </body>
 </body>
 </html>

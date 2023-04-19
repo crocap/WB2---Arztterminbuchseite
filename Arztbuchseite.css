@@ -312,6 +312,24 @@ footer{
   border: 0cm;
 }
 
+.buchen-felder{
+  width: 100%;
+  border: 0cm;
+}
+
+.kunde_links {
+  border-style: none;
+}
+
+.kunde_feld {
+  border-style: solid;
+  width: 50%;
+}
+
+.kunde_feld input {
+  width: 100%;
+}
+
 @media only screen and (max-width:1000px) {
   .anliegen{
     width: 230px;
