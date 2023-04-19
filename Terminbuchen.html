@@ -62,45 +62,37 @@
             </section>
             <section class="main-rechts">
                 <h3>Ihre Informationen:</h3>
+                <form>
                 <table>
                     <tr>
-                        <form>
-                            <td class="kunde_links"><label for="name">*Name:</label></th>
-                            <td class="kunde_feld"><input type="text" id="name" name="name" ></td>
-                            <td class="kunde_links"><label for="vorname">*Vorname:</label></th>
-                            <td class="kunde_feld"><input type="text" id="vorname" name="vorname" ></td>
-                        </form>
+                        <td class="kunde_links"><label for="name">*Name:</label></th>
+                        <td class="kunde_feld"><input type="text" id="name" name="name" required></td>
+                        <td class="kunde_links"><label for="vorname">*Vorname:</label></th>
+                        <td class="kunde_feld"><input type="text" id="vorname" name="vorname" required></td>
                     </tr>
                     <tr>
-                        <form>
-                            <td class="kunde_links"><label for="plz">PLZ:</th>
-                            <td class="kunde_feld"><input type="text" id="plz" name="plz" ></td>
-                            <td class="kunde_links"><label for="ort">Ort:</label></td>
-                            <td class="kunde_feld"><input type="text" id="ort" name="ort"></td>
-                        </form>
+                        <td class="kunde_links"><label for="plz">*PLZ:</th>
+                        <td class="kunde_feld"><input type="text" id="plz" name="plz" required></td>
+                        <td class="kunde_links"><label for="ort">*Ort:</label></td>
+                        <td class="kunde_feld"><input type="text" id="ort" name="ort" required></td>
                     </tr>
                     <tr>
-                        <form>
                             <td class="kunde_links"><label for="straße">*Straße:</label></td>
-                            <td class="kunde_feld"><input type="text" id="straße" name="straße"></td>
-
-                        </form>
+                            <td class="kunde_feld"><input type="text" id="straße" name="straße" required></td>
                     </tr>
                     <tr>
-                        <form>
-                            <td class="kunde_links"><label for="telefonnummer">Telefonnummer:</label></td>
-                            <td class="kunde_feld"><input type="text" id="telefonnummer" name="telefonnummer"></td>
-                            <td class="kunde_links"><label for="email">*E-Mail:</td>
-                            <td class="kunde_feld"><input type="text" id="email" name="email"></td>
+                        <td class="kunde_links"><label for="telefonnummer">Telefonnummer:</label></td>
+                        <td class="kunde_feld"><input type="text" id="telefonnummer" name="telefonnummer"></td>
+                        <td class="kunde_links"><label for="email">*E-Mail:</td>
+                        <td class="kunde_feld"><input type="text" id="email" name="email" required></td>
                     <tr>
-                        <form> 
-                            <td class="kunde_links"><label for="beschwerden">*Beschwerden:</label></td>
-                            <td class="kunde_feld"><textarea id="beschwerden" name="beschwerden" rows="10" cols="20"></textarea></td>
-                        </form>
+                        <td class="kunde_links"><label for="beschwerden">*Beschwerden:</label></td>
+                        <td class="kunde_feld"><textarea id="beschwerden" name="beschwerden" rows="10" cols="20"></textarea></td>
                     </tr>
                 </table>
                 <button class="searchButton" onclick="history.back()"><span>Zurück</span></button>
                 <td colspan="2"><input class="searchButton" type="submit" value="Termin buchen" onclick="window.location.href='Bestatigung.html';"></td>
+                </form>
             </section>  
         </article> 
         <footer>
