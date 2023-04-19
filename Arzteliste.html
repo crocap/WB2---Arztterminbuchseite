@@ -10,7 +10,7 @@
     </head>    
     <body>
         <header>
-            <button class="backButton" onclick="history.back()"><span>Zurück</span></button>
+            <img src="pics/aeskulabstab.png">
             <h1 class="title">Arztterminbuchseite</h1>
         </header>
         <nav>
@@ -26,6 +26,7 @@
             <div class="auswahllisten">
                 <label>Standort:</label> 
                 <select name="standort" id="standort">
+                    <option value="Alle">Alle</option>
                     <option value="Albstadt">Albstadt</option>
                     <option value="Balingen">Balingen</option>
                     <option value="Burladingen">Burladingen</option>
@@ -36,6 +37,7 @@
                 </select>
                 <label>Schwerpunkt:</label> 
                 <select name="schwerpunkt" id="schwerpunkt">
+                    <option value="Alle">Alle</option>
                     <option value="Allgemeinmedizin">Allgemeinmedizin</option>
                     <option value="Augenarzt">Augenarzt</option>
                     <option value="Dermatologe">Dermatologe</option>
@@ -49,7 +51,6 @@
                     <option value="Transfusionsmedizin">Transfusionsmedizin</option>   
                     <option value="Urologe">Urologe</option>                 
                 </select>
-                <button class="searchButton"><span>Suche</span></button>
             </div>
             <div>
                 <table>
