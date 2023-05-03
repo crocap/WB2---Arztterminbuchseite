@@ -1,39 +1,81 @@
 const helper = require('../helper.js');
-const LandDao = require('../dao/arztDao.js');
+const ArztDao = require('../dao/arztDao.js');
 const express = require('express');
 var serviceRouter = express.Router();
 
-console.log('- Service Land');
+console.log('- Service Arzt');
 
-serviceRouter.get('/land/gib/:id', function(request, response) {
-    console.log('Service Land: Client requested one record, id=' + request.params.id);
+serviceRouter.get('/arzt/gib/:id', function(request, response) {
+    console.log('Service Arzt: Client requested one record, id=' + request.params.id);
 
-    const landDao = new LandDao(request.app.locals.dbConnection);
+    const arztDao = new ArztDao(request.app.locals.dbConnection);
     try {
-        var obj = landDao.loadById(request.params.id);
-        console.log('Service Land: Record loaded');
+        var obj = arztDao.loadById(request.params.id);
+        console.log('Service Arzt: Record loaded');
         response.status(200).json(obj);
     } catch (ex) {
-        console.error('Service Land: Error loading record by id. Exception occured: ' + ex.message);
+        console.error('Service Arzt: Error loading record by id. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
 
-serviceRouter.get('/land/alle', function(request, response) {
-    console.log('Service Land: Client requested all records');
+serviceRouter.get('/arzt/alle', function(request, response) {
+    console.log('Service Arzt: Client requested all records');
 
-    const landDao = new LandDao(request.app.locals.dbConnection);
+    const arztDao = new ArztDao(request.app.locals.dbConnection);
     try {
-        var arr = landDao.loadAll();
-        console.log('Service Land: Records loaded, count=' + arr.length);
+        var arr = arztDao.loadAll();
+        console.log('Service Arzt: Records loaded, count=' + arr.length);
         response.status(200).json(arr);
     } catch (ex) {
-        console.error('Service Land: Error loading all records. Exception occured: ' + ex.message);
+        console.error('Service Arzt: Error loading all records. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
 
-serviceRouter.get('/land/existiert/:id', function(request, response) {
+serviceRouter.get('/arzt/gib/standortundschwerpunkt/:standort/:schwerpunkt', function(request, response) {
+    console.log('Service Arzt: Client requested all records with standort=' + request.params.standort + ' and schwerpunkt=' + request.params.schwerpunkt);
+
+    const arztDao = new ArztDao(request.app.locals.dbConnection);
+    try {
+        var obj = arztDao.loadByStandortAndSchwerpunkt(request.params.standort, request.params.schwerpunkt);
+        console.log('Service Arzt: Record loaded');
+        response.status(200).json(obj);
+    } catch (ex) {
+        console.error('Service Arzt: Error loading record by id. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
+serviceRouter.get('/arzt/gib/standort/:standort', function(request, response) {
+    console.log('Service Arzt: Client requested all records with standword=' + request.params.standort);
+
+    const arztDao = new ArztDao(request.app.locals.dbConnection);
+    try {
+        var obj = arztDao.loadByStandort(request.params.standort);
+        console.log('Service Arzt: Record loaded');
+        response.status(200).json(obj);
+    } catch (ex) {
+        console.error('Service Arzt: Error loading record by id. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
+serviceRouter.get('/arzt/gib/schwerpunkt/:schwerpunkt', function(request, response) {
+    console.log('Service Arzt: Client requested all records with schwerpunkt=' + request.params.schwerpunkt);
+
+    const arztDao = new ArztDao(request.app.locals.dbConnection);
+    try {
+        var obj = arztDao.loadBySchwerpunkt(request.params.schwerpunkt);
+        console.log('Service Arzt: Record loaded');
+        response.status(200).json(obj);
+    } catch (ex) {
+        console.error('Service Arzt: Error loading record by id. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
+/*serviceRouter.get('/land/existiert/:id', function(request, response) {
     console.log('Service Land: Client requested check, if record exists, id=' + request.params.id);
 
     console.log('go');
@@ -116,6 +158,6 @@ serviceRouter.delete('/land/:id', function(request, response) {
         console.error('Service Land: Error deleting record. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
-});
+});*/
 
 module.exports = serviceRouter;

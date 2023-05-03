@@ -11,7 +11,7 @@ class LandDao {
     }
 
     loadById(id) {
-        var sql = 'SELECT * FROM Land WHERE id=?';
+        var sql = 'SELECT * FROM Arzt WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -22,9 +22,42 @@ class LandDao {
     }
 
     loadAll() {
-        var sql = 'SELECT * FROM Land';
+        var sql = 'SELECT * FROM Arzt';
         var statement = this._conn.prepare(sql);
         var result = statement.all();
+
+        if (helper.isArrayEmpty(result)) 
+            return [];
+        
+        return result;
+    }
+
+    loadByStandortAndSchwerpunkt(standort,schwerpunkt) {
+        var sql = 'SELECT * FROM Arzt WHERE fk_plz = (SELECT id FROM Plz WHERE ort = ?) AND fk_schwerpunkt = (SELECT id from Schwerpunkt WHERE beschreibung=?)';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all(standort, schwerpunkt);
+
+        if (helper.isArrayEmpty(result)) 
+            return [];
+        
+        return result;
+    }
+
+    loadByStandort(standort) {
+        var sql = 'SELECT * FROM Arzt WHERE fk_plz = (SELECT id FROM Plz WHERE ort = ?)';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all(standort);
+
+        if (helper.isArrayEmpty(result)) 
+            return [];
+        
+        return result;
+    }
+
+    loadBySchwerpunkt(schwerpunkt) {
+        var sql = 'SELECT * FROM Arzt WHERE fk_schwerpunkt = (SELECT id from Schwerpunkt WHERE beschreibung=?)';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all(schwerpunkt);
 
         if (helper.isArrayEmpty(result)) 
             return [];
