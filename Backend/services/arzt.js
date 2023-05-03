@@ -1,5 +1,5 @@
 const helper = require('../helper.js');
-const LandDao = require('../dao/landDao.js');
+const LandDao = require('../dao/arztDao.js');
 const express = require('express');
 var serviceRouter = express.Router();
 
