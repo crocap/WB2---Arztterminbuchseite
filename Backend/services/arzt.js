@@ -34,7 +34,7 @@ serviceRouter.get('/arzt/alle', function(request, response) {
 });
 
 serviceRouter.get('/arzt/gib/standortundschwerpunkt/:standort/:schwerpunkt', function(request, response) {
-    console.log('Service Arzt: Client requested all records with standort =' + request.params.standort + ' and schwerpunkt=' + request.params.schwerpunkt);
+    console.log('Service Arzt: Client requested all records with standort=' + request.params.standort + ' and schwerpunkt=' + request.params.schwerpunkt);
 
     const arztDao = new ArztDao(request.app.locals.dbConnection);
     try {
