@@ -32,17 +32,6 @@ class LandDao {
         return result;
     }
 
-    loadByStandortAndSchwerpunkt(standort,schwerpunkt) {
-        var sql = 'SELECT * FROM Arzt WHERE fk_plz = (SELECT id FROM Plz WHERE ort = ?) AND fk_schwerpunkt = (SELECT id from Schwerpunkt WHERE beschreibung=?)';
-        var statement = this._conn.prepare(sql);
-        var result = statement.all(standort, schwerpunkt);
-
-        if (helper.isArrayEmpty(result)) 
-            return [];
-        
-        return result;
-    }
-
     exists(id) {
         var sql = 'SELECT COUNT(id) AS cnt FROM Land WHERE id=?';
         var statement = this._conn.prepare(sql);
