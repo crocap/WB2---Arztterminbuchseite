@@ -1,44 +1,45 @@
 const helper = require('../helper.js');
-const LandDao = require('../dao/schwerpunktDao.js');
+const SchwerpunktDao = require('../dao/schwerpunktDao.js');
 const express = require('express');
 var serviceRouter = express.Router();
 
-console.log('- Service Land');
+console.log('- Service Arzt');
 
-serviceRouter.get('/land/gib/:id', function(request, response) {
-    console.log('Service Land: Client requested one record, id=' + request.params.id);
+serviceRouter.get('/arzt/gib/:id', function(request, response) {
+    console.log('Service Arzt: Client requested one record, id=' + request.params.id);
 
-    const landDao = new LandDao(request.app.locals.dbConnection);
+    const schwerpunktDao = new SchwerpunktDao(request.app.locals.dbConnection);
     try {
-        var obj = landDao.loadById(request.params.id);
-        console.log('Service Land: Record loaded');
+        var obj = schwerpunktDao.loadById(request.params.id);
+        console.log('Service Arzt: Record loaded');
         response.status(200).json(obj);
     } catch (ex) {
-        console.error('Service Land: Error loading record by id. Exception occured: ' + ex.message);
+        console.error('Service Arzt: Error loading record by id. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
 
-serviceRouter.get('/land/alle', function(request, response) {
-    console.log('Service Land: Client requested all records');
+serviceRouter.get('/arzt/alle', function(request, response) {
+    console.log('Service Arzt: Client requested all records');
 
-    const landDao = new LandDao(request.app.locals.dbConnection);
+    const schwerpunktDao = new SchwerpunktDao(request.app.locals.dbConnection);
     try {
-        var arr = landDao.loadAll();
-        console.log('Service Land: Records loaded, count=' + arr.length);
+        var arr = schwerpunktDao.loadAll();
+        console.log('Service Arzt: Records loaded, count=' + arr.length);
         response.status(200).json(arr);
     } catch (ex) {
-        console.error('Service Land: Error loading all records. Exception occured: ' + ex.message);
+        console.error('Service Arzt: Error loading all records. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
 
-serviceRouter.get('/land/existiert/:id', function(request, response) {
+/*
+serviceRouter.get('/arzt/existiert/:id', function(request, response) {
     console.log('Service Land: Client requested check, if record exists, id=' + request.params.id);
 
     console.log('go');
 
-    const landDao = new LandDao(request.app.locals.dbConnection);
+    const landDao = new SchwerpunktDao(request.app.locals.dbConnection);
     try {
         var exists = landDao.exists(request.params.id);
         console.log('Service Land: Check if record exists by id=' + request.params.id + ', exists=' + exists);
@@ -64,7 +65,7 @@ serviceRouter.post('/land', function(request, response) {
         return;
     }
 
-    const landDao = new LandDao(request.app.locals.dbConnection);
+    const landDao = new SchwerpunktDao(request.app.locals.dbConnection);
     try {
         var obj = landDao.create(request.body.kennzeichnung, request.body.bezeichnung);
         console.log('Service Land: Record inserted');
@@ -92,7 +93,7 @@ serviceRouter.put('/land', function(request, response) {
         return;
     }
 
-    const landDao = new LandDao(request.app.locals.dbConnection);
+    const landDao = new SchwerpunktDao(request.app.locals.dbConnection);
     try {
         var obj = landDao.update(request.body.id, request.body.kennzeichnung, request.body.bezeichnung);
         console.log('Service Land: Record updated, id=' + request.body.id);
@@ -106,7 +107,7 @@ serviceRouter.put('/land', function(request, response) {
 serviceRouter.delete('/land/:id', function(request, response) {
     console.log('Service Land: Client requested deletion of record, id=' + request.params.id);
 
-    const landDao = new LandDao(request.app.locals.dbConnection);
+    const landDao = new SchwerpunktDao(request.app.locals.dbConnection);
     try {
         var obj = landDao.loadById(request.params.id);
         landDao.delete(request.params.id);
@@ -117,5 +118,6 @@ serviceRouter.delete('/land/:id', function(request, response) {
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
+*/
 
 module.exports = serviceRouter;
