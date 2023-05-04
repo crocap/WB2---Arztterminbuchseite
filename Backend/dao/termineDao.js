@@ -11,7 +11,7 @@ class LandDao {
     }
 
     loadById(id) {
-        var sql = 'SELECT * FROM Land WHERE id=?';
+        var sql = 'SELECT * FROM Arzt WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -22,7 +22,7 @@ class LandDao {
     }
 
     loadAll() {
-        var sql = 'SELECT * FROM Land';
+        var sql = 'SELECT * FROM Arzt';
         var statement = this._conn.prepare(sql);
         var result = statement.all();
 
@@ -32,8 +32,19 @@ class LandDao {
         return result;
     }
 
+    loadBybestaetigungsid(bestaetigungsid) {
+        var sql = 'SELECT * FROM Arzt WHERE bestaetigungsid =?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all(bestaetigungsid);
+
+        if (helper.isArrayEmpty(result)) 
+            return [];
+        
+        return result;
+    }
+
     exists(id) {
-        var sql = 'SELECT COUNT(id) AS cnt FROM Land WHERE id=?';
+        var sql = 'SELECT COUNT(id) AS cnt FROM Arzt WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -43,10 +54,10 @@ class LandDao {
         return false;
     }
 
-    create(kennzeichnung = '', bezeichnung = '') {
-        var sql = 'INSERT INTO Land (kennzeichnung,bezeichnung) VALUES (?,?)';
+    create(bestaetigungsid = '', fk_arzt = '', datum = '', uhrzeit = '') {
+        var sql = 'INSERT INTO Arzt (bestaetigungsid,fk_arzt,datum,uhrzeit) VALUES (?,?)';
         var statement = this._conn.prepare(sql);
-        var params = [kennzeichnung, bezeichnung];
+        var params = [bestaetigungsid, fk_arzt, datum, uhrzeit];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -55,10 +66,10 @@ class LandDao {
         return this.loadById(result.lastInsertRowid);
     }
 
-    update(id, kennzeichnung = '', bezeichnung = '') {
-        var sql = 'UPDATE Land SET kennzeichnung=?,bezeichnung=? WHERE id=?';
+    update(id, datum = '', uhrzeit = '') {
+        var sql = 'UPDATE Arzt SET datum=?,uhrzeit=? WHERE id=?';
         var statement = this._conn.prepare(sql);
-        var params = [kennzeichnung, bezeichnung, id];
+        var params = [datum, uhrzeit, id];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -69,7 +80,7 @@ class LandDao {
 
     delete(id) {
         try {
-            var sql = 'DELETE FROM Land WHERE id=?';
+            var sql = 'DELETE FROM Arzt WHERE id=?';
             var statement = this._conn.prepare(sql);
             var result = statement.run(id);
 
