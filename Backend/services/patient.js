@@ -1,38 +1,39 @@
 const helper = require('../helper.js');
-const LandDao = require('../dao/patientDao.js');
+const PatientDao = require('../dao/patientDao.js');
 const express = require('express');
 var serviceRouter = express.Router();
 
-console.log('- Service Land');
+console.log('- Service Patient');
 
-serviceRouter.get('/land/gib/:id', function(request, response) {
-    console.log('Service Land: Client requested one record, id=' + request.params.id);
+serviceRouter.get('/patient/gib/:id', function(request, response) {
+    console.log('Service Patient: Client requested one record, id=' + request.params.id);
 
-    const landDao = new LandDao(request.app.locals.dbConnection);
+    const patientDao = new PatientDao(request.app.locals.dbConnection);
     try {
-        var obj = landDao.loadById(request.params.id);
-        console.log('Service Land: Record loaded');
+        var obj = patientDao.loadById(request.params.id);
+        console.log('Service Patient: Record loaded');
         response.status(200).json(obj);
     } catch (ex) {
-        console.error('Service Land: Error loading record by id. Exception occured: ' + ex.message);
+        console.error('Service Patient: Error loading record by id. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
 
-serviceRouter.get('/land/alle', function(request, response) {
-    console.log('Service Land: Client requested all records');
+serviceRouter.get('/patient/alle', function(request, response) {
+    console.log('Service Patient: Client requested all records');
 
-    const landDao = new LandDao(request.app.locals.dbConnection);
+    const patientDao = new PatientDao(request.app.locals.dbConnection);
     try {
-        var arr = landDao.loadAll();
-        console.log('Service Land: Records loaded, count=' + arr.length);
+        var arr = patientDao.loadAll();
+        console.log('Service Patient: Records loaded, count=' + arr.length);
         response.status(200).json(arr);
     } catch (ex) {
-        console.error('Service Land: Error loading all records. Exception occured: ' + ex.message);
+        console.error('Service Patient: Error loading all records. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
 
+/*
 serviceRouter.get('/land/existiert/:id', function(request, response) {
     console.log('Service Land: Client requested check, if record exists, id=' + request.params.id);
 
@@ -117,5 +118,6 @@ serviceRouter.delete('/land/:id', function(request, response) {
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
+*/
 
 module.exports = serviceRouter;

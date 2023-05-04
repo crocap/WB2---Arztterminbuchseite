@@ -11,7 +11,7 @@ class LandDao {
     }
 
     loadById(id) {
-        var sql = 'SELECT * FROM Land WHERE id=?';
+        var sql = 'SELECT * FROM Patient WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -22,7 +22,7 @@ class LandDao {
     }
 
     loadAll() {
-        var sql = 'SELECT * FROM Land';
+        var sql = 'SELECT * FROM Patient';
         var statement = this._conn.prepare(sql);
         var result = statement.all();
 
@@ -31,6 +31,7 @@ class LandDao {
         
         return result;
     }
+
 
     exists(id) {
         var sql = 'SELECT COUNT(id) AS cnt FROM Land WHERE id=?';
