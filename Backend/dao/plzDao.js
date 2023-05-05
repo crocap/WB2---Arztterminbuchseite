@@ -33,7 +33,7 @@ class LandDao {
     }
 
     exists(id) {
-        var sql = 'SELECT COUNT(id) AS cnt FROM Land WHERE id=?';
+        var sql = 'SELECT COUNT(id) AS cnt FROM Arzt WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -69,7 +69,7 @@ class LandDao {
 
     delete(id) {
         try {
-            var sql = 'DELETE FROM Land WHERE id=?';
+            var sql = 'DELETE FROM Arzt WHERE id=?';
             var statement = this._conn.prepare(sql);
             var result = statement.run(id);
 

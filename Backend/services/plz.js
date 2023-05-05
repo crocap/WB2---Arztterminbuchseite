@@ -3,32 +3,32 @@ const PlzDao = require('../dao/plzDao.js');
 const express = require('express');
 var serviceRouter = express.Router();
 
-console.log('- Service Plz');
+console.log('- Service Arzt');
 
-serviceRouter.get('/plz/gib/:id', function(request, response) {
-    console.log('Service Plz: Client requested one record, id=' + request.params.id);
+serviceRouter.get('/arzt/gib/:id', function(request, response) {
+    console.log('Service Arzt: Client requested one record, id=' + request.params.id);
 
     const plzDao = new PlzDao(request.app.locals.dbConnection);
     try {
         var obj = plzDao.loadById(request.params.id);
-        console.log('Service Plz: Record loaded');
+        console.log('Service Arzt: Record loaded');
         response.status(200).json(obj);
     } catch (ex) {
-        console.error('Service Plz: Error loading record by id. Exception occured: ' + ex.message);
+        console.error('Service Arzt: Error loading record by id. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
 
-serviceRouter.get('/plz/alle', function(request, response) {
-    console.log('Service Plz: Client requested all records');
+serviceRouter.get('/arzt/alle', function(request, response) {
+    console.log('Service Arzt: Client requested all records');
 
     const plzDao = new PlzDao(request.app.locals.dbConnection);
     try {
         var arr = plzDao.loadAll();
-        console.log('Service Plz: Records loaded, count=' + arr.length);
+        console.log('Service Arzt: Records loaded, count=' + arr.length);
         response.status(200).json(arr);
     } catch (ex) {
-        console.error('Service Plz: Error loading all records. Exception occured: ' + ex.message);
+        console.error('Service Arzt: Error loading all records. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });

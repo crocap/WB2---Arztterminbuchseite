@@ -3,32 +3,32 @@ const PatientDao = require('../dao/patientDao.js');
 const express = require('express');
 var serviceRouter = express.Router();
 
-console.log('- Service Patient');
+console.log('- Service Arzt');
 
-serviceRouter.get('/patient/gib/:id', function(request, response) {
-    console.log('Service Patient: Client requested one record, id=' + request.params.id);
+serviceRouter.get('/arzt/gib/:id', function(request, response) {
+    console.log('Service Arzt: Client requested one record, id=' + request.params.id);
 
     const patientDao = new PatientDao(request.app.locals.dbConnection);
     try {
         var obj = patientDao.loadById(request.params.id);
-        console.log('Service Patient: Record loaded');
+        console.log('Service Arzt: Record loaded');
         response.status(200).json(obj);
     } catch (ex) {
-        console.error('Service Patient: Error loading record by id. Exception occured: ' + ex.message);
+        console.error('Service Arzt: Error loading record by id. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
 
-serviceRouter.get('/patient/alle', function(request, response) {
-    console.log('Service Patient: Client requested all records');
+serviceRouter.get('/arzt/alle', function(request, response) {
+    console.log('Service Arzt: Client requested all records');
 
     const patientDao = new PatientDao(request.app.locals.dbConnection);
     try {
         var arr = patientDao.loadAll();
-        console.log('Service Patient: Records loaded, count=' + arr.length);
+        console.log('Service Arzt: Records loaded, count=' + arr.length);
         response.status(200).json(arr);
     } catch (ex) {
-        console.error('Service Patient: Error loading all records. Exception occured: ' + ex.message);
+        console.error('Service Arzt: Error loading all records. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
