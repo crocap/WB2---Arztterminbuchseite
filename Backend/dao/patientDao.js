@@ -11,7 +11,7 @@ class LandDao {
     }
 
     loadById(id) {
-        var sql = 'SELECT * FROM Arzt WHERE id=?';
+        var sql = 'SELECT * FROM Patient WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -22,7 +22,7 @@ class LandDao {
     }
 
     loadAll() {
-        var sql = 'SELECT * FROM Arzt';
+        var sql = 'SELECT * FROM Patient';
         var statement = this._conn.prepare(sql);
         var result = statement.all();
 
@@ -33,7 +33,7 @@ class LandDao {
     }
 
     exists(id) {
-        var sql = 'SELECT COUNT(id) AS cnt FROM Arzt WHERE id=?';
+        var sql = 'SELECT COUNT(id) AS cnt FROM Patient WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -69,7 +69,7 @@ class LandDao {
 
     delete(id) {
         try {
-            var sql = 'DELETE FROM Arzt WHERE id=?';
+            var sql = 'DELETE FROM Patient WHERE id=?';
             var statement = this._conn.prepare(sql);
             var result = statement.run(id);
 
