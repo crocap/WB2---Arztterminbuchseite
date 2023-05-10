@@ -5,7 +5,7 @@ var serviceRouter = express.Router();
 
 console.log('- Service Arzt');
 
-serviceRouter.get('/arzt/gib/:id', function(request, response) {
+serviceRouter.get('/schwerpunkt/gib/:id', function(request, response) {
     console.log('Service Arzt: Client requested one record, id=' + request.params.id);
 
     const schwerpunktDao = new SchwerpunktDao(request.app.locals.dbConnection);
@@ -19,7 +19,7 @@ serviceRouter.get('/arzt/gib/:id', function(request, response) {
     }
 });
 
-serviceRouter.get('/arzt/alle', function(request, response) {
+serviceRouter.get('/schwerpunkt/alle', function(request, response) {
     console.log('Service Arzt: Client requested all records');
 
     const schwerpunktDao = new SchwerpunktDao(request.app.locals.dbConnection);
