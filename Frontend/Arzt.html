@@ -90,7 +90,8 @@
         const arztId = urlParams.get('arztId');
 
         function fktUhrzeit(uhrzeit){
-            window.location.href = 'Terminbuchen.html?arztId=' + arztId + '&uhrzeit=' + uhrzeit;
+            var datum = $('#date').val();
+            window.location.href = 'Terminbuchen.html?arztId=' + arztId + '&uhrzeit=' + uhrzeit + '&datum=' + datum;
         }
 
         $(document).ready(function() {
