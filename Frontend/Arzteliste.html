@@ -166,6 +166,7 @@
                 table.append(tr);
 
                 console.log(response[0][0]);
+                var k=0;
                 // Tabelleninhalt aus der Ajax-Antwort erstellen
                 for (var i = 0; i < response.length; i++) {
                     
@@ -179,7 +180,8 @@
                     tr.append('<td>' + response[i].schwerpunkt.beschreibung + '</td>');
                     tr.append('<td>' + response[i].telefonnummer + '</td>');
                     tr.append('<td>' + response[i].email + '</td>');
-                    tr.append('<td><button class="searchButton" onclick="window.location.href=\'Arzt.html\';">Wählen</button></td>');
+                    tr.append('<td><button class="searchButton" onclick="window.location.href=\'Arzt.html?arztId=' + response[i].id + '\';">Wählen</button></td>');
+                    k++;
                     table.append(tr);
                 }
 
