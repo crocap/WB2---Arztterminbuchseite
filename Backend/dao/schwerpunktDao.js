@@ -1,6 +1,6 @@
 const helper = require('../helper.js');
 
-class LandDao {
+class SchwerpunktDao {
 
     constructor(dbConnection) {
         this._conn = dbConnection;
@@ -11,7 +11,7 @@ class LandDao {
     }
 
     loadById(id) {
-        var sql = 'SELECT * Schwerpunkt Land WHERE id=?';
+        var sql = 'SELECT * Schwerpunkt WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -83,8 +83,8 @@ class LandDao {
     }
 
     toString() {
-        console.log('LandDao [_conn=' + this._conn + ']');
+        console.log('SchwerpunktDao [_conn=' + this._conn + ']');
     }
 }
 
-module.exports = LandDao;
+module.exports = SchwerpunktDao;
