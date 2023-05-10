@@ -5,32 +5,30 @@ var serviceRouter = express.Router();
 
 console.log('- Service Patient');
 
-serviceRouter.get('/patient/gib/:id', function(request, response) {
-    console.log('Service Patient: Client requested one record, id=' + request.params.id);
+serviceRouter.post('/patient', function(request, response) {
+    console.log('Service Patient: Client requested creation of new record');
+
+    var errorMsgs=[];
+    if (helper.isUndefined(request.body.kennzeichnung)) 
+        errorMsgs.push('kennzeichnung fehlt');
+    if (helper.isUndefined(request.body.bezeichnung)) 
+        errorMsgs.push('bezeichnung fehlt');
+    
+    if (errorMsgs.length > 0) {
+        console.log('Service Patient: Creation not possible, data missing');
+        response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
+        return;
+    }
 
     const patientDao = new PatientDao(request.app.locals.dbConnection);
     try {
-        var obj = patientDao.loadById(request.params.id);
-        console.log('Service Patient: Record loaded');
+        var obj = patientDao.create(request.body.kennzeichnung, request.body.bezeichnung);
+        console.log('Service Patient: Record inserted');
         response.status(200).json(obj);
     } catch (ex) {
-        console.error('Service Patient: Error loading record by id. Exception occured: ' + ex.message);
+        console.error('Service Patient: Error creating new record. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
-    }
-});
-
-serviceRouter.get('/patient/alle', function(request, response) {
-    console.log('Service Patient: Client requested all records');
-
-    const patientDao = new PatientDao(request.app.locals.dbConnection);
-    try {
-        var arr = patientDao.loadAll();
-        console.log('Service Patient: Records loaded, count=' + arr.length);
-        response.status(200).json(arr);
-    } catch (ex) {
-        console.error('Service Patient: Error loading all records. Exception occured: ' + ex.message);
-        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
-    }
+    }    
 });
 
 /*
