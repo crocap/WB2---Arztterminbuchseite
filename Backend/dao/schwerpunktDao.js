@@ -11,7 +11,7 @@ class LandDao {
     }
 
     loadById(id) {
-        var sql = 'SELECT * Arzt Land WHERE id=?';
+        var sql = 'SELECT * Schwerpunkt Land WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -22,7 +22,7 @@ class LandDao {
     }
 
     loadAll() {
-        var sql = 'SELECT * FROM Arzt';
+        var sql = 'SELECT * FROM Schwerpunkt';
         var statement = this._conn.prepare(sql);
         var result = statement.all();
 
@@ -33,7 +33,7 @@ class LandDao {
     }
 
     exists(id) {
-        var sql = 'SELECT COUNT(id) AS cnt FROM Arzt WHERE id=?';
+        var sql = 'SELECT COUNT(id) AS cnt FROM Schwerpunkt WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -44,7 +44,7 @@ class LandDao {
     }
 
     create( beschreibung = '') {
-        var sql = 'INSERT INTO Arzt, (beschreibung) VALUES (?,?)';
+        var sql = 'INSERT INTO Schwerpunkt, (beschreibung) VALUES (?,?)';
         var statement = this._conn.prepare(sql);
         var params = [beschreibung];
         var result = statement.run(params);
@@ -56,7 +56,7 @@ class LandDao {
     }
 
     update(id, beschreibung = '') {
-        var sql = 'UPDATE Arzt SET beschreibung=? WHERE id=?';
+        var sql = 'UPDATE Schwerpunkt SET beschreibung=? WHERE id=?';
         var statement = this._conn.prepare(sql);
         var params = [beschreibung, id];
         var result = statement.run(params);
@@ -69,7 +69,7 @@ class LandDao {
 
     delete(id) {
         try {
-            var sql = 'DELETE FROM Arzt WHERE id=?';
+            var sql = 'DELETE FROM Schwerpunkt WHERE id=?';
             var statement = this._conn.prepare(sql);
             var result = statement.run(id);
 

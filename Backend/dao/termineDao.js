@@ -11,7 +11,7 @@ class LandDao {
     }
 
     loadById(id) {
-        var sql = 'SELECT * FROM Arzt WHERE id=?';
+        var sql = 'SELECT * FROM Termine WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -22,7 +22,7 @@ class LandDao {
     }
 
     loadAll() {
-        var sql = 'SELECT * FROM Arzt';
+        var sql = 'SELECT * FROM Termine';
         var statement = this._conn.prepare(sql);
         var result = statement.all();
 
@@ -33,7 +33,7 @@ class LandDao {
     }
 
     loadBybestaetigungsid(bestaetigungsid) {
-        var sql = 'SELECT * FROM Arzt WHERE bestaetigungsid =?';
+        var sql = 'SELECT * FROM Termine WHERE bestaetigungsid =?';
         var statement = this._conn.prepare(sql);
         var result = statement.all(bestaetigungsid);
 
@@ -44,7 +44,7 @@ class LandDao {
     }
 
     exists(id) {
-        var sql = 'SELECT COUNT(id) AS cnt FROM Arzt WHERE id=?';
+        var sql = 'SELECT COUNT(id) AS cnt FROM Termine WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -55,7 +55,7 @@ class LandDao {
     }
 
     create(bestaetigungsid = '', fk_arzt = '', datum = '', uhrzeit = '') {
-        var sql = 'INSERT INTO Arzt (bestaetigungsid,fk_arzt,datum,uhrzeit) VALUES (?,?)';
+        var sql = 'INSERT INTO Termine (bestaetigungsid,fk_arzt,datum,uhrzeit) VALUES (?,?)';
         var statement = this._conn.prepare(sql);
         var params = [bestaetigungsid, fk_arzt, datum, uhrzeit];
         var result = statement.run(params);
@@ -67,7 +67,7 @@ class LandDao {
     }
 
     update(id, datum = '', uhrzeit = '') {
-        var sql = 'UPDATE Arzt SET datum=?,uhrzeit=? WHERE id=?';
+        var sql = 'UPDATE Termine SET datum=?,uhrzeit=? WHERE id=?';
         var statement = this._conn.prepare(sql);
         var params = [datum, uhrzeit, id];
         var result = statement.run(params);
@@ -80,7 +80,7 @@ class LandDao {
 
     delete(id) {
         try {
-            var sql = 'DELETE FROM Arzt WHERE id=?';
+            var sql = 'DELETE FROM Termine WHERE id=?';
             var statement = this._conn.prepare(sql);
             var result = statement.run(id);
 
