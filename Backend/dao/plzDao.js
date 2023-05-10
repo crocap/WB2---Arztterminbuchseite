@@ -1,6 +1,6 @@
 const helper = require('../helper.js');
 
-class LandDao {
+class PlzDao {
 
     constructor(dbConnection) {
         this._conn = dbConnection;
@@ -43,10 +43,10 @@ class LandDao {
         return false;
     }
 
-    create(kennzeichnung = '', bezeichnung = '') {
-        var sql = 'INSERT INTO Land (kennzeichnung,bezeichnung) VALUES (?,?)';
+    create(ort = '') {
+        var sql = 'INSERT INTO Plz (ort) VALUES (?)';
         var statement = this._conn.prepare(sql);
-        var params = [kennzeichnung, bezeichnung];
+        var params = [ort];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -55,10 +55,10 @@ class LandDao {
         return this.loadById(result.lastInsertRowid);
     }
 
-    update(id, kennzeichnung = '', bezeichnung = '') {
-        var sql = 'UPDATE Land SET kennzeichnung=?,bezeichnung=? WHERE id=?';
+    update(id, ort = '') {
+        var sql = 'UPDATE Plz SET ort=? WHERE id=?';
         var statement = this._conn.prepare(sql);
-        var params = [kennzeichnung, bezeichnung, id];
+        var params = [ort, id];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -83,8 +83,8 @@ class LandDao {
     }
 
     toString() {
-        console.log('LandDao [_conn=' + this._conn + ']');
+        console.log('PlzDao [_conn=' + this._conn + ']');
     }
 }
 
-module.exports = LandDao;
+module.exports = PlzDao;
