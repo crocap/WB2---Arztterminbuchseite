@@ -1,6 +1,6 @@
 const helper = require('../helper.js');
 
-class LandDao {
+class TermineDao {
 
     constructor(dbConnection) {
         this._conn = dbConnection;
@@ -94,8 +94,8 @@ class LandDao {
     }
 
     toString() {
-        console.log('LandDao [_conn=' + this._conn + ']');
+        console.log('TermineDao [_conn=' + this._conn + ']');
     }
 }
 
-module.exports = LandDao;
+module.exports = TermineDao;

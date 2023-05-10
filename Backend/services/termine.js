@@ -51,13 +51,13 @@ serviceRouter.post('/termine', function(request, response) {
     console.log('Service Termine: Client requested creation of new record');
 
     var errorMsgs=[];
-    if (helper.isUndefined(request.body.datum)) 
-        errorMsgs.push('datum fehlt');
-    if (helper.isUndefined(request.body.uhrzeit)) 
-        errorMsgs.push('uhrzeit fehlt');
     if (helper.isUndefined(request.body.bestaetigungsid)) 
-        errorMsgs.push('bestaetigungsid fehlt');
+        errorMsgs.push('datum fehlt');
     if (helper.isUndefined(request.body.fk_arzt)) 
+        errorMsgs.push('uhrzeit fehlt');
+    if (helper.isUndefined(request.body.datum)) 
+        errorMsgs.push('bestaetigungsid fehlt');
+    if (helper.isUndefined(request.body.uhrzeit)) 
         errorMsgs.push('fk_arzt fehlt');
     
     if (errorMsgs.length > 0) {
@@ -68,7 +68,7 @@ serviceRouter.post('/termine', function(request, response) {
 
     const termineDao = new TermineDao(request.app.locals.dbConnection);
     try {
-        var obj = termineDao.create(request.body.datum, request.body.uhrzeit, request.body.bestaetigungsid, request.body.fk_arzt);
+        var obj = termineDao.create(request.body.bestaetigungsid, request.body.fk_arzt, request.body.datum, request.body.uhrzeit);
         console.log('Service Termine: Record inserted');
         response.status(200).json(obj);
     } catch (ex) {
