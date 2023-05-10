@@ -43,10 +43,10 @@ class LandDao {
         return false;
     }
 
-    create(kennzeichnung = '', bezeichnung = '') {
-        var sql = 'INSERT INTO Land (kennzeichnung,bezeichnung) VALUES (?,?)';
+    create(vorname = '', nachname = '', fk_plz = '', strasse = '', email = '', telefonnummer = '', beschwerde = '') {
+        var sql = 'INSERT INTO Patient (vorname, nachname, fk_plz, strasse, email, telefonnummer, beschwerde) VALUES (?,?)';
         var statement = this._conn.prepare(sql);
-        var params = [kennzeichnung, bezeichnung];
+        var params = [vorname, nachname, fk_plz, strasse, email, telefonnummer, beschwerde];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -56,7 +56,7 @@ class LandDao {
     }
 
     update(id, kennzeichnung = '', bezeichnung = '') {
-        var sql = 'UPDATE Land SET kennzeichnung=?,bezeichnung=? WHERE id=?';
+        var sql = 'UPDATE Patient SET kennzeichnung=?,bezeichnung=? WHERE id=?';
         var statement = this._conn.prepare(sql);
         var params = [kennzeichnung, bezeichnung, id];
         var result = statement.run(params);
