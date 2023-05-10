@@ -1,90 +1,124 @@
 const helper = require('../helper.js');
+const geschlechtDao = require('../dao/geschlechtDao.js');
+const express = require('express');
+var serviceRouter = express.Router();
 
-class kontaktDao {
+console.log('- Service Geschlecht');
 
-    constructor(dbConnection) {
-        this._conn = dbConnection;
+serviceRouter.get('/Geschlecht/gib/:id', function(request, response) {
+    console.log('Service Geschlecht: Client requested one record, id=' + request.params.id);
+
+    const geschlechtDao = new geschlechtDao(request.app.locals.dbConnection);
+    try {
+        var obj = geschlechtDao.loadById(request.params.id);
+        console.log('Service Geschlecht: Record loaded');
+        response.status(200).json(obj);
+    } catch (ex) {
+        console.error('Service Geschlecht: Error loading record by id. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
+/*
+serviceRouter.get('/Geschlecht/alle', function(request, response) {
+    console.log('Service Geschlecht: Client requested all records');
+
+    const geschlechtDao = new geschlechtDao(request.app.locals.dbConnection);
+    try {
+        var arr = geschlechtDao.loadAll();
+        console.log('Service Geschlecht: Records loaded, count=' + arr.length);
+        response.status(200).json(arr);
+    } catch (ex) {
+        console.error('Service Geschlecht: Error loading all records. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
+
+serviceRouter.get('/Geschlecht/existiert/:id', function(request, response) {
+    console.log('Service Geschlecht: Client requested check, if record exists, id=' + request.params.id);
+
+    console.log('go');
+
+    const geschlechtDao = new geschlechtDao(request.app.locals.dbConnection);
+    try {
+        var exists = geschlechtDao.exists(request.params.id);
+        console.log('Service Geschlecht: Check if record exists by id=' + request.params.id + ', exists=' + exists);
+        response.status(200).json({'id': request.params.id, 'existiert': exists});
+    } catch (ex) {
+        console.error('Service Geschlecht: Error checking if record exists. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
+serviceRouter.post('/Geschlecht', function(request, response) {
+    console.log('Service Geschlecht: Client requested creation of new record');
+
+    var errorMsgs=[];
+    if (helper.isUndefined(request.body.kennzeichnung)) 
+        errorMsgs.push('kennzeichnung fehlt');
+    if (helper.isUndefined(request.body.bezeichnung)) 
+        errorMsgs.push('bezeichnung fehlt');
+    
+    if (errorMsgs.length > 0) {
+        console.log('Service Geschlecht: Creation not possible, data missing');
+        response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
+        return;
     }
 
-    getConnection() {
-        return this._conn;
+    const geschlechtDao = new geschlechtDao(request.app.locals.dbConnection);
+    try {
+        var obj = geschlechtDao.create(request.body.kennzeichnung, request.body.bezeichnung);
+        console.log('Service Geschlecht: Record inserted');
+        response.status(200).json(obj);
+    } catch (ex) {
+        console.error('Service Geschlecht: Error creating new record. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }    
+});
+
+serviceRouter.put('/Geschlecht', function(request, response) {
+    console.log('Service Geschlecht: Client requested update of existing record');
+
+    var errorMsgs=[];
+    if (helper.isUndefined(request.body.id)) 
+        errorMsgs.push('id fehlt');
+    if (helper.isUndefined(request.body.kennzeichnung)) 
+        errorMsgs.push('kennzeichnung fehlt');
+    if (helper.isUndefined(request.body.bezeichnung)) 
+        errorMsgs.push('bezeichnung fehlt');
+
+    if (errorMsgs.length > 0) {
+        console.log('Service Geschlecht: Update not possible, data missing');
+        response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
+        return;
     }
 
-    loadById(id) {
-        var sql = 'SELECT * FROM Kontakt WHERE id=?';
-        var statement = this._conn.prepare(sql);
-        var result = statement.get(id);
+    const geschlechtDao = new geschlechtDao(request.app.locals.dbConnection);
+    try {
+        var obj = geschlechtDao.update(request.body.id, request.body.kennzeichnung, request.body.bezeichnung);
+        console.log('Service Geschlecht: Record updated, id=' + request.body.id);
+        response.status(200).json(obj);
+    } catch (ex) {
+        console.error('Service Geschlecht: Error updating record by id. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }    
+});
 
-        if (helper.isUndefined(result)) 
-            throw new Error('No Record found by id=' + id);
+serviceRouter.delete('/Geschlecht/:id', function(request, response) {
+    console.log('Service Geschlecht: Client requested deletion of record, id=' + request.params.id);
 
-        return result;
+    const geschlechtDao = new geschlechtDao(request.app.locals.dbConnection);
+    try {
+        var obj = geschlechtDao.loadById(request.params.id);
+        geschlechtDao.delete(request.params.id);
+        console.log('Service Geschlecht: Deletion of record successfull, id=' + request.params.id);
+        response.status(200).json({ 'gelöscht': true, 'eintrag': obj });
+    } catch (ex) {
+        console.error('Service Geschlecht: Error deleting record. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
+});
+*/
 
-    loadAll() {
-        var sql = 'SELECT * FROM Kontakt';
-        var statement = this._conn.prepare(sql);
-        var result = statement.all();
-
-        if (helper.isArrayEmpty(result)) 
-            return [];
-        
-        return result;
-    }
-
-    exists(id) {
-        var sql = 'SELECT COUNT(id) AS cnt FROM Kontakt WHERE id=?';
-        var statement = this._conn.prepare(sql);
-        var result = statement.get(id);
-
-        if (result.cnt == 1) 
-            return true;
-
-        return false;
-    }
-
-    create(kennzeichnung = '', bezeichnung = '') {
-        var sql = 'INSERT INTO Kontakt (kennzeichnung,bezeichnung) VALUES (?,?)';
-        var statement = this._conn.prepare(sql);
-        var params = [kennzeichnung, bezeichnung];
-        var result = statement.run(params);
-
-        if (result.changes != 1) 
-            throw new Error('Could not insert new Record. Data: ' + params);
-
-        return this.loadById(result.lastInsertRowid);
-    }
-
-    update(id, kennzeichnung = '', bezeichnung = '') {
-        var sql = 'UPDATE Kontakt SET kennzeichnung=?,bezeichnung=? WHERE id=?';
-        var statement = this._conn.prepare(sql);
-        var params = [kennzeichnung, bezeichnung, id];
-        var result = statement.run(params);
-
-        if (result.changes != 1) 
-            throw new Error('Could not update existing Record. Data: ' + params);
-
-        return this.loadById(id);
-    }
-
-    delete(id) {
-        try {
-            var sql = 'DELETE FROM Kontakt WHERE id=?';
-            var statement = this._conn.prepare(sql);
-            var result = statement.run(id);
-
-            if (result.changes != 1) 
-                throw new Error('Could not delete Record by id=' + id);
-
-            return true;
-        } catch (ex) {
-            throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message);
-        }
-    }
-
-    toString() {
-        console.log('KontaktDao [_conn=' + this._conn + ']');
-    }
-}
-
-module.exports = kontaktDao;
+module.exports = serviceRouter;
