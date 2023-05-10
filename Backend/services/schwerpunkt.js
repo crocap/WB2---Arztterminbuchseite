@@ -6,29 +6,29 @@ var serviceRouter = express.Router();
 console.log('- Service Arzt');
 
 serviceRouter.get('/schwerpunkt/gib/:id', function(request, response) {
-    console.log('Service Schwerpunkt: Client requested one record, id=' + request.params.id);
+    console.log('Service Arzt: Client requested one record, id=' + request.params.id);
 
     const schwerpunktDao = new SchwerpunktDao(request.app.locals.dbConnection);
     try {
         var obj = schwerpunktDao.loadById(request.params.id);
-        console.log('Service Schwerpunkt: Record loaded');
+        console.log('Service Arzt: Record loaded');
         response.status(200).json(obj);
     } catch (ex) {
-        console.error('Service Schwerpunkt: Error loading record by id. Exception occured: ' + ex.message);
+        console.error('Service Arzt: Error loading record by id. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
 
 serviceRouter.get('/schwerpunkt/alle', function(request, response) {
-    console.log('Service Schwerpunkt: Client requested all records');
+    console.log('Service Arzt: Client requested all records');
 
     const schwerpunktDao = new SchwerpunktDao(request.app.locals.dbConnection);
     try {
         var arr = schwerpunktDao.loadAll();
-        console.log('Service Schwerpunkt: Records loaded, count=' + arr.length);
+        console.log('Service Arzt: Records loaded, count=' + arr.length);
         response.status(200).json(arr);
     } catch (ex) {
-        console.error('Service Schwerpunkt: Error loading all records. Exception occured: ' + ex.message);
+        console.error('Service Arzt: Error loading all records. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });

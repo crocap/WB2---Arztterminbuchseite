@@ -6,29 +6,29 @@ var serviceRouter = express.Router();
 console.log('- Service Arzt');
 
 serviceRouter.get('/termine/gib/:id', function(request, response) {
-    console.log('Service Termine: Client requested one record, id=' + request.params.id);
+    console.log('Service Arzt: Client requested one record, id=' + request.params.id);
 
     const termineDao = new TermineDao(request.app.locals.dbConnection);
     try {
         var obj = termineDao.loadById(request.params.id);
-        console.log('Service Termine: Record loaded');
+        console.log('Service Arzt: Record loaded');
         response.status(200).json(obj);
     } catch (ex) {
-        console.error('Service Termine: Error loading record by id. Exception occured: ' + ex.message);
+        console.error('Service Arzt: Error loading record by id. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
 
 serviceRouter.get('/termine/alle', function(request, response) {
-    console.log('Service Termine: Client requested all records');
+    console.log('Service Arzt: Client requested all records');
 
     const termineDao = new TermineDao(request.app.locals.dbConnection);
     try {
         var arr = termineDao.loadAll();
-        console.log('Service Termine: Records loaded, count=' + arr.length);
+        console.log('Service Arzt: Records loaded, count=' + arr.length);
         response.status(200).json(arr);
     } catch (ex) {
-        console.error('Service Termine: Error loading all records. Exception occured: ' + ex.message);
+        console.error('Service Arzt: Error loading all records. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
@@ -39,10 +39,10 @@ serviceRouter.get('/termine/gib/bestaetigungsid/:bestaetigungsid', function(requ
     const termineDao = new TermineDao(request.app.locals.dbConnection);
     try {
         var obj = termineDao.loadByStandort(request.params.standort);
-        console.log('Service Termine: Record loaded');
+        console.log('Service Arzt: Record loaded');
         response.status(200).json(obj);
     } catch (ex) {
-        console.error('Service Termine: Error loading record by id. Exception occured: ' + ex.message);
+        console.error('Service Arzt: Error loading record by id. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
