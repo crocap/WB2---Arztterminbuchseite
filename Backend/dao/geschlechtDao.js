@@ -1,6 +1,6 @@
 const helper = require('../helper.js');
 
-class geschlechtDao {
+class GeschlechtDao {
 
     constructor(dbConnection) {
         this._conn = dbConnection;
@@ -89,4 +89,4 @@ class geschlechtDao {
     }
 }
 
-module.exports = geschlechtDao;
+module.exports = GeschlechtDao;
