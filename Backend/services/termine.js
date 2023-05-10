@@ -68,7 +68,7 @@ serviceRouter.post('/termine', function(request, response) {
 
     const termineDao = new TermineDao(request.app.locals.dbConnection);
     try {
-        var obj = termineDao.create(request.body.kennzeichnung, request.body.bezeichnung);
+        var obj = termineDao.create(request.body.datum, request.body.uhrzeit, request.body.bestaetigungsid, request.body.fk_arzt);
         console.log('Service Termine: Record inserted');
         response.status(200).json(obj);
     } catch (ex) {
