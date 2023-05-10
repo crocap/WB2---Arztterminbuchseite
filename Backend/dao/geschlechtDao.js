@@ -1,6 +1,6 @@
 const helper = require('../helper.js');
 
-class LandDao {
+class geschlechtDao {
 
     constructor(dbConnection) {
         this._conn = dbConnection;
@@ -11,7 +11,7 @@ class LandDao {
     }
 
     loadById(id) {
-        var sql = 'SELECT * FROM Land WHERE id=?';
+        var sql = 'SELECT * FROM Geschlecht WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -21,8 +21,9 @@ class LandDao {
         return result;
     }
 
+/*
     loadAll() {
-        var sql = 'SELECT * FROM Land';
+        var sql = 'SELECT * FROM Geschlecht';
         var statement = this._conn.prepare(sql);
         var result = statement.all();
 
@@ -32,8 +33,9 @@ class LandDao {
         return result;
     }
 
+
     exists(id) {
-        var sql = 'SELECT COUNT(id) AS cnt FROM Land WHERE id=?';
+        var sql = 'SELECT COUNT(id) AS cnt FROM Geschlecht WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -44,7 +46,7 @@ class LandDao {
     }
 
     create(kennzeichnung = '', bezeichnung = '') {
-        var sql = 'INSERT INTO Land (kennzeichnung,bezeichnung) VALUES (?,?)';
+        var sql = 'INSERT INTO Geschlecht (kennzeichnung,bezeichnung) VALUES (?,?)';
         var statement = this._conn.prepare(sql);
         var params = [kennzeichnung, bezeichnung];
         var result = statement.run(params);
@@ -56,7 +58,7 @@ class LandDao {
     }
 
     update(id, kennzeichnung = '', bezeichnung = '') {
-        var sql = 'UPDATE Land SET kennzeichnung=?,bezeichnung=? WHERE id=?';
+        var sql = 'UPDATE Geschlecht SET kennzeichnung=?,bezeichnung=? WHERE id=?';
         var statement = this._conn.prepare(sql);
         var params = [kennzeichnung, bezeichnung, id];
         var result = statement.run(params);
@@ -69,7 +71,7 @@ class LandDao {
 
     delete(id) {
         try {
-            var sql = 'DELETE FROM Land WHERE id=?';
+            var sql = 'DELETE FROM Geschlecht WHERE id=?';
             var statement = this._conn.prepare(sql);
             var result = statement.run(id);
 
@@ -81,10 +83,10 @@ class LandDao {
             throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message);
         }
     }
-
+*/
     toString() {
-        console.log('LandDao [_conn=' + this._conn + ']');
+        console.log('GeschlechtDao [_conn=' + this._conn + ']');
     }
 }
 
-module.exports = LandDao;
+module.exports = geschlechtDao;
