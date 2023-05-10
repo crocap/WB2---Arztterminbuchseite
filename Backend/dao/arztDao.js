@@ -51,11 +51,6 @@ class LandDao {
             return [];
         
         for (var i=0; i<result.length; i++){
-            
-            //const schwerpunktDao = new SchwerpunktDao(this._conn);
-            //result.schwerpunkt = schwerpunktDao.loadById(result.fk_schwerpunkt);
-            //delete result.fk_schwerpunkt;
-            console.log(alleSchwerpunkte);
             // Schwerpunkt laden
             for (var x=0; x<alleSchwerpunkte.length; x++){ 
                 
