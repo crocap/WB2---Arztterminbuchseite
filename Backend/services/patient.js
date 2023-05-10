@@ -9,10 +9,20 @@ serviceRouter.post('/patient', function(request, response) {
     console.log('Service Patient: Client requested creation of new record');
 
     var errorMsgs=[];
-    if (helper.isUndefined(request.body.kennzeichnung)) 
-        errorMsgs.push('kennzeichnung fehlt');
-    if (helper.isUndefined(request.body.bezeichnung)) 
-        errorMsgs.push('bezeichnung fehlt');
+    if (helper.isUndefined(request.body.vorname)) 
+        errorMsgs.push('vorname fehlt');
+    if (helper.isUndefined(request.body.nachname)) 
+        errorMsgs.push('nachname fehlt');
+    if (helper.isUndefined(request.body.fk_plz)) 
+        errorMsgs.push('fk_plz fehlt');
+    if (helper.isUndefined(request.body.strasse)) 
+        errorMsgs.push('strasse fehlt');
+    if (helper.isUndefined(request.body.email)) 
+        errorMsgs.push('email fehlt');
+    if (helper.isUndefined(request.body.telefonnummer)) 
+        errorMsgs.push('telefonnummer fehlt');
+    if (helper.isUndefined(request.body.beschwerde)) 
+        errorMsgs.push('beschwerde fehlt');
     
     if (errorMsgs.length > 0) {
         console.log('Service Patient: Creation not possible, data missing');
@@ -22,7 +32,7 @@ serviceRouter.post('/patient', function(request, response) {
 
     const patientDao = new PatientDao(request.app.locals.dbConnection);
     try {
-        var obj = patientDao.create(request.body.kennzeichnung, request.body.bezeichnung);
+        var obj = patientDao.create(request.body.vorname, request.body.nachname, request.body.fk_plz, request.body.strasse, request.body.email, request.body.telefonnummer, request.body.beschwerde);
         console.log('Service Patient: Record inserted');
         response.status(200).json(obj);
     } catch (ex) {

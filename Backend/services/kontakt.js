@@ -1,5 +1,5 @@
 const helper = require('../helper.js');
-const kontaktDao = require('../dao/kontaktDao.js');
+const KontaktDao = require('../dao/kontaktDao.js');
 const express = require('express');
 var serviceRouter = express.Router();
 
@@ -55,10 +55,14 @@ serviceRouter.post('/kontakt', function(request, response) {
     console.log('Service Kontakt: Client requested creation of new record');
 
     var errorMsgs=[];
-    if (helper.isUndefined(request.body.kennzeichnung)) 
-        errorMsgs.push('kennzeichnung fehlt');
-    if (helper.isUndefined(request.body.bezeichnung)) 
-        errorMsgs.push('bezeichnung fehlt');
+    if (helper.isUndefined(request.body.email)) 
+        errorMsgs.push('E-Mail fehlt');
+    if (helper.isUndefined(request.body.ueberschrift)) 
+        errorMsgs.push('Überschrift fehlt');
+    if (helper.isUndefined(request.body.anliegen)) 
+        errorMsgs.push('Anliegen anliegen');    
+    
+
     
     if (errorMsgs.length > 0) {
         console.log('Service Kontakt: Creation not possible, data missing');
@@ -68,7 +72,7 @@ serviceRouter.post('/kontakt', function(request, response) {
 
     const kontaktDao = new kontaktDao(request.app.locals.dbConnection);
     try {
-        var obj = kontaktDao.create(request.body.kennzeichnung, request.body.bezeichnung);
+        var obj = kontaktDao.create(request.body.email, request.body.ueberschrift, request.body.anliegen);
         console.log('Service Kontakt: Record inserted');
         response.status(200).json(obj);
     } catch (ex) {
@@ -83,10 +87,12 @@ serviceRouter.put('/kontakt', function(request, response) {
     var errorMsgs=[];
     if (helper.isUndefined(request.body.id)) 
         errorMsgs.push('id fehlt');
-    if (helper.isUndefined(request.body.kennzeichnung)) 
-        errorMsgs.push('kennzeichnung fehlt');
-    if (helper.isUndefined(request.body.bezeichnung)) 
-        errorMsgs.push('bezeichnung fehlt');
+    if (helper.isUndefined(request.body.email)) 
+        errorMsgs.push('email fehlt');
+    if (helper.isUndefined(request.body.ueberschrift)) 
+        errorMsgs.push('ueberschrift fehlt');
+    if (helper.isUndefined(request.body.anliegen)) 
+        errorMsgs.push('anliegen fehlt');
 
     if (errorMsgs.length > 0) {
         console.log('Service Kontakt: Update not possible, data missing');
@@ -96,7 +102,7 @@ serviceRouter.put('/kontakt', function(request, response) {
 
     const kontaktDao = new kontaktDao(request.app.locals.dbConnection);
     try {
-        var obj = kontaktDao.update(request.body.id, request.body.kennzeichnung, request.body.bezeichnung);
+        var obj = kontaktDao.update(request.body.id, request.body.email, request.body.ueberschrift, request.body.anliegen);
         console.log('Service Kontakt: Record updated, id=' + request.body.id);
         response.status(200).json(obj);
     } catch (ex) {
