@@ -1,6 +1,6 @@
 const helper = require('../helper.js');
 
-class kontaktDao {
+class KontaktDao {
 
     constructor(dbConnection) {
         this._conn = dbConnection;
@@ -46,7 +46,7 @@ class kontaktDao {
     create(kennzeichnung = '', bezeichnung = '') {
         var sql = 'INSERT INTO Kontakt (kennzeichnung,bezeichnung) VALUES (?,?)';
         var statement = this._conn.prepare(sql);
-        var params = [kennzeichnung, bezeichnung];
+        var params = [email, ueberschrift, anliegen];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -58,7 +58,7 @@ class kontaktDao {
     update(id, kennzeichnung = '', bezeichnung = '') {
         var sql = 'UPDATE Kontakt SET kennzeichnung=?,bezeichnung=? WHERE id=?';
         var statement = this._conn.prepare(sql);
-        var params = [kennzeichnung, bezeichnung, id];
+        var params = [email, ueberschrift, anliegen, id];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -87,4 +87,4 @@ class kontaktDao {
     }
 }
 
-module.exports = kontaktDao;
+module.exports = KontaktDao;
