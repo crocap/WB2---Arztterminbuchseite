@@ -19,7 +19,7 @@ serviceRouter.get('/geschlecht/gib/:id', function(request, response) {
     }
 });
 
-/*
+
 serviceRouter.get('/Geschlecht/alle', function(request, response) {
     console.log('Service Geschlecht: Client requested all records');
 
@@ -34,7 +34,7 @@ serviceRouter.get('/Geschlecht/alle', function(request, response) {
     }
 });
 
-
+/*
 serviceRouter.get('/Geschlecht/existiert/:id', function(request, response) {
     console.log('Service Geschlecht: Client requested check, if record exists, id=' + request.params.id);
 
