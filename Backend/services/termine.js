@@ -47,6 +47,36 @@ serviceRouter.get('/termine/gib/bestaetigungsid/:bestaetigungsid', function(requ
     }
 });
 
+serviceRouter.post('/termine', function(request, response) {
+    console.log('Service Termine: Client requested creation of new record');
+
+    var errorMsgs=[];
+    if (helper.isUndefined(request.body.datum)) 
+        errorMsgs.push('datum fehlt');
+    if (helper.isUndefined(request.body.uhrzeit)) 
+        errorMsgs.push('uhrzeit fehlt');
+    if (helper.isUndefined(request.body.bestaetigungsid)) 
+        errorMsgs.push('bestaetigungsid fehlt');
+    if (helper.isUndefined(request.body.fk_arzt)) 
+        errorMsgs.push('fk_arzt fehlt');
+    
+    if (errorMsgs.length > 0) {
+        console.log('Service Termine: Creation not possible, data missing');
+        response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
+        return;
+    }
+
+    const termineDao = new TermineDao(request.app.locals.dbConnection);
+    try {
+        var obj = termineDao.create(request.body.kennzeichnung, request.body.bezeichnung);
+        console.log('Service Termine: Record inserted');
+        response.status(200).json(obj);
+    } catch (ex) {
+        console.error('Service Termine: Error creating new record. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }    
+});
+
 /*
 serviceRouter.get('/land/existiert/:id', function(request, response) {
     console.log('Service Land: Client requested check, if record exists, id=' + request.params.id);
@@ -64,31 +94,6 @@ serviceRouter.get('/land/existiert/:id', function(request, response) {
     }
 });
 
-serviceRouter.post('/land', function(request, response) {
-    console.log('Service Land: Client requested creation of new record');
-
-    var errorMsgs=[];
-    if (helper.isUndefined(request.body.kennzeichnung)) 
-        errorMsgs.push('kennzeichnung fehlt');
-    if (helper.isUndefined(request.body.bezeichnung)) 
-        errorMsgs.push('bezeichnung fehlt');
-    
-    if (errorMsgs.length > 0) {
-        console.log('Service Land: Creation not possible, data missing');
-        response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
-        return;
-    }
-
-    const landDao = new LandDao(request.app.locals.dbConnection);
-    try {
-        var obj = landDao.create(request.body.kennzeichnung, request.body.bezeichnung);
-        console.log('Service Land: Record inserted');
-        response.status(200).json(obj);
-    } catch (ex) {
-        console.error('Service Land: Error creating new record. Exception occured: ' + ex.message);
-        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
-    }    
-});
 
 serviceRouter.put('/land', function(request, response) {
     console.log('Service Land: Client requested update of existing record');
