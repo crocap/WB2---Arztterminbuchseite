@@ -11,7 +11,7 @@ class SchwerpunktDao {
     }
 
     loadById(id) {
-        var sql = 'SELECT * Schwerpunkt WHERE id=?';
+        var sql = 'SELECT * FROM Schwerpunkt WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -44,7 +44,7 @@ class SchwerpunktDao {
     }
 
     create( beschreibung = '') {
-        var sql = 'INSERT INTO Schwerpunkt, (beschreibung) VALUES (?,?)';
+        var sql = 'INSERT INTO Schwerpunkt (beschreibung) VALUES (?)';
         var statement = this._conn.prepare(sql);
         var params = [beschreibung];
         var result = statement.run(params);
