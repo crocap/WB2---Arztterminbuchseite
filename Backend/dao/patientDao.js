@@ -1,6 +1,6 @@
 const helper = require('../helper.js');
 
-class LandDao {
+class PatientDao {
 
     constructor(dbConnection) {
         this._conn = dbConnection;
@@ -44,7 +44,7 @@ class LandDao {
     }
 
     create(vorname = '', nachname = '', fk_plz = '', strasse = '', email = '', telefonnummer = '', beschwerde = '') {
-        var sql = 'INSERT INTO Patient (vorname, nachname, fk_plz, strasse, email, telefonnummer, beschwerde) VALUES (?,?)';
+        var sql = 'INSERT INTO Patient (vorname, nachname, fk_plz, strasse, email, telefonnummer, beschwerde) VALUES (?,?,?,?,?,?,?)';
         var statement = this._conn.prepare(sql);
         var params = [vorname, nachname, fk_plz, strasse, email, telefonnummer, beschwerde];
         var result = statement.run(params);
@@ -55,10 +55,10 @@ class LandDao {
         return this.loadById(result.lastInsertRowid);
     }
 
-    update(id, kennzeichnung = '', bezeichnung = '') {
-        var sql = 'UPDATE Patient SET kennzeichnung=?,bezeichnung=? WHERE id=?';
+    update(id, vorname = '', nachname = '', fk_plz = '', strasse = '', email = '', telefonnummer = '', beschwerde = '') {
+        var sql = 'UPDATE Patient SET vorname=?, nachname=?, fk_plz=?, strasse=?, email=?, telefonnummer=?, beschwerde=? WHERE id=?';
         var statement = this._conn.prepare(sql);
-        var params = [kennzeichnung, bezeichnung, id];
+        var params = [vorname, nachname, fk_plz, strasse, email, telefonnummer, beschwerde, id];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -83,8 +83,8 @@ class LandDao {
     }
 
     toString() {
-        console.log('LandDao [_conn=' + this._conn + ']');
+        console.log('PatientDao [_conn=' + this._conn + ']');
     }
 }
 
-module.exports = LandDao;
+module.exports = PatientDao;

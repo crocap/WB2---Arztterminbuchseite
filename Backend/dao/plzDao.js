@@ -44,7 +44,7 @@ class PlzDao {
     }
 
     create(ort = '') {
-        var sql = 'INSERT INTO Land (ort) VALUES (?,?)';
+        var sql = 'INSERT INTO Plz (ort) VALUES (?)';
         var statement = this._conn.prepare(sql);
         var params = [ort];
         var result = statement.run(params);
