@@ -55,7 +55,7 @@ class TermineDao {
     }
 
     create(bestaetigungsid = '', fk_arzt = '', datum = '', uhrzeit = '') {
-        var sql = 'INSERT INTO Termine (bestaetigungsid,fk_arzt,datum,uhrzeit) VALUES (?,?)';
+        var sql = 'INSERT INTO Termine (bestaetigungsid,fk_arzt,datum,uhrzeit) VALUES (?,?,?,?)';
         var statement = this._conn.prepare(sql);
         var params = [bestaetigungsid, fk_arzt, datum, uhrzeit];
         var result = statement.run(params);
