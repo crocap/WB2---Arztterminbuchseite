@@ -1,14 +1,14 @@
 const helper = require('../helper.js');
-const geschlechtDao = require('../dao/geschlechtDao.js');
+const GeschlechtDao = require('../dao/geschlechtDao.js');
 const express = require('express');
 var serviceRouter = express.Router();
 
 console.log('- Service Geschlecht');
 
-serviceRouter.get('/Geschlecht/gib/:id', function(request, response) {
+serviceRouter.get('/geschlecht/gib/:id', function(request, response) {
     console.log('Service Geschlecht: Client requested one record, id=' + request.params.id);
 
-    const geschlechtDao = new geschlechtDao(request.app.locals.dbConnection);
+    const geschlechtDao = new GeschlechtDao(request.app.locals.dbConnection);
     try {
         var obj = geschlechtDao.loadById(request.params.id);
         console.log('Service Geschlecht: Record loaded');
