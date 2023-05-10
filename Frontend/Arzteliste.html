@@ -151,9 +151,6 @@
                 // HTML Element anlegen
                 var div = $('<div>');
 
-                // object mit weiterem Inhalt und Code vervollständigen
-                div.append('Folgende Daten wurden geladen:<br><br>');
-
                 // Tabelle erstellen
                 var table = $('<table>');
                 var tr = $('<tr>');
@@ -174,14 +171,14 @@
                     
                     var row = response[i];
                     var tr = $('<tr>');
-                    tr.append('<td>' + row.Arzt + '</td>');
-                    tr.append('<td>' + row.PLZ + '</td>');
-                    tr.append('<td>' + row.Ort + '</td>');
-                    tr.append('<td>' + row.Straße + '</td>');
-                    tr.append('<td>' + row.Geschlecht + '</td>');
-                    tr.append('<td>' + row.Schwerpunkt + '</td>');
-                    tr.append('<td>' + row.Telefonnummer + '</td>');
-                    tr.append('<td>' + row.Email + '</td>');
+                    tr.append('<td>' + response[i].vorname + " " + response[i].nachname + '</td>');
+                    tr.append('<td>' + response[i].plz.plz + '</td>');
+                    tr.append('<td>' + response[i].plz.ort + '</td>');
+                    tr.append('<td>' + response[i].strasse + '</td>');
+                    tr.append('<td>' + response[i].geschlecht.Beschreibung + '</td>');
+                    tr.append('<td>' + response[i].schwerpunkt.beschreibung + '</td>');
+                    tr.append('<td>' + response[i].telefonnummer + '</td>');
+                    tr.append('<td>' + response[i].email + '</td>');
                     tr.append('<td><button class="searchButton" onclick="window.location.href=\'Arzt.html\';">Wählen</button></td>');
                     table.append(tr);
                 }
