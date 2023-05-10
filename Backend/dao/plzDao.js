@@ -22,7 +22,7 @@ class LandDao {
     }
 
     loadAll() {
-        var sql = 'SELECT * FROM Plz';
+        var sql = 'SELECT ort FROM Plz';
         var statement = this._conn.prepare(sql);
         var result = statement.all();
 
