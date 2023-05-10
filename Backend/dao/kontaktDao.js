@@ -1,6 +1,6 @@
 const helper = require('../helper.js');
 
-class LandDao {
+class kontaktDao {
 
     constructor(dbConnection) {
         this._conn = dbConnection;
@@ -11,7 +11,7 @@ class LandDao {
     }
 
     loadById(id) {
-        var sql = 'SELECT * FROM Land WHERE id=?';
+        var sql = 'SELECT * FROM Kontakt WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -22,7 +22,7 @@ class LandDao {
     }
 
     loadAll() {
-        var sql = 'SELECT * FROM Land';
+        var sql = 'SELECT * FROM Kontakt';
         var statement = this._conn.prepare(sql);
         var result = statement.all();
 
@@ -33,7 +33,7 @@ class LandDao {
     }
 
     exists(id) {
-        var sql = 'SELECT COUNT(id) AS cnt FROM Land WHERE id=?';
+        var sql = 'SELECT COUNT(id) AS cnt FROM Kontakt WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -44,7 +44,7 @@ class LandDao {
     }
 
     create(kennzeichnung = '', bezeichnung = '') {
-        var sql = 'INSERT INTO Land (kennzeichnung,bezeichnung) VALUES (?,?)';
+        var sql = 'INSERT INTO Kontakt (kennzeichnung,bezeichnung) VALUES (?,?)';
         var statement = this._conn.prepare(sql);
         var params = [kennzeichnung, bezeichnung];
         var result = statement.run(params);
@@ -56,7 +56,7 @@ class LandDao {
     }
 
     update(id, kennzeichnung = '', bezeichnung = '') {
-        var sql = 'UPDATE Land SET kennzeichnung=?,bezeichnung=? WHERE id=?';
+        var sql = 'UPDATE Kontakt SET kennzeichnung=?,bezeichnung=? WHERE id=?';
         var statement = this._conn.prepare(sql);
         var params = [kennzeichnung, bezeichnung, id];
         var result = statement.run(params);
@@ -69,7 +69,7 @@ class LandDao {
 
     delete(id) {
         try {
-            var sql = 'DELETE FROM Land WHERE id=?';
+            var sql = 'DELETE FROM Kontakt WHERE id=?';
             var statement = this._conn.prepare(sql);
             var result = statement.run(id);
 
@@ -83,8 +83,8 @@ class LandDao {
     }
 
     toString() {
-        console.log('LandDao [_conn=' + this._conn + ']');
+        console.log('KontaktDao [_conn=' + this._conn + ']');
     }
 }
 
-module.exports = LandDao;
+module.exports = kontaktDao;
