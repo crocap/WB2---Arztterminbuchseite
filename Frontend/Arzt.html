@@ -50,7 +50,7 @@
                         </tr>
                         <tr>
                             <td class="arzt-links"><label>Öffnungszeiten:</label></td>
-                            <td class="arzt-rechts" id="arzt_oeffnungszeiten">Mon-Fr: 8:00-16:00</td>
+                            <td class="arzt-rechts" id="arzt_oeffnungszeiten"></td>
                         </tr>
                     </table>
                 </section>
@@ -113,7 +113,8 @@
             $('#arzt_adress').text(response.strasse + ', ' + response.ort.plz + ' ' + response.ort.ort);    
             $('#arzt_tele').text(response.telefonnummer);
             $('#arzt_email').text(response.email);
-            $('.arzt-name').text(response.vorname + ' ' + response.nachname);
+            $('#arzt_oeffnungszeiten').text(response.oeffnungszeiten);
+
 
             }).fail(function (jqXHR, textStatus) {
                 console.log('Error loading data');
