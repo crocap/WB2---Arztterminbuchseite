@@ -43,8 +43,8 @@ class KontaktDao {
         return false;
     }
 
-    create(kennzeichnung = '', bezeichnung = '') {
-        var sql = 'INSERT INTO Kontakt (kennzeichnung,bezeichnung) VALUES (?,?)';
+    create(email = '', ueberschrift = '', anliegen = '') {
+        var sql = 'INSERT INTO Kontakt (email,ueberschrift,anliegen) VALUES (?,?,?)';
         var statement = this._conn.prepare(sql);
         var params = [email, ueberschrift, anliegen];
         var result = statement.run(params);
@@ -55,8 +55,8 @@ class KontaktDao {
         return this.loadById(result.lastInsertRowid);
     }
 
-    update(id, kennzeichnung = '', bezeichnung = '') {
-        var sql = 'UPDATE Kontakt SET kennzeichnung=?,bezeichnung=? WHERE id=?';
+    update(id, email = '', ueberschrift = '', anliegen = '') {
+        var sql = 'UPDATE Kontakt SET email=?,ueberschrift=? WHERE id=?';
         var statement = this._conn.prepare(sql);
         var params = [email, ueberschrift, anliegen, id];
         var result = statement.run(params);

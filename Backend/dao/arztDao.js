@@ -1,4 +1,6 @@
 const helper = require('../helper.js');
+const SchwerpunktDao = require('./schwerpunktDao.js');
+const PlzDao = require('./plzDao.js');
 
 class LandDao {
 
@@ -17,7 +19,17 @@ class LandDao {
 
         if (helper.isUndefined(result)) 
             throw new Error('No Record found by id=' + id);
+        
+        const schwerpunktDao = new SchwerpunktDao(this._conn);
+        result.schwerpunkt = schwerpunktDao.loadById(result.fk_schwerpunkt);
+        delete result.fk_schwerpunkt;
 
+        const plzDao = new PlzDao(this._conn);
+        result.ort = plzDao.loadById(result.fk_plz);
+        delete result.fk_plz;
+
+
+        console.log(result);
         return result;
     }
 
