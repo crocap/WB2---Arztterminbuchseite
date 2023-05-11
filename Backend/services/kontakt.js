@@ -9,7 +9,7 @@ console.log('- Service Kontakt');
 serviceRouter.get('/kontakt/gib/:id', function(request, response) {
     console.log('Service Kontakt: Client requested one record, id=' + request.params.id);
 
-    const kontaktDao = new kontaktDao(request.app.locals.dbConnection);
+    const kontaktDao = new KontaktDao(request.app.locals.dbConnection);
     try {
         var obj = kontaktDao.loadById(request.params.id);
         console.log('Service Kontakt: Record loaded');
@@ -23,7 +23,7 @@ serviceRouter.get('/kontakt/gib/:id', function(request, response) {
 serviceRouter.get('/kontakt/alle', function(request, response) {
     console.log('Service Kontakt: Client requested all records');
 
-    const kontaktDao = new kontaktDao(request.app.locals.dbConnection);
+    const kontaktDao = new KontaktDao(request.app.locals.dbConnection);
     try {
         var arr = kontaktDao.loadAll();
         console.log('Service Kontakt: Records loaded, count=' + arr.length);
@@ -39,7 +39,7 @@ serviceRouter.get('/kontakt/existiert/:id', function(request, response) {
 
     console.log('go');
 
-    const kontaktDao = new kontaktDao(request.app.locals.dbConnection);
+    const kontaktDao = new KontaktDao(request.app.locals.dbConnection);
     try {
         var exists = kontaktDao.exists(request.params.id);
         console.log('Service Kontakt: Check if record exists by id=' + request.params.id + ', exists=' + exists);
@@ -70,7 +70,7 @@ serviceRouter.post('/kontakt', function(request, response) {
         return;
     }
 
-    const kontaktDao = new kontaktDao(request.app.locals.dbConnection);
+    const kontaktDao = new KontaktDao(request.app.locals.dbConnection);
     try {
         var obj = kontaktDao.create(request.body.email, request.body.ueberschrift, request.body.anliegen);
         console.log('Service Kontakt: Record inserted');
@@ -100,7 +100,7 @@ serviceRouter.put('/kontakt', function(request, response) {
         return;
     }
 
-    const kontaktDao = new kontaktDao(request.app.locals.dbConnection);
+    const kontaktDao = new KontaktDao(request.app.locals.dbConnection);
     try {
         var obj = kontaktDao.update(request.body.id, request.body.email, request.body.ueberschrift, request.body.anliegen);
         console.log('Service Kontakt: Record updated, id=' + request.body.id);
@@ -114,7 +114,7 @@ serviceRouter.put('/kontakt', function(request, response) {
 serviceRouter.delete('/kontakt/:id', function(request, response) {
     console.log('Service Kontakt: Client requested deletion of record, id=' + request.params.id);
 
-    const kontaktDao = new kontaktDao(request.app.locals.dbConnection);
+    const kontaktDao = new KontaktDao(request.app.locals.dbConnection);
     try {
         var obj = kontaktDao.loadById(request.params.id);
         kontaktDao.delete(request.params.id);
