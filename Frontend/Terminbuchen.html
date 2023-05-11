@@ -68,10 +68,8 @@
                         <td class="kunde_feld"><input type="text" id="vorname" name="vorname" required></td>
                     </tr>
                     <tr>
-                        <td class="kunde_links"><label for="plz">*PLZ:</th>
-                        <td class="kunde_feld"><input type="text" id="plz" name="plz" required></td>
-                        <td class="kunde_links"><label for="ort">*Ort:</label></td>
-                        <td class="kunde_feld"><input type="text" id="ort" name="ort" required></td>
+                        <td class="kunde_links"><label for="plz">*PLZ + Ort:</th>
+                        <td class="kunde_feld"><input type="text" id="plz+ort" name="plz+ort" required></td>
                     </tr>
                     <tr>
                             <td class="kunde_links"><label for="straße">*Straße:</label></td>
@@ -88,7 +86,7 @@
                     </tr>
                 </table>
                 <button class="searchButton" onclick="history.back()"><span>Zurück</span></button>
-                <td colspan="2"><input class="searchButton" type="submit" value="Termin buchen" onclick='fktFertig()';"></td>
+                <td colspan="2"><input class="searchButton" type="submit" value="Termin buchen" id="buchen"></td>
                 </form>
             </section>  
         </article> 
@@ -135,7 +133,45 @@
                     console.log('Error loading data');
                     console.log(textStatus);
                 });
+
+                $('#buchen').click(function() {
+
+                    var vorname = $('#vorname').val();
+                    var name = $('#name').val();
+                    var ort = $('#plz+ort').val();
+                    var straße = $('#straße').val();
+                    var email = $('#email').val();
+                    var telefonnummer = $('#telefonnummer').val();
+                    var beschwerden = $('#beschwerden').val();
+
+                    var patient_json = {
+                        vorname: vorname,
+                        nachname: name,
+                        fk_plz: ort,
+                        strasse: straße,
+                        email: email,
+                        telefonnummer: telefonnummer,
+                        beschwerden: beschwerden
+                    };
+
+                    $.ajax({
+                        url: 'http://localhost:8000/api/patient',
+                        method: 'post',
+                        contentType: 'application/json; charset=utf-8',
+                        cache: false,
+                        dataType: 'json',
+                        data: JSON.stringify(patient_json)
+                    }).done(function (response) {
+                        console.log('Data posted successfully');
+                        console.log(response);
+
+                    }).fail(function (jqXHR, textStatus) {
+                        console.log('Error posting data');
+                        console.log(textStatus);
+                    });
+                });
             });
+  
         </script>
     </body>
 </html>
