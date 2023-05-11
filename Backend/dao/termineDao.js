@@ -18,16 +18,27 @@ class TermineDao {
         if (helper.isUndefined(result)) 
             throw new Error('No Record found by id=' + id);
 
+        const arztDao = new ArztDao(this._conn);
+        result.ort = arztDao.loadById(result.fk_arzt);
+        delete result.fk_arzt;
+
         return result;
     }
 
     loadAll() {
+        const arztDao = new ArztDao(this._conn);
+
         var sql = 'SELECT * FROM Termine';
         var statement = this._conn.prepare(sql);
         var result = statement.all();
 
         if (helper.isArrayEmpty(result)) 
             return [];
+
+        for (var i=0; i<result.length; i++){
+            result[i].arzt = arztDao.loadById(result[i].fk_arzt);
+            delete result[i].fk_arzt;
+        }
         
         return result;
     }
