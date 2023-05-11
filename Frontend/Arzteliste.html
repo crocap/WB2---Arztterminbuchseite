@@ -37,8 +37,8 @@
                 </select>
                 <label>Schwerpunkt:</label> 
                 <select name="schwerpunkt" id="schwerpunkt">
-                    <option value="Alle">Alle</option>
-                    <option value="Allgemeinmedizin">Allgemeinmedizin</option>
+                   <option value="Alle">Alle</option>
+                <!--     <option value="Allgemeinmedizin">Allgemeinmedizin</option>
                     <option value="Augenarzt">Augenarzt</option>
                     <option value="Dermatologe">Dermatologe</option>
                     <option value="Gynäkologie">Gynäkologie</option>
@@ -49,7 +49,7 @@
                     <option value="Physiologie">Physiologie</option>
                     <option value="Radiologie">Radiologie</option>
                     <option value="Transfusionsmedizin">Transfusionsmedizin</option>   
-                    <option value="Urologe">Urologe</option>                 
+                    <option value="Urologe">Urologe</option>  -->               
                 </select>
             </div>
             <!--<div>
@@ -158,6 +158,31 @@
                 console.log('Error loading data');
                 console.log(textStatus);
             });
+<<<<<<< HEAD
+
+            $.ajax({
+                url: 'http://localhost:8000/api/schwerpunkt/alle',
+                method: 'get',
+                contentType: 'application/json; charset=utf-8',
+                cache: false,
+                dataType: 'json'
+            }).done(function (response) {
+                console.log('Data loaded successfully');
+                console.log(response);
+
+                var select = $('#schwerpunkt'); // Dropdown-Menü-Element
+
+                for (var i = 0; i < response.length; i++) {   
+                    select.append('<option>' + response[i].beschreibung + '</option>'); // Option zum Dropdown-Menü hinzufügen
+                }
+
+            }).fail(function (jqXHR, textStatus) {
+                console.log('Error loading data');
+                console.log(textStatus);
+            });
+
+=======
+>>>>>>> 80a6e6f7ac53205a3adcdc1647853817a5675434
         });
 
         arzteTabelle();
