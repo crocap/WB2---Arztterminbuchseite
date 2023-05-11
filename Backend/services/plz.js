@@ -33,6 +33,20 @@ serviceRouter.get('/plz/alle', function(request, response) {
     }
 });
 
+serviceRouter.get('/plz/ort', function(request, response) {
+    console.log('Service Plz: Client requested all Ort records');
+
+    const plzDao = new PlzDao(request.app.locals.dbConnection);
+    try {
+        var arr = plzDao.loadAllOrt();
+        console.log('Service Plz: Records loaded, count=' + arr.length);
+        response.status(200).json(arr);
+    } catch (ex) {
+        console.error('Service Plz: Error loading all records. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
 /*
 
 serviceRouter.get('/land/existiert/:id', function(request, response) {

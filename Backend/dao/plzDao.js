@@ -22,6 +22,17 @@ class PlzDao {
     }
 
     loadAll() {
+        var sql = 'SELECT * FROM Plz';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all();
+
+        if (helper.isArrayEmpty(result)) 
+            return [];
+        
+        return result;
+    }
+    
+    loadAllOrt() {
         var sql = 'SELECT ort FROM Plz';
         var statement = this._conn.prepare(sql);
         var result = statement.all();

@@ -1,6 +1,7 @@
 const helper = require('../helper.js');
 const SchwerpunktDao = require('./schwerpunktDao.js');
 const PlzDao = require('./plzDao.js');
+const GeschlechtDao = require('./geschlechtDao.js');
 
 class LandDao {
 
@@ -28,12 +29,20 @@ class LandDao {
         result.ort = plzDao.loadById(result.fk_plz);
         delete result.fk_plz;
 
+        const geschlechtDao = new GeschlechtDao(this._conn);
+        result.geschlecht = geschlechtDao.loadById(result.fk_geschlecht);
+        delete result.fk_geschlecht;
 
-        console.log(result);
         return result;
     }
 
     loadAll() {
+        var schwerpunkt=new SchwerpunktDao(this._conn);
+        var plz=new PlzDao(this._conn);
+        var geschlecht=new GeschlechtDao(this._conn);
+        var alleSchwerpunkte=schwerpunkt.loadAll();
+        var allePlz=plz.loadAll();
+        var alleGeschlecht=geschlecht.loadAll();
         var sql = 'SELECT * FROM Arzt';
         var statement = this._conn.prepare(sql);
         var result = statement.all();
@@ -41,17 +50,94 @@ class LandDao {
         if (helper.isArrayEmpty(result)) 
             return [];
         
+        for (var i=0; i<result.length; i++){
+            // Schwerpunkt laden
+            for (var x=0; x<alleSchwerpunkte.length; x++){ 
+                
+                if (alleSchwerpunkte[x].id == result[i].fk_schwerpunkt){
+                    
+                    result[i].schwerpunkt = alleSchwerpunkte[x];
+                    delete result[i].fk_schwerpunkt;
+                    break;
+                }
+            }
+            // PLZ laden
+            for (var x=0; x<allePlz.length; x++){ 
+                
+                if (allePlz[x].id == result[i].fk_plz){
+                    
+                    result[i].plz = allePlz[x];
+                    delete result[i].fk_plz;
+                    break;
+                }
+            }
+            // Geschlecht laden
+            for (var x=0; x<alleGeschlecht.length; x++){ 
+                
+                if (alleGeschlecht[x].id == result[i].fk_geschlecht){
+                    
+                    result[i].geschlecht = alleGeschlecht[x];
+                    delete result[i].fk_geschlecht;
+                    break;
+                }
+            }
+        }
+
         return result;
     }
 
     loadByStandortAndSchwerpunkt(standort,schwerpunkt) {
         var sql = 'SELECT * FROM Arzt WHERE fk_plz = (SELECT id FROM Plz WHERE ort = ?) AND fk_schwerpunkt = (SELECT id from Schwerpunkt WHERE beschreibung=?)';
         var statement = this._conn.prepare(sql);
-        var result = statement.all(standort, schwerpunkt);
-
+        var result = statement.all(standort,schwerpunkt);
+        
         if (helper.isArrayEmpty(result)) 
             return [];
         
+        var schwerpunkt=new SchwerpunktDao(this._conn);
+        var plz=new PlzDao(this._conn);
+        var geschlecht=new GeschlechtDao(this._conn);
+        var alleSchwerpunkte=schwerpunkt.loadAll();
+        var allePlz=plz.loadAll();
+        var alleGeschlecht=geschlecht.loadAll();
+        for (var i=0; i<result.length; i++){
+        
+            //const schwerpunktDao = new SchwerpunktDao(this._conn);
+            //result.schwerpunkt = schwerpunktDao.loadById(result.fk_schwerpunkt);
+            //delete result.fk_schwerpunkt;
+            console.log(alleSchwerpunkte);
+            // Schwerpunkt laden
+            for (var x=0; x<alleSchwerpunkte.length; x++){ 
+                
+                if (alleSchwerpunkte[x].id == result[i].fk_schwerpunkt){
+                    
+                    result[i].schwerpunkt = alleSchwerpunkte[x];
+                    delete result[i].fk_schwerpunkt;
+                    break;
+                }
+            }
+            // PLZ laden
+            for (var x=0; x<allePlz.length; x++){ 
+                
+                if (allePlz[x].id == result[i].fk_plz){
+                    
+                    result[i].plz = allePlz[x];
+                    delete result[i].fk_plz;
+                    break;
+                }
+            }
+            // Geschlecht laden
+            for (var x=0; x<alleGeschlecht.length; x++){ 
+                
+                if (alleGeschlecht[x].id == result[i].fk_geschlecht){
+                    
+                    result[i].geschlecht = alleGeschlecht[x];
+                    delete result[i].fk_geschlecht;
+                    break;
+                }
+            }
+        }
+
         return result;
     }
 
@@ -63,6 +149,50 @@ class LandDao {
         if (helper.isArrayEmpty(result)) 
             return [];
         
+            var schwerpunkt=new SchwerpunktDao(this._conn);
+            var plz=new PlzDao(this._conn);
+            var geschlecht=new GeschlechtDao(this._conn);
+            var alleSchwerpunkte=schwerpunkt.loadAll();
+            var allePlz=plz.loadAll();
+            var alleGeschlecht=geschlecht.loadAll();
+            for (var i=0; i<result.length; i++){
+            
+                //const schwerpunktDao = new SchwerpunktDao(this._conn);
+                //result.schwerpunkt = schwerpunktDao.loadById(result.fk_schwerpunkt);
+                //delete result.fk_schwerpunkt;
+                console.log(alleSchwerpunkte);
+                // Schwerpunkt laden
+                for (var x=0; x<alleSchwerpunkte.length; x++){ 
+                    
+                    if (alleSchwerpunkte[x].id == result[i].fk_schwerpunkt){
+                        
+                        result[i].schwerpunkt = alleSchwerpunkte[x];
+                        delete result[i].fk_schwerpunkt;
+                        break;
+                    }
+                }
+                // PLZ laden
+                for (var x=0; x<allePlz.length; x++){ 
+                    
+                    if (allePlz[x].id == result[i].fk_plz){
+                        
+                        result[i].plz = allePlz[x];
+                        delete result[i].fk_plz;
+                        break;
+                    }
+                }
+                // Geschlecht laden
+                for (var x=0; x<alleGeschlecht.length; x++){ 
+                    
+                    if (alleGeschlecht[x].id == result[i].fk_geschlecht){
+                        
+                        result[i].geschlecht = alleGeschlecht[x];
+                        delete result[i].fk_geschlecht;
+                        break;
+                    }
+                }
+            }
+
         return result;
     }
 
@@ -74,9 +204,54 @@ class LandDao {
         if (helper.isArrayEmpty(result)) 
             return [];
         
+            var schwerpunkt=new SchwerpunktDao(this._conn);
+            var plz=new PlzDao(this._conn);
+            var geschlecht=new GeschlechtDao(this._conn);
+            var alleSchwerpunkte=schwerpunkt.loadAll();
+            var allePlz=plz.loadAll();
+            var alleGeschlecht=geschlecht.loadAll();
+            for (var i=0; i<result.length; i++){
+            
+                //const schwerpunktDao = new SchwerpunktDao(this._conn);
+                //result.schwerpunkt = schwerpunktDao.loadById(result.fk_schwerpunkt);
+                //delete result.fk_schwerpunkt;
+                console.log(alleSchwerpunkte);
+                // Schwerpunkt laden
+                for (var x=0; x<alleSchwerpunkte.length; x++){ 
+                    
+                    if (alleSchwerpunkte[x].id == result[i].fk_schwerpunkt){
+                        
+                        result[i].schwerpunkt = alleSchwerpunkte[x];
+                        delete result[i].fk_schwerpunkt;
+                        break;
+                    }
+                }
+                // PLZ laden
+                for (var x=0; x<allePlz.length; x++){ 
+                    
+                    if (allePlz[x].id == result[i].fk_plz){
+                        
+                        result[i].plz = allePlz[x];
+                        delete result[i].fk_plz;
+                        break;
+                    }
+                }
+                // Geschlecht laden
+                for (var x=0; x<alleGeschlecht.length; x++){ 
+                    
+                    if (alleGeschlecht[x].id == result[i].fk_geschlecht){
+                        
+                        result[i].geschlecht = alleGeschlecht[x];
+                        delete result[i].fk_geschlecht;
+                        break;
+                    }
+                }
+            }
+
         return result;
     }
 
+/*
     exists(id) {
         var sql = 'SELECT COUNT(id) AS cnt FROM Land WHERE id=?';
         var statement = this._conn.prepare(sql);
@@ -126,7 +301,7 @@ class LandDao {
             throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message);
         }
     }
-
+*/
     toString() {
         console.log('LandDao [_conn=' + this._conn + ']');
     }

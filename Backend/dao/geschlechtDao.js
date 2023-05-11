@@ -21,7 +21,7 @@ class GeschlechtDao {
         return result;
     }
 
-/*
+
     loadAll() {
         var sql = 'SELECT * FROM Geschlecht';
         var statement = this._conn.prepare(sql);
@@ -33,7 +33,7 @@ class GeschlechtDao {
         return result;
     }
 
-
+/*
     exists(id) {
         var sql = 'SELECT COUNT(id) AS cnt FROM Geschlecht WHERE id=?';
         var statement = this._conn.prepare(sql);

@@ -56,7 +56,7 @@ class KontaktDao {
     }
 
     update(id, email = '', ueberschrift = '', anliegen = '') {
-        var sql = 'UPDATE Kontakt SET email=?,ueberschrift=? WHERE id=?';
+        var sql = 'UPDATE Kontakt SET email=?,ueberschrift=?,anliegen=? WHERE id=?';
         var statement = this._conn.prepare(sql);
         var params = [email, ueberschrift, anliegen, id];
         var result = statement.run(params);

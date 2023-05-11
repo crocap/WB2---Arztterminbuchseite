@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="Arztbuchseite.css">
-        <script src="script.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <title>Arztterminbuchseite</title>
     </head>    
     <body>
@@ -29,34 +29,30 @@
                     <tr>
                         <form>
                             <td class="arzt-links"><label for="aerzte">Name:</label></th>
-                            <td class="arzt-rechts" id="arzt-name">Max Mustermann</td>
+                            <td class="arzt-rechts" id="arzt-name"></td>
                         </form>
                     </tr>
                     <tr>
                         <form>
                             <td class="arzt-links"><label>Standort:</label></th>
-                            <td class="arzt-rechts" id="arzt-standort">Albstadt</td>
+                            <td class="arzt-rechts" id="arzt-standort"></td>
                         </form>
                     </tr>
                     <tr>
                         <td class="arzt-links"><label>Schwerpunkt:</label></td>
-                        <td class="arzt-rechts" id="arzt-schwerpunkt">Hausarzt</td>
+                        <td class="arzt-rechts" id="arzt-schwerpunkt"></td>
                     </tr>
                     <tr>
                         <td class="arzt-links"><label>E-Mail:</label></td>
-                        <td class="arzt-rechts" id="arzt-email">maxmustermann@hotmail.de</td>
+                        <td class="arzt-rechts" id="arzt-email"></td>
                     </tr>
                     <tr>
                         <td class="arzt-links"><label>Telefonnummer:</label></td>
-                        <td class="arzt-rechts" id="arzt-telefonnnummer">012345678</td>
-                    </tr>
-                    <tr>
-                        <td class="arzt-links"><label>Fax:</label></td>
-                        <td class="arzt-rechts" id="arzt-fax">0123456789</td>
+                        <td class="arzt-rechts" id="arzt-telefonnnummer"></td>
                     </tr>
                     <tr>
                         <td class="arzt-links"><label>Termin:</label></td>
-                        <td  class="arzt-rechts" id="datum-termin">12.04.2023    9:15 Uhr</td>
+                        <td  class="arzt-rechts" id="datum-termin"></td>
                     </tr>      
                 </table>
             </section>
@@ -92,7 +88,7 @@
                     </tr>
                 </table>
                 <button class="searchButton" onclick="history.back()"><span>Zurück</span></button>
-                <td colspan="2"><input class="searchButton" type="submit" value="Termin buchen" onclick="window.location.href='Bestatigung.html';"></td>
+                <td colspan="2"><input class="searchButton" type="submit" value="Termin buchen" onclick='fktFertig()';"></td>
                 </form>
             </section>  
         </article> 
@@ -100,6 +96,42 @@
             Made by: Sven Kovacevic, Dennis Essert, Fabio Merkt, Maximilian Stutz<br>
             E-Mail: test@test.com - Adresse: Hochschule Albstadt-Sigmaringen, Jakobstraße 6, 72458 Albstadt
         </footer>
+        <script>
+            // Auslesen von Params
+            const urlParams = new URLSearchParams(window.location.search);
+            const arztId = urlParams.get('arztId');
+            const uhrzeit = urlParams.get('uhrzeit');
+            const datum = urlParams.get('datum');
+
+            function fktFertig(){
+                window.location.href = 'Bestatigung.html?arztId=' + arztId + '&uhrzeit=' + uhrzeit + '&datum=' + datum;
+            }
+    
+            $(document).ready(function() {
+                console.log('Document ready, loading data from Service');
+    
+                $.ajax({
+                    url: 'http://localhost:8000/api/arzt/gib/' + arztId,
+                    method: 'get',
+                    contentType: 'application/json; charset=utf-8',
+                    cache: false,
+                    dataType: 'json'
+                }).done(function (response) {
+                    console.log('Data loaded successfully');
+                    console.log(response);
+    
+                $('#arzt-name').text(response.vorname + ' ' + response.nachname);
+                $('#arzt-standort').text(response.ort.ort);
+                $('#arzt-schwerpunkt').text(response.schwerpunkt.beschreibung);   
+                $('#arzt-email').text(response.email);
+                $('#arzt-telefonnnummer').text(response.telefonnummer);
+                $('#datum-termin').text(datum + " " + uhrzeit + " Uhr");
+    
+                }).fail(function (jqXHR, textStatus) {
+                    console.log('Error loading data');
+                    console.log(textStatus);
+                });
+            });
+        </script>
     </body>
-</body>
 </html>
