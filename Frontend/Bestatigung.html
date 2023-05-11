@@ -109,7 +109,11 @@
                 $('#schwerpunkt').text(response.schwerpunkt.beschreibung);   
                 $('#email').text(response.email);
                 $('#tele').text(response.telefonnummer);
-                $('#termin').text(datum + " " + uhrzeit + " Uhr");
+                var deDatum = datum;
+                deDatum = deDatum.split("-");
+                deDatum = new Date(deDatum[0], deDatum[1] - 1, deDatum[2]);
+                deDatum = deDatum.toLocaleDateString("de-DE");
+                $('#termin').text(deDatum + " " + uhrzeit + " Uhr");
     
                 }).fail(function (jqXHR, textStatus) {
                     console.log('Error loading data');
