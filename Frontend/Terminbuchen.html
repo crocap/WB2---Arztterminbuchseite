@@ -69,7 +69,7 @@
                     </tr>
                     <tr>
                         <td class="kunde_links"><label for="plz">*PLZ + Ort:</th>
-                        <td class="kunde_feld"><input type="text" id="plz+ort" name="plz+ort" required></td>
+                        <td class="kunde_feld"><input type="text" id="plz" name="plz+ort" required></td>
                     </tr>
                     <tr>
                             <td class="kunde_links"><label for="straße">*Straße:</label></td>
@@ -135,24 +135,25 @@
                 });
 
                 $('#buchen').click(function() {
+                    console.log('button buchen clicked');
 
-                    var vorname = $('#vorname').val();
-                    var name = $('#name').val();
-                    var ort = $('#plz+ort').val();
-                    var straße = $('#straße').val();
-                    var email = $('#email').val();
-                    var telefonnummer = $('#telefonnummer').val();
-                    var beschwerden = $('#beschwerden').val();
+                    var vorname = document.getElementById("vorname").value;
+                    var name = document.getElementById("name").value;
+                    var ort = document.getElementById("plz").value;
+                    var straße = document.getElementById("straße").value;
+                    var email = document.getElementById("email").value;
+                    var telefonnummer = document.getElementById("telefonnummer").value;
+                    var beschwerden = document.getElementById("beschwerden").value;
 
-                    var patient_json = {
-                        vorname: vorname,
-                        nachname: name,
-                        fk_plz: ort,
-                        strasse: straße,
-                        email: email,
-                        telefonnummer: telefonnummer,
-                        beschwerden: beschwerden
-                    };
+                    var patientobj = {
+                        "vorname": vorname,
+                        "nachname": name,
+                        "fk_plz": ort,
+                        "strasse": straße,
+                        "email": email,
+                        "telefonnummer": telefonnummer,
+                        "beschwerde": beschwerden
+                        };
 
                     $.ajax({
                         url: 'http://localhost:8000/api/patient',
@@ -160,14 +161,16 @@
                         contentType: 'application/json; charset=utf-8',
                         cache: false,
                         dataType: 'json',
-                        data: JSON.stringify(patient_json)
+                        data: JSON.stringify(patientobj)
                     }).done(function (response) {
                         console.log('Data posted successfully');
                         console.log(response);
+                        window.location.href = 'https://www.google.com';
 
                     }).fail(function (jqXHR, textStatus) {
                         console.log('Error posting data');
                         console.log(textStatus);
+                        window.location.href = 'https://www.google.com';
                     });
                 });
             });
