@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Arztbuchseite.css">
-    <script src="script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>Arztterminbuchseite</title>
 </head>
 <body>
@@ -30,31 +30,27 @@
                 <table class="bestätigung2">
                     <tr>
                         <td class="bestätigung">Name:</td>
-                        <td class="bestätigung">Dr. Max Mustermann</td>
+                        <td class="bestätigung" id="name"></td>
                     </tr>
                     <tr>
                         <td class="bestätigung">Standort:</td>
-                        <td class="bestätigung">72458 Albstadt, Musterstraße 1</td>
+                        <td class="bestätigung" id="adresse"></td>
                     </tr>
                     <tr>
                         <td class="bestätigung">Schwerpunkt:</td>
-                        <td class="bestätigung">Allgemeinmedizin</td>
+                        <td class="bestätigung" id="schwerpunkt"></td>
                     </tr>
                     <tr>
                         <td class="bestätigung">E-Mail:</td>
-                        <td class="bestätigung">max-mustermann@muster-hotline.de</td>
+                        <td class="bestätigung" id="email"></td>
                     </tr>
                     <tr>
                         <td class="bestätigung">Telefon:</td>
-                        <td class="bestätigung">+49 7471 259874</td>
-                    </tr>
-                    <tr>
-                        <td class="bestätigung">Fax:</td>
-                        <td class="bestätigung">+49 7471 259876</td>
+                        <td class="bestätigung" id="tele"></td>
                     </tr>
                     <tr>
                         <td class="bestätigung">Termin:</td>
-                        <td class="bestätigung">02.10.2023  11:15 Uhr</td>
+                        <td class="bestätigung" id="termin"></td>
                     </tr>
                 </table>
             </section>
@@ -88,5 +84,38 @@
             Made by: Sven Kovacevic, Dennis Essert, Fabio Merkt, Maximilian Stutz<br>
             E-Mail: test@test.com - Adresse: Hochschule Albstadt-Sigmaringen, Jakobstraße 6, 72458 Albstadt
         </footer>
-</body>
+        <script>
+            // Auslesen von Params
+            const urlParams = new URLSearchParams(window.location.search);
+            const arztId = urlParams.get('arztId');
+            const uhrzeit = urlParams.get('uhrzeit');
+            const datum = urlParams.get('datum');
+    
+            $(document).ready(function() {
+                console.log('Document ready, loading data from Service');
+    
+                $.ajax({
+                    url: 'http://localhost:8000/api/arzt/gib/' + arztId,
+                    method: 'get',
+                    contentType: 'application/json; charset=utf-8',
+                    cache: false,
+                    dataType: 'json'
+                }).done(function (response) {
+                    console.log('Data loaded successfully');
+                    console.log(response);
+    
+                $('#name').text(response.vorname + ' ' + response.nachname);
+                $('#adresse').text(response.strasse + ', ' + response.ort.plz + ' ' + response.ort.ort);
+                $('#schwerpunkt').text(response.schwerpunkt.beschreibung);   
+                $('#email').text(response.email);
+                $('#tele').text(response.telefonnummer);
+                $('#termin').text(datum + " " + uhrzeit + " Uhr");
+    
+                }).fail(function (jqXHR, textStatus) {
+                    console.log('Error loading data');
+                    console.log(textStatus);
+                });
+            });
+        </script>
+    </body>
 </html>

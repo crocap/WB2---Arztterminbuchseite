@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="Arztbuchseite.css">
-        <script src="script.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <title>Arztterminbuchseite</title>
     </head>    
     <body>
@@ -23,42 +23,30 @@
         </nav>
         <article>
             <section class="main-links">
-                <!--Bild des Arztes, Arztname und Schwerpunkt-->
                 <section class="upper">
                     <img class="arztbild" src="pics/arzt.jpg" alt="Bild des Arztes">
-                    <p class="arzt-name">Max Mustermann</p>
+                    <p class="arzt-name"></p>
                     <p class="arzt-schwerpunkt">Hausarzt</p>
                 </section>
-                <!--Daten des Arztes-->
                 <section class="lower">
                     <table>
                         <tr>
                             <form>
-                                <td class="arzt-links"><label>Erfahrung:</label></th>
-                                <td class="arzt-rechts" id="arzt_erfahrung">20 Jahre</td>
-                            </form>
-                        </tr>
-                        <tr>
-                            <form>
                                 <td class="arzt-links"><label>Geschlecht:</th>
-                                <td class="arzt-rechts" id="arzt_geschlecht">Mänlich</td>
+                                <td class="arzt-rechts" id="arzt_geschlecht"></td>
                             </form>
                         </tr>
                         <tr>
                             <td class="arzt-links"><label>Adresse:</label></td>
-                            <td class="arzt-rechts" id="arzt_adress">Adresse 1, 63829 Albstadt</td>
+                            <td class="arzt-rechts" id="arzt_adress"></td>
                         </tr>
                         <tr>
                             <td class="arzt-links"><label>Telefon:</label></td>
-                            <td class="arzt-rechts" id="arzt_tele">912379512</td>
-                        </tr>
-                        <tr>
-                            <td class="arzt-links"><label>Fax:</label></td>
-                            <td class="arzt-rechts" id="arzt_fax">821763132</td>
+                            <td class="arzt-rechts" id="arzt_tele"></td>
                         </tr>
                         <tr>
                             <td class="arzt-links"><label for="email">E-Mail:</td>
-                            <td class="arzt-rechts" id="arzt_email"><a href = "mailto: info@mail.com">info@mail.com</td>
+                            <td class="arzt-rechts" id="arzt_email"></td>
                         </tr>
                         <tr>
                             <td class="arzt-links"><label>Öffnungszeiten:</label></td>
@@ -67,6 +55,8 @@
                     </table>
                 </section>
             </section>
+            <div id="arztDaten"></div>
+
             <!--Main Right-->
             <section class="main-rechts">
                 <p class="p-termin">Termine</p>
@@ -76,14 +66,14 @@
                 <p class="arzt_beschr">Falls der Button rot ist, ist der Termin bereits belegt.</p>
                 <table>
                     <tr>
-                        <th class="arzt-table"><a href="Terminbuchen.html"><button class="arzt-buttons" id="8">8:15</button></a></th>
-                        <th class="arzt-table"><a href="Terminbuchen.html"><button class="arzt-buttons" id="9">9:15</button></a></th>
-                        <th class="arzt-table"><a href="Terminbuchen.html"><button class="arzt-buttons" id="10">10:15</button></a></th>
+                        <th class="arzt-table"><button class="arzt-buttons" id="8" onclick="fktUhrzeit('8:15')">8:15</button></th>
+                        <th class="arzt-table"><button class="arzt-buttons" id="9" onclick="fktUhrzeit('9:15')">9:15</button></th>
+                        <th class="arzt-table"><button class="arzt-buttons" id="10" onclick="fktUhrzeit('10:15')">10:15</button></th>
                     </tr>
                     <tr>
-                        <th class="arzt-table"><a href="Terminbuchen.html"><button class="arzt-buttons" id="11">11:15</button></a></th>
-                        <th class="arzt-table"><a href="Terminbuchen.html"><button class="arzt-buttons" id="14">14:15</button></a></th>
-                        <th class="arzt-table"><a href="Terminbuchen.html"><button class="arzt-buttons" id="15">15:15</button></a></th>
+                        <th class="arzt-table"><button class="arzt-buttons" id="11" onclick="fktUhrzeit('11:15')">11:15</button></th>
+                        <th class="arzt-table"><button class="arzt-buttons" id="14" onclick="fktUhrzeit('14:15')">14:15</button></th>
+                        <th class="arzt-table"><button class="arzt-buttons" id="15" onclick="fktUhrzeit('15:15')">15:15</button></th>
                     </tr>
                 </table>
                 <button class="backButton" onclick="history.back()"><span>Zurück</span></button>
@@ -94,9 +84,55 @@
                 Made by: Sven Kovacevic, Dennis Essert, Fabio Merkt, Maximilian Stutz<br>
                 E-Mail: test@test.com - Adresse: Hochschule Albstadt-Sigmaringen, Jakobstraße 6, 72458 Albstadt
         </footer> 
-</body>
-<script>
-    document.getElementById('date').valueAsDate = new Date();
+        <script>
+        // Auslesen von Params
+        const urlParams = new URLSearchParams(window.location.search);
+        const arztId = urlParams.get('arztId');
 
-</script>
+        function fktUhrzeit(uhrzeit){
+            var datum = $('#date').val();
+            window.location.href = 'Terminbuchen.html?arztId=' + arztId + '&uhrzeit=' + uhrzeit + '&datum=' + datum;
+        }
+
+        $(document).ready(function() {
+            console.log('Document ready, loading data from Service');
+
+            $.ajax({
+                url: 'http://localhost:8000/api/arzt/gib/' + arztId,
+                method: 'get',
+                contentType: 'application/json; charset=utf-8',
+                cache: false,
+                dataType: 'json'
+            }).done(function (response) {
+                console.log('Data loaded successfully');
+                console.log(response);
+
+            $('.arzt-name').text(response.vorname + ' ' + response.nachname);
+            $('.arzt-schwerpunkt').text(response.schwerpunkt.beschreibung);
+            $('#arzt_geschlecht').text(response.geschlecht.Beschreibung);
+            $('#arzt_adress').text(response.strasse + ', ' + response.ort.plz + ' ' + response.ort.ort);    
+            $('#arzt_tele').text(response.telefonnummer);
+            $('#arzt_email').text(response.email);
+            $('.arzt-name').text(response.vorname + ' ' + response.nachname);
+
+            }).fail(function (jqXHR, textStatus) {
+                console.log('Error loading data');
+                console.log(textStatus);
+            });
+        });
+
+        document.getElementById('date').valueAsDate = new Date();
+
+        window.addEventListener('DOMContentLoaded', () => {
+            var today = new Date();
+            var yyyy = today.getFullYear();
+            var mm = String(today.getMonth()+1).padStart(2, '0');
+            var dd = String(today.getDate()).padStart(2, '0');
+            var minDate = yyyy + '-' + mm + '-' + dd;
+            document.getElementById("date").setAttribute("min", minDate);
+            document.getElementById("date").setAttribute("value", minDate);
+
+        });
+        </script>
+    </body>
 </html>
