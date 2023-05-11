@@ -1,4 +1,5 @@
 const helper = require('../helper.js');
+const ArztDao = require('./arztDao.js');
 
 class TermineDao {
 
