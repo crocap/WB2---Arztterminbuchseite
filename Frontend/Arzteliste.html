@@ -160,180 +160,248 @@
             });
         });
 
-        if (){
-            $.ajax({
-            url: 'http://localhost:8000/api/arzt/alle',
-            method: 'get',
-            contentType: 'application/json; charset=utf-8',
-            cache: false,
-            dataType: 'json'
-            }).done(function (response) {
-            console.log('Data loaded successfully');
-            console.log(response);
+        arzteTabelle();
+        $('#standort, #schwerpunkt').change(function() {
+            arzteTabelle();
+        });
 
-            // HTML Element anlegen
-            var div = $('<div>');
+        function arzteTabelle() {
+            var selectedStandort = $('#standort').val();
+            var selectedSchwerpunkt = $('#schwerpunkt').val();
 
-            // Tabelle erstellen
-            var table = $('<table>');
-            var tr = $('<tr>');
-            tr.append('<th>Arzt</th>');
-            tr.append('<th>PLZ</th>');
-            tr.append('<th>Ort</th>');
-            tr.append('<th>Straße</th>');
-            tr.append('<th>Geschlecht des Arztes</th>');
-            tr.append('<th>Schwerpunkt</th>');
-            tr.append('<th>Telefonnummer</th>');
-            tr.append('<th>E-Mail</th>');
-            tr.append('<th>Auswählen</th>');
-            table.append(tr);
+            if (selectedStandort == 'Alle' && selectedSchwerpunkt == 'Alle'){
+                $.ajax({
+                url: 'http://localhost:8000/api/arzt/alle',
+                method: 'get',
+                contentType: 'application/json; charset=utf-8',
+                cache: false,
+                dataType: 'json'
+                }).done(function (response) {
+                console.log('Data loaded successfully');
+                console.log(response);
 
-            console.log(response[0][0]);
-            var k=0;
-            // Tabelleninhalt aus der Ajax-Antwort erstellen
-            for (var i = 0; i < response.length; i++) {
-                
-                var row = response[i];
+                // HTML Element anlegen
+                var div = $('<div>');
+
+                // Tabelle erstellen
+                var table = $('<table>');
                 var tr = $('<tr>');
-                tr.append('<td>' + response[i].vorname + " " + response[i].nachname + '</td>');
-                tr.append('<td>' + response[i].plz.plz + '</td>');
-                tr.append('<td>' + response[i].plz.ort + '</td>');
-                tr.append('<td>' + response[i].strasse + '</td>');
-                tr.append('<td>' + response[i].geschlecht.Beschreibung + '</td>');
-                tr.append('<td>' + response[i].schwerpunkt.beschreibung + '</td>');
-                tr.append('<td>' + response[i].telefonnummer + '</td>');
-                tr.append('<td>' + response[i].email + '</td>');
-                tr.append('<td><button class="searchButton" onclick="window.location.href=\'Arzt.html?arztId=' + response[i].id + '\';">Wählen</button></td>');
-                k++;
+                tr.append('<th>Arzt</th>');
+                tr.append('<th>PLZ</th>');
+                tr.append('<th>Ort</th>');
+                tr.append('<th>Straße</th>');
+                tr.append('<th>Geschlecht des Arztes</th>');
+                tr.append('<th>Schwerpunkt</th>');
+                tr.append('<th>Telefonnummer</th>');
+                tr.append('<th>E-Mail</th>');
+                tr.append('<th>Auswählen</th>');
                 table.append(tr);
-            }
 
-            // Tabelle dem DIV hinzufügen
-            div.append(table);
+                console.log(response[0][0]);
+                var k=0;
+                // Tabelleninhalt aus der Ajax-Antwort erstellen
+                for (var i = 0; i < response.length; i++) {
+                    
+                    var row = response[i];
+                    var tr = $('<tr>');
+                    tr.append('<td>' + response[i].vorname + " " + response[i].nachname + '</td>');
+                    tr.append('<td>' + response[i].plz.plz + '</td>');
+                    tr.append('<td>' + response[i].plz.ort + '</td>');
+                    tr.append('<td>' + response[i].strasse + '</td>');
+                    tr.append('<td>' + response[i].geschlecht.Beschreibung + '</td>');
+                    tr.append('<td>' + response[i].schwerpunkt.beschreibung + '</td>');
+                    tr.append('<td>' + response[i].telefonnummer + '</td>');
+                    tr.append('<td>' + response[i].email + '</td>');
+                    tr.append('<td><button class="searchButton" onclick="window.location.href=\'Arzt.html?arztId=' + response[i].id + '\';">Wählen</button></td>');
+                    k++;
+                    table.append(tr);
+                }
 
-            // DIV dem Dokument hinzufügen
-            $('#arztTable').html(div);
+                // Tabelle dem DIV hinzufügen
+                div.append(table);
 
-            }).fail(function (jqXHR, textStatus) {
-            console.log('Error loading data');
-            console.log(textStatus);
-            });
-        } else if (){
-            $.ajax({
-            url: 'http://localhost:8000/api/arzt/alle',
-            method: 'get',
-            contentType: 'application/json; charset=utf-8',
-            cache: false,
-            dataType: 'json'
-            }).done(function (response) {
-            console.log('Data loaded successfully');
-            console.log(response);
+                // DIV dem Dokument hinzufügen
+                $('#arztTable').html(div);
 
-            // HTML Element anlegen
-            var div = $('<div>');
+                }).fail(function (jqXHR, textStatus) {
+                console.log('Error loading data');
+                console.log(textStatus);
+                });
+            } else if (selectedStandort == 'Alle' && selectedSchwerpunkt != 'Alle'){
+                $.ajax({
+                url: 'http://localhost:8000/api/arzt/gib/schwerpunkt/' + selectedSchwerpunkt,
+                method: 'get',
+                contentType: 'application/json; charset=utf-8',
+                cache: false,
+                dataType: 'json'
+                }).done(function (response) {
+                console.log('Data loaded successfully');
+                console.log(response);
 
-            // Tabelle erstellen
-            var table = $('<table>');
-            var tr = $('<tr>');
-            tr.append('<th>Arzt</th>');
-            tr.append('<th>PLZ</th>');
-            tr.append('<th>Ort</th>');
-            tr.append('<th>Straße</th>');
-            tr.append('<th>Geschlecht des Arztes</th>');
-            tr.append('<th>Schwerpunkt</th>');
-            tr.append('<th>Telefonnummer</th>');
-            tr.append('<th>E-Mail</th>');
-            tr.append('<th>Auswählen</th>');
-            table.append(tr);
+                // HTML Element anlegen
+                var div = $('<div>');
 
-            console.log(response[0][0]);
-            var k=0;
-            // Tabelleninhalt aus der Ajax-Antwort erstellen
-            for (var i = 0; i < response.length; i++) {
-                
-                var row = response[i];
+                // Tabelle erstellen
+                var table = $('<table>');
                 var tr = $('<tr>');
-                tr.append('<td>' + response[i].vorname + " " + response[i].nachname + '</td>');
-                tr.append('<td>' + response[i].plz.plz + '</td>');
-                tr.append('<td>' + response[i].plz.ort + '</td>');
-                tr.append('<td>' + response[i].strasse + '</td>');
-                tr.append('<td>' + response[i].geschlecht.Beschreibung + '</td>');
-                tr.append('<td>' + response[i].schwerpunkt.beschreibung + '</td>');
-                tr.append('<td>' + response[i].telefonnummer + '</td>');
-                tr.append('<td>' + response[i].email + '</td>');
-                tr.append('<td><button class="searchButton" onclick="window.location.href=\'Arzt.html?arztId=' + response[i].id + '\';">Wählen</button></td>');
-                k++;
+                tr.append('<th>Arzt</th>');
+                tr.append('<th>PLZ</th>');
+                tr.append('<th>Ort</th>');
+                tr.append('<th>Straße</th>');
+                tr.append('<th>Geschlecht des Arztes</th>');
+                tr.append('<th>Schwerpunkt</th>');
+                tr.append('<th>Telefonnummer</th>');
+                tr.append('<th>E-Mail</th>');
+                tr.append('<th>Auswählen</th>');
                 table.append(tr);
-            }
 
-            // Tabelle dem DIV hinzufügen
-            div.append(table);
+                console.log(response[0][0]);
+                var k=0;
+                // Tabelleninhalt aus der Ajax-Antwort erstellen
+                for (var i = 0; i < response.length; i++) {
+                    
+                    var row = response[i];
+                    var tr = $('<tr>');
+                    tr.append('<td>' + response[i].vorname + " " + response[i].nachname + '</td>');
+                    tr.append('<td>' + response[i].plz.plz + '</td>');
+                    tr.append('<td>' + response[i].plz.ort + '</td>');
+                    tr.append('<td>' + response[i].strasse + '</td>');
+                    tr.append('<td>' + response[i].geschlecht.Beschreibung + '</td>');
+                    tr.append('<td>' + response[i].schwerpunkt.beschreibung + '</td>');
+                    tr.append('<td>' + response[i].telefonnummer + '</td>');
+                    tr.append('<td>' + response[i].email + '</td>');
+                    tr.append('<td><button class="searchButton" onclick="window.location.href=\'Arzt.html?arztId=' + response[i].id + '\';">Wählen</button></td>');
+                    k++;
+                    table.append(tr);
+                }
 
-            // DIV dem Dokument hinzufügen
-            $('#arztTable').html(div);
+                // Tabelle dem DIV hinzufügen
+                div.append(table);
 
-            }).fail(function (jqXHR, textStatus) {
-            console.log('Error loading data');
-            console.log(textStatus);
-            });
-        } else {
-            $.ajax({
-            url: 'http://localhost:8000/api/arzt/alle',
-            method: 'get',
-            contentType: 'application/json; charset=utf-8',
-            cache: false,
-            dataType: 'json'
-            }).done(function (response) {
-            console.log('Data loaded successfully');
-            console.log(response);
+                // DIV dem Dokument hinzufügen
+                $('#arztTable').html(div);
 
-            // HTML Element anlegen
-            var div = $('<div>');
+                }).fail(function (jqXHR, textStatus) {
+                console.log('Error loading data');
+                console.log(textStatus);
+                });
+            } else if (selectedStandort != 'Alle' && selectedSchwerpunkt == 'Alle'){
+                $.ajax({
+                url: 'http://localhost:8000/api/arzt/gib/standort/' + selectedStandort,
+                method: 'get',
+                contentType: 'application/json; charset=utf-8',
+                cache: false,
+                dataType: 'json'
+                }).done(function (response) {
+                console.log('Data loaded successfully');
+                console.log(response);
 
-            // Tabelle erstellen
-            var table = $('<table>');
-            var tr = $('<tr>');
-            tr.append('<th>Arzt</th>');
-            tr.append('<th>PLZ</th>');
-            tr.append('<th>Ort</th>');
-            tr.append('<th>Straße</th>');
-            tr.append('<th>Geschlecht des Arztes</th>');
-            tr.append('<th>Schwerpunkt</th>');
-            tr.append('<th>Telefonnummer</th>');
-            tr.append('<th>E-Mail</th>');
-            tr.append('<th>Auswählen</th>');
-            table.append(tr);
+                // HTML Element anlegen
+                var div = $('<div>');
 
-            console.log(response[0][0]);
-            var k=0;
-            // Tabelleninhalt aus der Ajax-Antwort erstellen
-            for (var i = 0; i < response.length; i++) {
-                
-                var row = response[i];
+                // Tabelle erstellen
+                var table = $('<table>');
                 var tr = $('<tr>');
-                tr.append('<td>' + response[i].vorname + " " + response[i].nachname + '</td>');
-                tr.append('<td>' + response[i].plz.plz + '</td>');
-                tr.append('<td>' + response[i].plz.ort + '</td>');
-                tr.append('<td>' + response[i].strasse + '</td>');
-                tr.append('<td>' + response[i].geschlecht.Beschreibung + '</td>');
-                tr.append('<td>' + response[i].schwerpunkt.beschreibung + '</td>');
-                tr.append('<td>' + response[i].telefonnummer + '</td>');
-                tr.append('<td>' + response[i].email + '</td>');
-                tr.append('<td><button class="searchButton" onclick="window.location.href=\'Arzt.html?arztId=' + response[i].id + '\';">Wählen</button></td>');
-                k++;
+                tr.append('<th>Arzt</th>');
+                tr.append('<th>PLZ</th>');
+                tr.append('<th>Ort</th>');
+                tr.append('<th>Straße</th>');
+                tr.append('<th>Geschlecht des Arztes</th>');
+                tr.append('<th>Schwerpunkt</th>');
+                tr.append('<th>Telefonnummer</th>');
+                tr.append('<th>E-Mail</th>');
+                tr.append('<th>Auswählen</th>');
                 table.append(tr);
+
+                console.log(response[0][0]);
+                var k=0;
+                // Tabelleninhalt aus der Ajax-Antwort erstellen
+                for (var i = 0; i < response.length; i++) {
+                    
+                    var row = response[i];
+                    var tr = $('<tr>');
+                    tr.append('<td>' + response[i].vorname + " " + response[i].nachname + '</td>');
+                    tr.append('<td>' + response[i].plz.plz + '</td>');
+                    tr.append('<td>' + response[i].plz.ort + '</td>');
+                    tr.append('<td>' + response[i].strasse + '</td>');
+                    tr.append('<td>' + response[i].geschlecht.Beschreibung + '</td>');
+                    tr.append('<td>' + response[i].schwerpunkt.beschreibung + '</td>');
+                    tr.append('<td>' + response[i].telefonnummer + '</td>');
+                    tr.append('<td>' + response[i].email + '</td>');
+                    tr.append('<td><button class="searchButton" onclick="window.location.href=\'Arzt.html?arztId=' + response[i].id + '\';">Wählen</button></td>');
+                    k++;
+                    table.append(tr);
+                }
+
+                // Tabelle dem DIV hinzufügen
+                div.append(table);
+
+                // DIV dem Dokument hinzufügen
+                $('#arztTable').html(div);
+
+                }).fail(function (jqXHR, textStatus) {
+                console.log('Error loading data');
+                console.log(textStatus);
+                });
+            } else {
+                $.ajax({
+                url: 'http://localhost:8000/api/arzt/gib/standortundschwerpunkt/' + selectedStandort + '/' + selectedSchwerpunkt,
+                method: 'get',
+                contentType: 'application/json; charset=utf-8',
+                cache: false,
+                dataType: 'json'
+                }).done(function (response) {
+                console.log('Data loaded successfully');
+                console.log(response);
+
+                // HTML Element anlegen
+                var div = $('<div>');
+
+                // Tabelle erstellen
+                var table = $('<table>');
+                var tr = $('<tr>');
+                tr.append('<th>Arzt</th>');
+                tr.append('<th>PLZ</th>');
+                tr.append('<th>Ort</th>');
+                tr.append('<th>Straße</th>');
+                tr.append('<th>Geschlecht des Arztes</th>');
+                tr.append('<th>Schwerpunkt</th>');
+                tr.append('<th>Telefonnummer</th>');
+                tr.append('<th>E-Mail</th>');
+                tr.append('<th>Auswählen</th>');
+                table.append(tr);
+
+                console.log(response[0][0]);
+                var k=0;
+                // Tabelleninhalt aus der Ajax-Antwort erstellen
+                for (var i = 0; i < response.length; i++) {
+                    
+                    var row = response[i];
+                    var tr = $('<tr>');
+                    tr.append('<td>' + response[i].vorname + " " + response[i].nachname + '</td>');
+                    tr.append('<td>' + response[i].plz.plz + '</td>');
+                    tr.append('<td>' + response[i].plz.ort + '</td>');
+                    tr.append('<td>' + response[i].strasse + '</td>');
+                    tr.append('<td>' + response[i].geschlecht.Beschreibung + '</td>');
+                    tr.append('<td>' + response[i].schwerpunkt.beschreibung + '</td>');
+                    tr.append('<td>' + response[i].telefonnummer + '</td>');
+                    tr.append('<td>' + response[i].email + '</td>');
+                    tr.append('<td><button class="searchButton" onclick="window.location.href=\'Arzt.html?arztId=' + response[i].id + '\';">Wählen</button></td>');
+                    k++;
+                    table.append(tr);
+                }
+
+                // Tabelle dem DIV hinzufügen
+                div.append(table);
+
+                // DIV dem Dokument hinzufügen
+                $('#arztTable').html(div);
+
+                }).fail(function (jqXHR, textStatus) {
+                console.log('Error loading data');
+                console.log(textStatus);
+                });
             }
-
-            // Tabelle dem DIV hinzufügen
-            div.append(table);
-
-            // DIV dem Dokument hinzufügen
-            $('#arztTable').html(div);
-
-            }).fail(function (jqXHR, textStatus) {
-            console.log('Error loading data');
-            console.log(textStatus);
-            });
         }
         </script>
     </body>
