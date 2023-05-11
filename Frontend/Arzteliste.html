@@ -25,7 +25,7 @@
             <h2><u>Arzt auswählen</u></h2>
             <div class="auswahllisten">
                 <label>Standort:</label> 
-                <select name="standort" id="standort">
+                <!--<select name="standort" id="standort">
                     <option value="Alle">Alle</option>
                     <option value="Albstadt">Albstadt</option>
                     <option value="Balingen">Balingen</option>
@@ -34,7 +34,7 @@
                     <option value="Meßstetten">Meßstetten</option>
                     <option value="Reutlingen">Reutlingen</option>                   
                     <option value="Tübingen">Tübingen</option>                    
-                </select>
+                </select>-->
                 <label>Schwerpunkt:</label> 
                 <select name="schwerpunkt" id="schwerpunkt">
                     <option value="Alle">Alle</option>
@@ -195,6 +195,55 @@
                 console.log('Error loading data');
                 console.log(textStatus);
             });
+
+            $.ajax({
+                url: 'http://localhost:8000/api/plz/alle',
+                method: 'get',
+                contentType: 'application/json; charset=utf-8',
+                cache: false,
+                dataType: 'json'
+            }).done(function (response) {
+                console.log('Data loaded successfully');
+                console.log(response);
+
+                // HTML Element anlegen <option value="Alle">Alle</option>
+                var select = $('<select>');
+
+                // object mit weiterem Inhalt und Code vervollständigen
+                div.append('Folgende Daten wurden geladen:<br><br>');
+
+                // Selectio erstellen
+                var select = $('<select>');
+
+                console.log(response[0][0]);
+                // Tabelleninhalt aus der Ajax-Antwort erstellen
+                for (var i = 0; i < response.length; i++) {
+                    
+                    var row = response[i];
+                    var tr = $('<tr>');
+                    tr.append('<td>' + row.Arzt + '</td>');
+                    tr.append('<td>' + row.PLZ + '</td>');
+                    tr.append('<td>' + row.Ort + '</td>');
+                    tr.append('<td>' + row.Straße + '</td>');
+                    tr.append('<td>' + row.Geschlecht + '</td>');
+                    tr.append('<td>' + row.Schwerpunkt + '</td>');
+                    tr.append('<td>' + row.Telefonnummer + '</td>');
+                    tr.append('<td>' + row.Email + '</td>');
+                    tr.append('<td><button class="searchButton" onclick="window.location.href=\'Arzt.html\';">Wählen</button></td>');
+                    table.append(tr);
+                }
+
+                // Tabelle dem DIV hinzufügen
+                div.append(select);
+
+                // DIV dem Dokument hinzufügen
+                $('#arztTable').html(div);
+
+            }).fail(function (jqXHR, textStatus) {
+                console.log('Error loading data');
+                console.log(textStatus);
+            });
+
         });
         </script>
     </body>
