@@ -59,35 +59,33 @@
             <section class="main-rechts">
                 <h3>Ihre Informationen:</h3>
                 <p>* Zeichen sind die Pflichtfelder.</p>
-                <form>
                 <table>
                     <tr>
                         <td class="kunde_links"><label for="name">*Name:</label></th>
-                        <td class="kunde_feld"><input type="text" id="name" name="name" required></td>
+                        <td class="kunde_feld"><input type="text" id="name"  required></td>
                         <td class="kunde_links"><label for="vorname">*Vorname:</label></th>
-                        <td class="kunde_feld"><input type="text" id="vorname" name="vorname" required></td>
+                        <td class="kunde_feld"><input type="text" id="vorname"  required></td>
                     </tr>
                     <tr>
                         <td class="kunde_links"><label for="plz">*PLZ + Ort:</th>
-                        <td class="kunde_feld"><input type="text" id="plz" name="plz+ort" required></td>
+                        <td class="kunde_feld"><input type="text" id="plz" required></td>
                     </tr>
                     <tr>
                             <td class="kunde_links"><label for="straße">*Straße:</label></td>
-                            <td class="kunde_feld"><input type="text" id="straße" name="straße" required></td>
+                            <td class="kunde_feld"><input type="text" id="straße" required></td>
                     </tr>
                     <tr>
                         <td class="kunde_links"><label for="email">*E-Mail:</td>
-                        <td class="kunde_feld"><input type="text" id="email" name="email" required></td>
+                        <td class="kunde_feld"><input type="text" id="email" required></td>
                         <td class="kunde_links"><label for="telefonnummer">Telefonnummer:</label></td>
-                        <td class="kunde_feld"><input type="text" id="telefonnummer" name="telefonnummer"></td>
+                        <td class="kunde_feld"><input type="text" id="telefonnummer"></td>
                     <tr>
                         <td class="kunde_links"><label for="beschwerden">*Beschwerden:</label></td>
-                        <td class="kunde_feld"><textarea id="beschwerden" name="beschwerden" rows="10" cols="20"></textarea></td>
+                        <td class="kunde_feld"><textarea id="beschwerden"  rows="10" cols="20"></textarea></td>
                     </tr>
                 </table>
                 <button class="searchButton" onclick="history.back()"><span>Zurück</span></button>
-                <td colspan="2"><input class="searchButton" type="submit" value="Termin buchen" id="buchen"></td>
-                </form>
+                <td colspan="2"><button class="searchButton" id="buchen"><span>Termin buchen</span></button></td>
             </section>  
         </article> 
         <footer>
@@ -102,11 +100,13 @@
             const datum = urlParams.get('datum');
 
             function fktFertig(){
-                window.location.href = 'Bestatigung.html?arztId=' + arztId + '&uhrzeit=' + uhrzeit + '&datum=' + datum;
+                window.location.href = 'Bestatigung.html?arztId=' + arztId + '&uhrzeit=' + uhrzeit + '&datum=' + datum + '&vorname=' + document.getElementById("vorname").value + '&name=' + document.getElementById("name").value + '&ort=' + document.getElementById("plz").value + '&straße=' + document.getElementById("straße").value + '&email=' + document.getElementById("email").value + '&telefonnummer=' + document.getElementById("telefonnummer").value + '&beschwerden=' + document.getElementById("beschwerden").value;
+
             }
     
             $(document).ready(function() {
                 console.log('Document ready, loading data from Service');
+                
     
                 $.ajax({
                     url: 'http://localhost:8000/api/arzt/gib/' + arztId,
@@ -137,13 +137,15 @@
                 $('#buchen').click(function() {
                     console.log('button buchen clicked');
 
-                    var vorname = document.getElementById("vorname").value;
-                    var name = document.getElementById("name").value;
-                    var ort = document.getElementById("plz").value;
-                    var straße = document.getElementById("straße").value;
-                    var email = document.getElementById("email").value;
-                    var telefonnummer = document.getElementById("telefonnummer").value;
-                    var beschwerden = document.getElementById("beschwerden").value;
+                    const vorname = document.getElementById("vorname").value;
+                    const name = document.getElementById("name").value;
+                    const ort = document.getElementById("plz").value;
+                    const straße = document.getElementById("straße").value;
+                    const email = document.getElementById("email").value;
+                    const telefonnummer = document.getElementById("telefonnummer").value;
+                    const beschwerden = document.getElementById("beschwerden").value;
+                    
+                    
 
                     var patientobj = {
                         "vorname": vorname,
@@ -165,12 +167,11 @@
                     }).done(function (response) {
                         console.log('Data posted successfully');
                         console.log(response);
-                        window.location.href = 'https://www.google.com';
+                        window.location.href = 'Bestatigung.html?arztId=' + arztId + '&uhrzeit=' + uhrzeit + '&datum=' + datum + '&vorname=' + document.getElementById("vorname").value + '&name=' + document.getElementById("name").value + '&ort=' + document.getElementById("plz").value + '&straße=' + document.getElementById("straße").value + '&email=' + document.getElementById("email").value + '&telefonnummer=' + document.getElementById("telefonnummer").value + '&beschwerden=' + document.getElementById("beschwerden").value;
 
                     }).fail(function (jqXHR, textStatus) {
                         console.log('Error posting data');
                         console.log(textStatus);
-                        window.location.href = 'https://www.google.com';
                     });
                 });
             });
