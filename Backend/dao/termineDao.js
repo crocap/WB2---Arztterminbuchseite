@@ -44,16 +44,6 @@ class TermineDao {
         return result;
     }
 
-    loadBybestaetigungsid(bestaetigungsid) {
-        var sql = 'SELECT * FROM Termine WHERE bestaetigungsid =?';
-        var statement = this._conn.prepare(sql);
-        var result = statement.all(bestaetigungsid);
-
-        if (helper.isArrayEmpty(result)) 
-            return [];
-        
-        return result;
-    }
 
     exists(id) {
         var sql = 'SELECT COUNT(id) AS cnt FROM Termine WHERE id=?';
@@ -66,10 +56,10 @@ class TermineDao {
         return false;
     }
 
-    create(bestaetigungsid = '', fk_arzt = '', datum = '', uhrzeit = '') {
-        var sql = 'INSERT INTO Termine (bestaetigungsid,fk_arzt,datum,uhrzeit) VALUES (?,?,?,?)';
+    create(fk_arzt = '', datum = '', uhrzeit = '') {
+        var sql = 'INSERT INTO Termine (fk_arzt,datum,uhrzeit) VALUES (?,?,?)';
         var statement = this._conn.prepare(sql);
-        var params = [bestaetigungsid, fk_arzt, datum, uhrzeit];
+        var params = [fk_arzt, datum, uhrzeit];
         var result = statement.run(params);
 
         if (result.changes != 1) 

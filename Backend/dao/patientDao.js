@@ -43,10 +43,10 @@ class PatientDao {
         return false;
     }
 
-    create(vorname = '', nachname = '', fk_plz = '', strasse = '', email = '', telefonnummer = '', beschwerde = '') {
-        var sql = 'INSERT INTO Patient (vorname, nachname, fk_plz, strasse, email, telefonnummer, beschwerde) VALUES (?,?,?,?,?,?,?)';
+    create(vorname = '', nachname = '', plz = '', strasse = '', email = '', telefonnummer = '', beschwerde = '') {
+        var sql = 'INSERT INTO Patient (vorname, nachname, plz, strasse, email, telefonnummer, beschwerde) VALUES (?,?,?,?,?,?,?)';
         var statement = this._conn.prepare(sql);
-        var params = [vorname, nachname, fk_plz, strasse, email, telefonnummer, beschwerde];
+        var params = [vorname, nachname, plz, strasse, email, telefonnummer, beschwerde];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -55,10 +55,10 @@ class PatientDao {
         return this.loadById(result.lastInsertRowid);
     }
 
-    update(id, vorname = '', nachname = '', fk_plz = '', strasse = '', email = '', telefonnummer = '', beschwerde = '') {
-        var sql = 'UPDATE Patient SET vorname=?, nachname=?, fk_plz=?, strasse=?, email=?, telefonnummer=?, beschwerde=? WHERE id=?';
+    update(id, vorname = '', nachname = '', plz = '', strasse = '', email = '', telefonnummer = '', beschwerde = '') {
+        var sql = 'UPDATE Patient SET vorname=?, nachname=?, plz=?, strasse=?, email=?, telefonnummer=?, beschwerde=? WHERE id=?';
         var statement = this._conn.prepare(sql);
-        var params = [vorname, nachname, fk_plz, strasse, email, telefonnummer, beschwerde, id];
+        var params = [vorname, nachname, plz, strasse, email, telefonnummer, beschwerde, id];
         var result = statement.run(params);
 
         if (result.changes != 1) 

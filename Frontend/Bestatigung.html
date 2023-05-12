@@ -22,7 +22,7 @@
             </ul>
         </nav>
         <article class="bestätigung1">
-            <h3>BestätigungsID: 12345</h3>
+            <h3>BestätigungsID: <p id="bestatigungId"></p></h3>
             <p>Sie haben einen Termin gebucht.</p>
             <p>Sie bekommen noch eine Bestätigung per E-Mail.</p>
             <section class="main-links">
@@ -60,22 +60,22 @@
                     <tr>
                         <form>
                             <td class="arzt-links"><label for="aerzte">Name:</label></th>
-                            <td class="arzt-rechts" id="arzt-name">Max Mustermann</td>
+                            <td class="arzt-rechts" id="patient-name"></td>
                         </form>
                     </tr>
                     <tr>
                         <form>
                             <td class="arzt-links"><label>Adresse:</label></th>
-                            <td class="arzt-rechts" id="arzt-standort">72458 Albstadt, Musterstraße 1</td>
+                            <td class="arzt-rechts" id="patient-standort"></td>
                         </form>
                     </tr>
                     <tr>
                         <td class="arzt-links"><label>E-Mail:</label></td>
-                        <td class="arzt-rechts" id="arzt-email">maxmustermann@hotmail.de</td>
+                        <td class="arzt-rechts" id="patient-email"></td>
                     </tr>
                     <tr>
                         <td class="arzt-links"><label>Beschwerde:</label></td>
-                        <td  class="arzt-rechts" id="datum-termin">Muster</td>
+                        <td  class="arzt-rechts" id="beschwerde"></td>
                     </tr>      
                 </table>
             </section>
@@ -90,6 +90,7 @@
             const arztId = urlParams.get('arztId');
             const uhrzeit = urlParams.get('uhrzeit');
             const datum = urlParams.get('datum');
+            const patientId = urlParams.get('patientId');
     
             $(document).ready(function() {
                 console.log('Document ready, loading data from Service');
@@ -119,7 +120,29 @@
                     console.log('Error loading data');
                     console.log(textStatus);
                 });
-            });
+
+                $.ajax({
+                    url: 'http://localhost:8000/api/patient/gib/' + patientId,
+                    method: 'get',
+                    contentType: 'application/json; charset=utf-8',
+                    cache: false,
+                    dataType: 'json'
+                }).done(function (response) {
+                    console.log('Data loaded successfully');
+                    console.log(response);
+    
+                $('#patient-name').text(response.vorname + ' ' + response.nachname);
+                $('#patient-standort').text(response.strasse + ', ' + response.plz);
+                $('#patient-email').text(response.email);   
+                $('#beschwerde').text(response.beschwerde);
+                $('#bestatigungId').text(response.id);
+    
+                }).fail(function (jqXHR, textStatus) {
+                    console.log('Error loading data');
+                    console.log(textStatus);
+                });
+
+                });
         </script>
     </body>
 </html>

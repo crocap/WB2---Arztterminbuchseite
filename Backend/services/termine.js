@@ -33,19 +33,6 @@ serviceRouter.get('/termine/alle', function(request, response) {
     }
 });
 
-serviceRouter.get('/termine/gib/bestaetigungsid/:bestaetigungsid', function(request, response) {
-    console.log('Service Termine: Client requested all records with standword=' + request.params.standort);
-
-    const termineDao = new TermineDao(request.app.locals.dbConnection);
-    try {
-        var obj = termineDao.loadByStandort(request.params.standort);
-        console.log('Service Termine: Record loaded');
-        response.status(200).json(obj);
-    } catch (ex) {
-        console.error('Service Termine: Error loading record by id. Exception occured: ' + ex.message);
-        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
-    }
-});
 
 serviceRouter.post('/termine', function(request, response) {
     console.log('Service Termine: Client requested creation of new record');
@@ -63,11 +50,10 @@ serviceRouter.post('/termine', function(request, response) {
         response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
         return;
     }
-    var bid = "T"+request.body.datum.replaceAll('.','')+"Z"+request.body.uhrzeit.replaceAll(':','')+"A"+request.body.fk_arzt; 
 
     const termineDao = new TermineDao(request.app.locals.dbConnection);
     try {
-        var obj = termineDao.create(bid, request.body.fk_arzt, request.body.datum, request.body.uhrzeit);
+        var obj = termineDao.create(request.body.fk_arzt, request.body.datum, request.body.uhrzeit);
         console.log('Service Termine: Record inserted');
         response.status(200).json(obj);
     } catch (ex) {

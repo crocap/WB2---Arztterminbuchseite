@@ -5,6 +5,34 @@ var serviceRouter = express.Router();
 
 console.log('- Service Patient');
 
+serviceRouter.get('/patient/alle', function(request, response) {
+    console.log('Service Patient: Client requested all records');
+
+    const patientDao = new PatientDao(request.app.locals.dbConnection);
+    try {
+        var arr = patientDao.loadAll();
+        console.log('Service Patient: Records loaded, count=' + arr.length);
+        response.status(200).json(arr);
+    } catch (ex) {
+        console.error('Service Patient: Error loading all records. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
+serviceRouter.get('/patient/gib/:id', function(request, response) {
+    console.log('Service Patient: Client requested one record, id=' + request.params.id);
+
+    const patientDao = new PatientDao(request.app.locals.dbConnection);
+    try {
+        var obj = patientDao.loadById(request.params.id);
+        console.log('Service Patient: Record loaded');
+        response.status(200).json(obj);
+    } catch (ex) {
+        console.error('Service Patient: Error loading record by id. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
 serviceRouter.post('/patient', function(request, response) {
     console.log('Service Patient: Client requested creation of new record');
 
@@ -13,8 +41,8 @@ serviceRouter.post('/patient', function(request, response) {
         errorMsgs.push('vorname fehlt');
     if (helper.isUndefined(request.body.nachname)) 
         errorMsgs.push('nachname fehlt');
-    if (helper.isUndefined(request.body.fk_plz)) 
-        errorMsgs.push('fk_plz fehlt');
+    if (helper.isUndefined(request.body.plz)) 
+        errorMsgs.push('plz fehlt');
     if (helper.isUndefined(request.body.strasse)) 
         errorMsgs.push('strasse fehlt');
     if (helper.isUndefined(request.body.email)) 
@@ -32,7 +60,7 @@ serviceRouter.post('/patient', function(request, response) {
 
     const patientDao = new PatientDao(request.app.locals.dbConnection);
     try {
-        var obj = patientDao.create(request.body.vorname, request.body.nachname, request.body.fk_plz, request.body.strasse, request.body.email, request.body.telefonnummer, request.body.beschwerde);
+        var obj = patientDao.create(request.body.vorname, request.body.nachname, request.body.plz, request.body.strasse, request.body.email, request.body.telefonnummer, request.body.beschwerde);
         console.log('Service Patient: Record inserted');
         response.status(200).json(obj);
     } catch (ex) {

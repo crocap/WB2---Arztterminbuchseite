@@ -150,7 +150,7 @@
                     var patientobj = {
                         "vorname": vorname,
                         "nachname": name,
-                        "fk_plz": ort,
+                        "plz": ort,
                         "strasse": straße,
                         "email": email,
                         "telefonnummer": telefonnummer,
@@ -167,7 +167,47 @@
                     }).done(function (response) {
                         console.log('Data posted successfully');
                         console.log(response);
-                        window.location.href = 'Bestatigung.html?arztId=' + arztId + '&uhrzeit=' + uhrzeit + '&datum=' + datum + '&vorname=' + document.getElementById("vorname").value + '&name=' + document.getElementById("name").value + '&ort=' + document.getElementById("plz").value + '&straße=' + document.getElementById("straße").value + '&email=' + document.getElementById("email").value + '&telefonnummer=' + document.getElementById("telefonnummer").value + '&beschwerden=' + document.getElementById("beschwerden").value;
+                        $.ajax({
+                            url: 'http://localhost:8000/api/patient/alle',
+                            method: 'get',
+                            contentType: 'application/json; charset=utf-8',
+                            cache: false,
+                            dataType: 'json'
+                        }).done(function (response) {
+                            console.log('Data loaded successfully');
+                            console.log(response);
+                            var patientId = response.length;
+
+                            var terminobj = {
+                                "fk_arzt": arztId,
+                                "datum": datum,
+                                "uhrzeit": uhrzeit
+                            };
+
+                            $.ajax({
+                                    url: 'http://localhost:8000/api/termine',
+                                    method: 'post',
+                                    contentType: 'application/json; charset=utf-8',
+                                    cache: false,
+                                    dataType: 'json',
+                                    data: JSON.stringify(terminobj)
+                                }).done(function (response) {
+                                    console.log('Data posted successfully');
+                                    console.log(response);
+                                    
+                                    window.location.href = 'Bestatigung.html?arztId=' + arztId + '&uhrzeit=' + uhrzeit + '&datum=' + datum + '&patientId=' + patientId;
+
+                                    
+
+                                }).fail(function (jqXHR, textStatus) {
+                                    console.log('Error posting data');
+                                    console.log(textStatus);
+                                });
+            
+                        }).fail(function (jqXHR, textStatus) {
+                            console.log('Error loading data');
+                            console.log(textStatus);
+                        });
 
                     }).fail(function (jqXHR, textStatus) {
                         console.log('Error posting data');
