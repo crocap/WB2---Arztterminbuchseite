@@ -89,11 +89,12 @@
         const urlParams = new URLSearchParams(window.location.search);
         const arztId = urlParams.get('arztId');
 
-        // Funktion, um die Termine zu überprüfen und den Button entsprechend zu markieren
+        checkTermine();
+        
         function checkTermine() {
             var dateInput = document.getElementById("date");
             var eingetragenesDatum = dateInput.value;
-            // Hier musst du den Code einfügen, um die Termine für den Arzt und das gewählte Datum abzurufen
+            
             $.ajax({
                 url: 'http://localhost:8000/api/termine/gib/arztunddatum/' + arztId + '/' + eingetragenesDatum,
                 method: 'get',
@@ -103,15 +104,22 @@
             }).done(function (response) {
                 console.log('Data loaded successfully');
                 console.log(response);
-            // Schleife über die Termine, um den entsprechenden Button zu markieren
+            
+                var buttons = document.getElementsByClassName("arzt-buttons");
+                for (var i = 0; i < buttons.length; i++) {
+                    buttons[i].style.backgroundColor = "rgb(11, 197, 11)";
+                    buttons[i].disabled = false;
+                }
+
                 for (var i = 0; i < response.length; i++) {
                     var termin = response[i];
                     if (termin.datum === eingetragenesDatum) {
                         var uhrzeit = termin.uhrzeit;
-                        var buttonId = uhrzeit.substring(0, uhrzeit.indexOf(':'))  // Annahme: Der Button hat eine eindeutige ID mit dem Präfix "termin-" und der Uhrzeit
+                        var buttonId = uhrzeit.substring(0, uhrzeit.indexOf(':')) 
                         var button = document.getElementById(buttonId);
                         if (button) {
-                            button.style.backgroundColor = "red"; // Button rot markieren
+                            button.style.backgroundColor = "red"; 
+                            button.disabled = true;
                         }
                     }
                 }
