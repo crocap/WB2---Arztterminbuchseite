@@ -58,6 +58,12 @@ article {
   background-color: rgb(11, 197, 11);
 }
 
+.arzt-buttons.red {
+  border-radius: 8px;
+  padding: 10px 20px;
+  background-color: red;
+}
+
 .arzt-buttons:hover {
   background-color:rgb(39, 155, 16);
 }

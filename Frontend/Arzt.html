@@ -60,7 +60,7 @@
             <!--Main Right-->
             <section class="main-rechts">
                 <p class="p-termin">Termine</p>
-                <input type="date" class="termin" id="date" name="date" min="" value="">
+                <input type="date" class="termin" id="date" name="date" min="" value="" onchange="checkTermine()">
                 <p class="arzt_beschr">Über die unteren Felder können Sie die passende Zeit für diesen Tag auswählen.</p>
                 <p class="arzt_beschr">Wenn der Button grün ist, können Sie per Klick den freien Termin buchen.</p>
                 <p class="arzt_beschr">Falls der Button rot ist, ist der Termin bereits belegt.</p>
@@ -88,6 +88,38 @@
         // Auslesen von Params
         const urlParams = new URLSearchParams(window.location.search);
         const arztId = urlParams.get('arztId');
+
+        // Funktion, um die Termine zu überprüfen und den Button entsprechend zu markieren
+        function checkTermine() {
+            var dateInput = document.getElementById("date");
+            var eingetragenesDatum = dateInput.value;
+            // Hier musst du den Code einfügen, um die Termine für den Arzt und das gewählte Datum abzurufen
+            $.ajax({
+                url: 'http://localhost:8000/api/termine/gib/arztunddatum/' + arztId + '/' + eingetragenesDatum,
+                method: 'get',
+                contentType: 'application/json; charset=utf-8',
+                cache: false,
+                dataType: 'json'
+            }).done(function (response) {
+                console.log('Data loaded successfully');
+                console.log(response);
+            // Schleife über die Termine, um den entsprechenden Button zu markieren
+                for (var i = 0; i < response.length; i++) {
+                    var termin = response[i];
+                    if (termin.datum === eingetragenesDatum) {
+                        var uhrzeit = termin.uhrzeit;
+                        var buttonId = uhrzeit.substring(0, uhrzeit.indexOf(':'))  // Annahme: Der Button hat eine eindeutige ID mit dem Präfix "termin-" und der Uhrzeit
+                        var button = document.getElementById(buttonId);
+                        if (button) {
+                            button.style.backgroundColor = "red"; // Button rot markieren
+                        }
+                    }
+                }
+            }).fail(function (jqXHR, textStatus) {
+                console.log('Error loading data');
+                console.log(textStatus);
+            });
+        }
 
         function fktUhrzeit(uhrzeit){
             var datum = $('#date').val();

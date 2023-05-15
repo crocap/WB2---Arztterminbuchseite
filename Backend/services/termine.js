@@ -33,6 +33,20 @@ serviceRouter.get('/termine/alle', function(request, response) {
     }
 });
 
+serviceRouter.get('/termine/gib/arztunddatum/:arzt/:datum', function(request, response) {
+    console.log('Service Termine: Client requested all records with arzt=' + request.params.arzt + ' and datum=' + request.params.datum);
+
+    const termineDao = new TermineDao(request.app.locals.dbConnection);
+    try {
+        var obj = termineDao.loadByArztAndDatum(request.params.arzt, request.params.datum);
+        console.log('Service Termine: Record loaded');
+        response.status(200).json(obj);
+    } catch (ex) {
+        console.error('Service Termine: Error loading record by id. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
 
 serviceRouter.post('/termine', function(request, response) {
     console.log('Service Termine: Client requested creation of new record');
