@@ -52,13 +52,12 @@
         <script>
             $(document).ready(function(){
                 $('#absenden').click(function() {
-                    
 
                     const email = document.getElementById("email").value;
                     const ueberschrift = document.getElementById("ueberschrift").value;
                     const anliegen = document.getElementById("anliegen").value;
 
-                    console.log('Formular gesendet');
+                    alert('Formular gesendet');
                     var kontaktForm = {
                         "email": email,
                         "ueberschrift": ueberschrift,
@@ -79,6 +78,10 @@
                         console.log('Error posting data');
                         console.log(textStatus);
                     });
+                    
+                    document.getElementById("email").value = "";
+                    document.getElementById("ueberschrift").value = "";
+                    document.getElementById("anliegen").value = "";
                 });
             });
         </script>
