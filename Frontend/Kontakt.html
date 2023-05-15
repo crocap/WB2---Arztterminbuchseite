@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Arztbuchseite.css">
-    <script src="script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <title>Arztterminbuchseite</title>
 </head>
 <body>
@@ -23,33 +23,65 @@
     </nav>
         <article>    
             <h3><u>Kontaktformular</u></h3>
-            <form action="mailto:dennis.e16.de@gmail.com">
+            <form>
                 <table>
                     <tr>
                         <td class="kontakt">Ihre E-Mail:</td>
                         <td class="kontakt">
-                            <input type="text" name="e-mail" class="inputkontakt">
+                            <input type="text" name="e-mail" class="inputkontakt" id="email">
                         </td>
                     </tr>
                     <tr>
                         <td class="kontakt">Überschrift Ihres Anliegen:</td>
                         <td class="kontakt">
-                            <input type="text" name="anliegen" class="inputkontakt">
+                            <input type="text" name="anliegen" class="inputkontakt" id="ueberschrift">
                         </td>
                     </tr>
                     <tr>
                         <td class="kontakt">Ihr Anliegen:</td>
                         <td class="kontakt">
-                            <textarea name="anliegen" class="anliegen"></textarea>
+                            <textarea name="anliegen" class="anliegen" id="anliegen"></textarea>
                         </td>
                     </tr>
                 </table>
-                <input type="submit" value="Abschicken" class="searchButton">
+                <input type="submit" value="Abschicken" class="searchButton" id="absenden">
             </form>
         </article>
         <footer>
             Made by: Sven Kovacevic, Dennis Essert, Fabio Merkt, Maximilian Stutz<br>
             E-Mail: test@test.com - Adresse: Hochschule Albstadt-Sigmaringen, Jakobstraße 6, 72458 Albstadt
         </footer>
+        <script>
+            $(document).ready(function(){
+                $('#absenden').click(function() {
+                    console.log('Formular gesendet');
+
+                    const email = document.getElementById("email").value;
+                    const ueberschrift = document.getElementById("ueberschrift").value;
+                    const anliegen = document.getElementById("anliegen").value;
+
+                    var kontaktForm = {
+                        "email": email,
+                        "ueberschrift": ueberschrift,
+                        "anliegen": anliegen,
+                    };
+
+                    $.ajax({
+                        url: 'http://localhost:8000/api/kontakt',
+                        method: 'post',
+                        contentType: 'application/json; charset=utf-8',
+                        cache: false,
+                        dataType: 'json',
+                        data: JSON.stringify(kontaktForm),
+                    }).done(function (response) {
+                        console.log('Data posted successfully');
+                        console.log(response);
+                    }).fail(function (jqXHR, textStatus) {
+                        console.log('Error posting data');
+                        console.log(textStatus);
+                    });
+                });
+            });
+        </script>
 </body>
 </html>
