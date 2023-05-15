@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Arztbuchseite.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>Arztterminbuchseite</title>
 </head>
 <body>
@@ -23,7 +23,6 @@
     </nav>
         <article>    
             <h3><u>Kontaktformular</u></h3>
-            <form>
                 <table>
                     <tr>
                         <td class="kontakt">Ihre E-Mail:</td>
@@ -44,8 +43,7 @@
                         </td>
                     </tr>
                 </table>
-                <input type="submit" value="Abschicken" class="searchButton" id="absenden">
-            </form>
+                <button class="searchButton" id="absenden">Abschicken</button>
         </article>
         <footer>
             Made by: Sven Kovacevic, Dennis Essert, Fabio Merkt, Maximilian Stutz<br>
@@ -54,12 +52,13 @@
         <script>
             $(document).ready(function(){
                 $('#absenden').click(function() {
-                    console.log('Formular gesendet');
+                    
 
                     const email = document.getElementById("email").value;
                     const ueberschrift = document.getElementById("ueberschrift").value;
                     const anliegen = document.getElementById("anliegen").value;
 
+                    console.log('Formular gesendet');
                     var kontaktForm = {
                         "email": email,
                         "ueberschrift": ueberschrift,
@@ -72,7 +71,7 @@
                         contentType: 'application/json; charset=utf-8',
                         cache: false,
                         dataType: 'json',
-                        data: JSON.stringify(kontaktForm),
+                        data: JSON.stringify(kontaktForm)
                     }).done(function (response) {
                         console.log('Data posted successfully');
                         console.log(response);
@@ -83,5 +82,5 @@
                 });
             });
         </script>
-</body>
+    </body>
 </html>
