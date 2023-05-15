@@ -89,8 +89,6 @@
         const urlParams = new URLSearchParams(window.location.search);
         const arztId = urlParams.get('arztId');
 
-        checkTermine();
-        
         function checkTermine() {
             var dateInput = document.getElementById("date");
             var eingetragenesDatum = dateInput.value;
@@ -136,6 +134,8 @@
 
         $(document).ready(function() {
             console.log('Document ready, loading data from Service');
+
+            checkTermine();
 
             $.ajax({
                 url: 'http://localhost:8000/api/arzt/gib/' + arztId,
