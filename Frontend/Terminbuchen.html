@@ -81,11 +81,11 @@
                         <td class="kunde_feld"><input type="text" id="telefonnummer"></td>
                     <tr>
                         <td class="kunde_links"><label for="beschwerden">*Beschwerden:</label></td>
-                        <td class="kunde_feld"><textarea id="beschwerden"  rows="10" cols="20"></textarea></td>
+                        <td class="kunde_feld"><textarea id="beschwerden"  rows="10" cols="20" required></textarea></td>
                     </tr>
                 </table>
                 <button class="searchButton" onclick="history.back()"><span>Zurück</span></button>
-                <td colspan="2"><button class="searchButton" id="buchen"><span>Termin buchen</span></button></td>
+                <td colspan="2"><button class="searchButton" id="buchen" disabled><span>Termin buchen</span></button></td>
             </section>  
         </article> 
         <footer>
@@ -101,11 +101,44 @@
 
             function fktFertig(){
                 window.location.href = 'Bestatigung.html?arztId=' + arztId + '&uhrzeit=' + uhrzeit + '&datum=' + datum + '&vorname=' + document.getElementById("vorname").value + '&name=' + document.getElementById("name").value + '&ort=' + document.getElementById("plz").value + '&straße=' + document.getElementById("straße").value + '&email=' + document.getElementById("email").value + '&telefonnummer=' + document.getElementById("telefonnummer").value + '&beschwerden=' + document.getElementById("beschwerden").value;
-
             }
-    
+
             $(document).ready(function() {
                 console.log('Document ready, loading data from Service');
+                var vorname = document.getElementById("vorname");
+                var name = document.getElementById("name");
+                var ort = document.getElementById("plz");
+                var straße = document.getElementById("straße");
+                var email = document.getElementById("email");
+                var telefonnummer = document.getElementById("telefonnummer");
+                var beschwerden = document.getElementById("beschwerden");
+                var button = document.getElementById("buchen");
+
+                vorname.value = "";
+                name.value = "";
+                plz.value = "";
+                straße.value = "";
+                email.value = "";
+                telefonnummer.value = "";
+                beschwerden.value = "";
+
+                vorname.addEventListener("input", pflichtFelder);
+                name.addEventListener("input", pflichtFelder);
+                ort.addEventListener("input", pflichtFelder);
+                straße.addEventListener("input", pflichtFelder);
+                email.addEventListener("input", pflichtFelder);
+                beschwerden.addEventListener("input", pflichtFelder)
+
+                function pflichtFelder() {
+                    var alle = vorname.value && name.value && ort.value && straße.value && email.value && beschwerden.value;
+                    if (alle) {
+                        button.removeAttribute("disabled");
+                    } else {
+                        button.setAttribute("disabled", "disabled");
+                    }
+                }
+
+                
                 
     
                 $.ajax({
@@ -144,8 +177,6 @@
                     const email = document.getElementById("email").value;
                     const telefonnummer = document.getElementById("telefonnummer").value;
                     const beschwerden = document.getElementById("beschwerden").value;
-                    
-                    
 
                     var patientobj = {
                         "vorname": vorname,
