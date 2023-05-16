@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Arztbuchseite.css">
-    <script src="script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>Arztterminbuchseite</title>
 </head>
 <body>
@@ -25,11 +25,11 @@
         <h2><u>Termine verwalten</u></h2>
         <div class="id">
             <label>ID:</label> 
-            <input type="number" id="id" placeholder="Geben Sie Ihr BestätigungsID ein.">
-            <button class="searchButton"><span>Suche</span></button>
+            <input type="number" id="buchungsId" placeholder="Geben Sie Ihr BestätigungsID ein.">
+            <button class="searchButton" id="searchButton"><span>Suche</span></button>
         </div>
-        <div>
-            <table>
+        <div id="termineTable">
+            <!--<table>
                 <tr>
                     <th>Nr.</th>
                     <th>Arzt</th>
@@ -50,14 +50,93 @@
                     <td>0182993991</td>
                     <td>02.04.2024</td>
                     <td>11:15</td>
-                    <td><button class="stornoButton">Storno</button></td>
+                    <td><button class="stornoButton" id="stornoButton">Storno</button></td>
                 </tr>
-            </table>
-        </div>
+            </table>-->
     </article>
     <footer>
         Made by: Sven Kovacevic, Dennis Essert, Fabio Merkt, Maximilian Stutz<br>
         E-Mail: test@test.com - Adresse: Hochschule Albstadt-Sigmaringen, Jakobstraße 6, 72458 Albstadt
     </footer>
+    <script>
+        function stornieren() {
+            var terminId = document.getElementById('buchungsId').value;
+
+            $.ajax({
+                url: 'http://localhost:8000/api/termine/' + terminId,
+                method: 'delete',
+                contentType: 'application/json; charset=utf-8',
+                cache: false,
+                dataType: 'json'
+            }).done(function (response) {
+                console.log('Data loaded successfully');
+                console.log(response);
+                alert("Termin erfolgreich gelöscht.");
+                location.reload();
+            }).fail(function (jqXHR, textStatus) {
+                console.log('Error loading data');
+                console.log(textStatus);
+            });
+        };
+
+        $(document).ready(function() {
+            console.log('Document ready, loading data from Service');
+
+            $('#searchButton').click (function() {
+                var terminId = document.getElementById('buchungsId').value;
+
+                $.ajax({
+                    url: 'http://localhost:8000/api/termine/gib/' + terminId,
+                    method: 'get',
+                    contentType: 'application/json; charset=utf-8',
+                    cache: false,
+                    dataType: 'json'
+                }).done(function (response) {
+                    console.log('Data loaded successfully');
+                    console.log(response);
+                    // HTML Element anlegen
+                    var div = $('<div>');
+
+                    // Tabelle erstellen
+                    var table = $('<table>');
+                    var tr = $('<tr>');
+                    tr.append('<th>Arzt</th>');
+                    tr.append('<th>Standort</th>');
+                    tr.append('<th>Schwerpunkt</th>');
+                    tr.append('<th>Geschlecht</th>');
+                    tr.append('<th>Telefonnummer</th>');
+                    tr.append('<th>E-Mail</th>');
+                    tr.append('<th>Datum</th>');
+                    tr.append('<th>Uhrzeit</th>');
+                    tr.append('<th>Stonieren</th>');
+                    table.append(tr);
+
+                    // Tabelleninhalt aus der Ajax-Antwort erstellen
+                    var tr = $('<tr>');
+                    tr.append('<td>' + response.ort.vorname + " " + response.ort.nachname + '</td>');
+                    tr.append('<td>' + response.ort.strasse + " " + response.ort.ort.plz + " " + response.ort.ort.ort + '</td>');
+                    tr.append('<td>' + response.ort.schwerpunkt.beschreibung + '</td>');
+                    tr.append('<td>' + response.ort.geschlecht.Beschreibung + '</td>');
+                    tr.append('<td>' + response.ort.telefonnummer + '</td>');
+                    tr.append('<td>' + response.ort.email + '</td>');
+                    tr.append('<td>' + response.datum + '</td>');
+                    tr.append('<td>' + response.uhrzeit + '</td>');
+                    tr.append('<td><button class="searchButton" id="stornoButton" onclick="stornieren()">Storno</button></td>');
+                    table.append(tr);
+
+                    // Tabelle dem DIV hinzufügen
+                    div.append(table);
+
+                    // DIV dem Dokument hinzufügen
+                    $('#termineTable').html(div);
+
+                }).fail(function (jqXHR, textStatus) {
+                    console.log('Error loading data');
+                    console.log(textStatus);
+                    alert("Den Termin gibt es nicht.");
+                });
+            });
+        });
+    </script>
 </body>
 </html>
