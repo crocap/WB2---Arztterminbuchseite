@@ -121,7 +121,10 @@
                     tr.append('<td>' + response.ort.geschlecht.Beschreibung + '</td>');
                     tr.append('<td>' + response.ort.telefonnummer + '</td>');
                     tr.append('<td>' + response.ort.email + '</td>');
-                    tr.append('<td>' + response.datum + '</td>');
+                    deDatum = response.datum.split("-");
+                    deDatum = new Date(deDatum[0], deDatum[1] - 1, deDatum[2]);
+                    deDatum = deDatum.toLocaleDateString("de-DE");
+                    tr.append('<td>' + deDatum + '</td>');
                     tr.append('<td>' + response.uhrzeit + '</td>');
                     tr.append('<td><button class="searchButton" id="stornoButton" onclick="stornieren()">Storno</button></td>');
                     table.append(tr);
