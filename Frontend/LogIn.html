@@ -60,7 +60,7 @@
     </footer>
     <script>
         function stornieren() {
-            var terminId = document.getElementById('buchungsId').value;
+            var terminId = document.getElementById('responseId').innerHTML;
 
             $.ajax({
                 url: 'http://localhost:8000/api/termine/' + terminId,
@@ -100,6 +100,7 @@
                     // Tabelle erstellen
                     var table = $('<table>');
                     var tr = $('<tr>');
+                    tr.append('<th>ID</th>');
                     tr.append('<th>Arzt</th>');
                     tr.append('<th>Standort</th>');
                     tr.append('<th>Schwerpunkt</th>');
@@ -113,6 +114,7 @@
 
                     // Tabelleninhalt aus der Ajax-Antwort erstellen
                     var tr = $('<tr>');
+                    tr.append('<td id="responseId">' + response.id + '</td>');
                     tr.append('<td>' + response.ort.vorname + " " + response.ort.nachname + '</td>');
                     tr.append('<td>' + response.ort.strasse + " " + response.ort.ort.plz + " " + response.ort.ort.ort + '</td>');
                     tr.append('<td>' + response.ort.schwerpunkt.beschreibung + '</td>');
