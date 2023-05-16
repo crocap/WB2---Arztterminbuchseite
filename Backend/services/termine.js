@@ -77,7 +77,6 @@ serviceRouter.post('/termine', function(request, response) {
 });
 
 serviceRouter.delete('/termine/:id', function(request, response) {
-    console.log("Hallo");
     console.log('Service Termine: Client requested deletion of record, id=' + request.params.id);
 
     const termineDao = new TermineDao(request.app.locals.dbConnection);
