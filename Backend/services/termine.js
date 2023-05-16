@@ -76,6 +76,22 @@ serviceRouter.post('/termine', function(request, response) {
     }    
 });
 
+serviceRouter.delete('/termine/:id', function(request, response) {
+    console.log("Hallo");
+    console.log('Service Termine: Client requested deletion of record, id=' + request.params.id);
+
+    const termineDao = new TermineDao(request.app.locals.dbConnection);
+    try {
+        var obj = termineDao.loadById(request.params.id);
+        termineDao.delete(request.params.id);
+        console.log('Service Termine: Deletion of record successfull, id=' + request.params.id);
+        response.status(200).json({ 'gelöscht': true, 'eintrag': obj });
+    } catch (ex) {
+        console.error('Service Termine: Error deleting record. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
 /*
 serviceRouter.get('/land/existiert/:id', function(request, response) {
     console.log('Service Land: Client requested check, if record exists, id=' + request.params.id);
@@ -120,21 +136,6 @@ serviceRouter.put('/land', function(request, response) {
         console.error('Service Land: Error updating record by id. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }    
-});
-
-serviceRouter.delete('/land/:id', function(request, response) {
-    console.log('Service Land: Client requested deletion of record, id=' + request.params.id);
-
-    const landDao = new LandDao(request.app.locals.dbConnection);
-    try {
-        var obj = landDao.loadById(request.params.id);
-        landDao.delete(request.params.id);
-        console.log('Service Land: Deletion of record successfull, id=' + request.params.id);
-        response.status(200).json({ 'gelöscht': true, 'eintrag': obj });
-    } catch (ex) {
-        console.error('Service Land: Error deleting record. Exception occured: ' + ex.message);
-        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
-    }
 });
 */
 
