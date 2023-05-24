@@ -75,6 +75,101 @@ serviceRouter.get('/arzt/gib/schwerpunkt/:schwerpunkt', function(request, respon
     }
 });
 
+serviceRouter.post('/arzt', function(request, response) {
+    console.log('Service Arzt: Client requested creation of new record');
+
+    var errorMsgs=[];
+    if (helper.isUndefined(request.body.vorname)) 
+        errorMsgs.push('vorname fehlt');
+    if (helper.isUndefined(request.body.nachname)) 
+        errorMsgs.push('nachname fehlt');
+    if (helper.isUndefined(request.body.fk_plz)) 
+        errorMsgs.push('fk_plz fehlt');
+    if (helper.isUndefined(request.body.strasse)) 
+        errorMsgs.push('strasse fehlt');
+    if (helper.isUndefined(request.body.fk_geschlecht)) 
+        errorMsgs.push('fk_geschlecht fehlt');
+    if (helper.isUndefined(request.body.fk_schwerpunkt)) 
+        errorMsgs.push('fk_schwerpunkt fehlt');
+    if (helper.isUndefined(request.body.telefonnummer)) 
+        errorMsgs.push('telefonnummer fehlt');
+    if (helper.isUndefined(request.body.email)) 
+        errorMsgs.push('email fehlt');
+    if (helper.isUndefined(request.body.oeffnungszeiten)) 
+        errorMsgs.push('oeffnungszeiten fehlt');
+    
+    if (errorMsgs.length > 0) {
+        console.log('Service Arzt: Creation not possible, data missing');
+        response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
+        return;
+    }
+
+    const arztDao = new ArztDao(request.app.locals.dbConnection);
+    try {
+        var obj = arztDao.create(request.body.vorname, request.body.nachname, request.body.fk_plz, request.body.strasse, request.body.fk_geschlecht, request.body.fk_schwerpunkt, request.body.telefonnummer, request.body.email, request.body.oeffnungszeiten);
+        console.log('Service arzt: Record inserted');
+        response.status(200).json(obj);
+    } catch (ex) {
+        console.error('Service Arzt: Error creating new record. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }    
+});
+
+serviceRouter.put('/arzt', function(request, response) {
+    console.log('Service Arzt: Client requested update of existing record');
+
+    var errorMsgs=[];
+    if (helper.isUndefined(request.body.vorname)) 
+        errorMsgs.push('vorname fehlt');
+    if (helper.isUndefined(request.body.nachname)) 
+        errorMsgs.push('nachname fehlt');
+    if (helper.isUndefined(request.body.fk_plz)) 
+        errorMsgs.push('fk_plz fehlt');
+    if (helper.isUndefined(request.body.strasse)) 
+        errorMsgs.push('strasse fehlt');
+    if (helper.isUndefined(request.body.fk_geschlecht)) 
+        errorMsgs.push('fk_geschlecht fehlt');
+    if (helper.isUndefined(request.body.fk_schwerpunkt)) 
+        errorMsgs.push('fk_schwerpunkt fehlt');
+    if (helper.isUndefined(request.body.telefonnummer)) 
+        errorMsgs.push('telefonnummer fehlt');
+    if (helper.isUndefined(request.body.email)) 
+        errorMsgs.push('email fehlt');
+    if (helper.isUndefined(request.body.oeffnungszeiten)) 
+        errorMsgs.push('oeffnungszeiten fehlt');
+
+    if (errorMsgs.length > 0) {
+        console.log('Service Arzt: Update not possible, data missing');
+        response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
+        return;
+    }
+
+    const arztDao = new ArztDao(request.app.locals.dbConnection);
+    try {
+        var obj = arztDao.update(request.body.vorname, request.body.nachname, request.body.fk_plz, request.body.strasse, request.body.fk_geschlecht, request.body.fk_schwerpunkt, request.body.telefonnummer, request.body.email, request.body.oeffnungszeiten);
+        console.log('Service Arzt: Record updated, id=' + request.body.id);
+        response.status(200).json(obj);
+    } catch (ex) {
+        console.error('Service Arzt: Error updating record by id. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }    
+});
+
+serviceRouter.delete('/arzt/:id', function(request, response) {
+    console.log('Service Arzt: Client requested deletion of record, id=' + request.params.id);
+
+    const arztDao = new ArztDao(request.app.locals.dbConnection);
+    try {
+        var obj = arzteDao.loadById(request.params.id);
+        arztDao.delete(request.params.id);
+        console.log('Service Arzt: Deletion of record successfull, id=' + request.params.id);
+        response.status(200).json({ 'gelöscht': true, 'eintrag': obj });
+    } catch (ex) {
+        console.error('Service Arzt: Error deleting record. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
 /*serviceRouter.get('/land/existiert/:id', function(request, response) {
     console.log('Service Land: Client requested check, if record exists, id=' + request.params.id);
 

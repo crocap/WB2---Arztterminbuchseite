@@ -3,7 +3,7 @@ const SchwerpunktDao = require('./schwerpunktDao.js');
 const PlzDao = require('./plzDao.js');
 const GeschlechtDao = require('./geschlechtDao.js');
 
-class LandDao {
+class ArztDao {
 
     constructor(dbConnection) {
         this._conn = dbConnection;
@@ -251,9 +251,8 @@ class LandDao {
         return result;
     }
 
-/*
     exists(id) {
-        var sql = 'SELECT COUNT(id) AS cnt FROM Land WHERE id=?';
+        var sql = 'SELECT COUNT(id) AS cnt FROM Arzt WHERE id=?';
         var statement = this._conn.prepare(sql);
         var result = statement.get(id);
 
@@ -263,10 +262,10 @@ class LandDao {
         return false;
     }
 
-    create(kennzeichnung = '', bezeichnung = '') {
-        var sql = 'INSERT INTO Land (kennzeichnung,bezeichnung) VALUES (?,?)';
+    create(vorname = '', nachname = '', fk_plz = '', strasse = '', fk_geschlecht = '', fk_schwerpunkt = '', telefonnummer = '', email = '', oeffnungszeiten = '') {
+        var sql = 'INSERT INTO Arzt (vorname, nachname, fk_plz, strasse, fk_geschlecht, fk_schwerpunkt, telefonnummer, email, oeffnungszeiten) VALUES (?,?,?,?,?,?,?,?,?)';
         var statement = this._conn.prepare(sql);
-        var params = [kennzeichnung, bezeichnung];
+        var params = [vorname, nachname, fk_plz, strasse, fk_geschlecht, fk_schwerpunkt, telefonnummer, email, oeffnungszeiten];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -275,10 +274,10 @@ class LandDao {
         return this.loadById(result.lastInsertRowid);
     }
 
-    update(id, kennzeichnung = '', bezeichnung = '') {
-        var sql = 'UPDATE Land SET kennzeichnung=?,bezeichnung=? WHERE id=?';
+    update(id, vorname = '', nachname = '', fk_plz = '', strasse = '', fk_geschlecht = '', fk_schwerpunkt = '', telefonnummer = '', email = '', oeffnungszeiten = '') {
+        var sql = 'UPDATE Arzt SET vorname = ?, nachname = ?, fk_plz = ?, strasse = ?, fk_geschlecht = ?, fk_schwerpunkt = ?, telefonnummer = ?, email = ?, oeffnungszeiten = ? WHERE id=?';
         var statement = this._conn.prepare(sql);
-        var params = [kennzeichnung, bezeichnung, id];
+        var params = [vorname, nachname, fk_plz, strasse, fk_geschlecht, fk_schwerpunkt, telefonnummer, email, oeffnungszeiten, id];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -289,7 +288,7 @@ class LandDao {
 
     delete(id) {
         try {
-            var sql = 'DELETE FROM Land WHERE id=?';
+            var sql = 'DELETE FROM Arzt WHERE id=?';
             var statement = this._conn.prepare(sql);
             var result = statement.run(id);
 
@@ -301,10 +300,10 @@ class LandDao {
             throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message);
         }
     }
-*/
+
     toString() {
-        console.log('LandDao [_conn=' + this._conn + ']');
+        console.log('ArztDao [_conn=' + this._conn + ']');
     }
 }
 
-module.exports = LandDao;
+module.exports = ArztDao;
