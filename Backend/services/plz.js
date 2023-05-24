@@ -47,6 +47,75 @@ serviceRouter.get('/plz/ort', function(request, response) {
     }
 });
 
+serviceRouter.post('/plz', function(request, response) {
+    console.log('Service Plz: Client requested creation of new record');
+
+    var errorMsgs=[];
+    if (helper.isUndefined(request.body.plz)) 
+        errorMsgs.push('plz fehlt');
+    if (helper.isUndefined(request.body.ort)) 
+        errorMsgs.push('ort fehlt');
+    
+    if (errorMsgs.length > 0) {
+        console.log('Service Plz: Creation not possible, data missing');
+        response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
+        return;
+    }
+
+    const plzDao = new PlzDao(request.app.locals.dbConnection);
+    try {
+        var obj = plzDao.create(request.body.plz, request.body.ort);
+        console.log('Service Plz: Record inserted');
+        response.status(200).json(obj);
+    } catch (ex) {
+        console.error('Service Plz: Error creating new record. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }    
+});
+
+serviceRouter.put('/plz', function(request, response) {
+    console.log('Service Plz: Client requested update of existing record');
+
+    var errorMsgs=[];
+    if (helper.isUndefined(request.body.id)) 
+        errorMsgs.push('id fehlt');
+    if (helper.isUndefined(request.body.plz)) 
+        errorMsgs.push('plz fehlt');
+    if (helper.isUndefined(request.body.ort)) 
+        errorMsgs.push('ort fehlt');
+
+    if (errorMsgs.length > 0) {
+        console.log('Service Plz: Update not possible, data missing');
+        response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
+        return;
+    }
+
+    const plzDao = new PlzDao(request.app.locals.dbConnection);
+    try {
+        var obj = plzDao.update(request.body.id, request.body.plz, request.body.ort);
+        console.log('Service Plz: Record updated, id=' + request.body.id);
+        response.status(200).json(obj);
+    } catch (ex) {
+        console.error('Service Plz: Error updating record by id. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }    
+});
+
+serviceRouter.delete('/plz/:id', function(request, response) {
+    console.log('Service Plz: Client requested deletion of record, id=' + request.params.id);
+
+    const plzDao = new PlzDao(request.app.locals.dbConnection);
+    try {
+        var obj = plzeDao.loadById(request.params.id);
+        plzDao.delete(request.params.id);
+        console.log('Service Plz: Deletion of record successfull, id=' + request.params.id);
+        response.status(200).json({ 'gelöscht': true, 'eintrag': obj });
+    } catch (ex) {
+        console.error('Service Plz: Error deleting record. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
 /*
 
 serviceRouter.get('/land/existiert/:id', function(request, response) {
