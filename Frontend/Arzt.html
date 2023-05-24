@@ -60,7 +60,7 @@
             <!--Main Right-->
             <section class="main-rechts">
                 <p class="p-termin">Termine</p>
-                <input type="date" class="termin" id="date" name="date" min="" value="">
+                <input type="date" class="termin" id="date" name="date" min="" value="" onchange="checkTermine()">
                 <p class="arzt_beschr">Über die unteren Felder können Sie die passende Zeit für diesen Tag auswählen.</p>
                 <p class="arzt_beschr">Wenn der Button grün ist, können Sie per Klick den freien Termin buchen.</p>
                 <p class="arzt_beschr">Falls der Button rot ist, ist der Termin bereits belegt.</p>
@@ -89,6 +89,44 @@
         const urlParams = new URLSearchParams(window.location.search);
         const arztId = urlParams.get('arztId');
 
+        function checkTermine() {
+            var dateInput = document.getElementById("date");
+            var eingetragenesDatum = dateInput.value;
+            
+            $.ajax({
+                url: 'http://localhost:8000/api/termine/gib/arztunddatum/' + arztId + '/' + eingetragenesDatum,
+                method: 'get',
+                contentType: 'application/json; charset=utf-8',
+                cache: false,
+                dataType: 'json'
+            }).done(function (response) {
+                console.log('Data loaded successfully');
+                console.log(response);
+            
+                var buttons = document.getElementsByClassName("arzt-buttons");
+                for (var i = 0; i < buttons.length; i++) {
+                    buttons[i].style.backgroundColor = "rgb(11, 197, 11)";
+                    buttons[i].disabled = false;
+                }
+
+                for (var i = 0; i < response.length; i++) {
+                    var termin = response[i];
+                    if (termin.datum === eingetragenesDatum) {
+                        var uhrzeit = termin.uhrzeit;
+                        var buttonId = uhrzeit.substring(0, uhrzeit.indexOf(':')) 
+                        var button = document.getElementById(buttonId);
+                        if (button) {
+                            button.style.backgroundColor = "red"; 
+                            button.disabled = true;
+                        }
+                    }
+                }
+            }).fail(function (jqXHR, textStatus) {
+                console.log('Error loading data');
+                console.log(textStatus);
+            });
+        }
+
         function fktUhrzeit(uhrzeit){
             var datum = $('#date').val();
             window.location.href = 'Terminbuchen.html?arztId=' + arztId + '&uhrzeit=' + uhrzeit + '&datum=' + datum;
@@ -96,6 +134,8 @@
 
         $(document).ready(function() {
             console.log('Document ready, loading data from Service');
+
+            checkTermine();
 
             $.ajax({
                 url: 'http://localhost:8000/api/arzt/gib/' + arztId,

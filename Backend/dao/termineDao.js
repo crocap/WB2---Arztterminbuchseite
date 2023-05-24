@@ -44,6 +44,16 @@ class TermineDao {
         return result;
     }
 
+    loadByArztAndDatum(arzt,datum) {
+        var sql = 'SELECT * FROM Termine WHERE fk_arzt = (SELECT id FROM Arzt WHERE id = ?) AND datum = ?';
+        var statement = this._conn.prepare(sql);
+        var result = statement.all(arzt,datum);
+        
+        if (helper.isArrayEmpty(result)) 
+            return [];
+        
+        return result;
+    }
 
     exists(id) {
         var sql = 'SELECT COUNT(id) AS cnt FROM Termine WHERE id=?';

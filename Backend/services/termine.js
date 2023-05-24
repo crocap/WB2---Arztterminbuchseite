@@ -33,6 +33,20 @@ serviceRouter.get('/termine/alle', function(request, response) {
     }
 });
 
+serviceRouter.get('/termine/gib/arztunddatum/:arzt/:datum', function(request, response) {
+    console.log('Service Termine: Client requested all records with arzt=' + request.params.arzt + ' and datum=' + request.params.datum);
+
+    const termineDao = new TermineDao(request.app.locals.dbConnection);
+    try {
+        var obj = termineDao.loadByArztAndDatum(request.params.arzt, request.params.datum);
+        console.log('Service Termine: Record loaded');
+        response.status(200).json(obj);
+    } catch (ex) {
+        console.error('Service Termine: Error loading record by id. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
 
 serviceRouter.post('/termine', function(request, response) {
     console.log('Service Termine: Client requested creation of new record');
@@ -60,6 +74,21 @@ serviceRouter.post('/termine', function(request, response) {
         console.error('Service Termine: Error creating new record. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }    
+});
+
+serviceRouter.delete('/termine/:id', function(request, response) {
+    console.log('Service Termine: Client requested deletion of record, id=' + request.params.id);
+
+    const termineDao = new TermineDao(request.app.locals.dbConnection);
+    try {
+        var obj = termineDao.loadById(request.params.id);
+        termineDao.delete(request.params.id);
+        console.log('Service Termine: Deletion of record successfull, id=' + request.params.id);
+        response.status(200).json({ 'gelöscht': true, 'eintrag': obj });
+    } catch (ex) {
+        console.error('Service Termine: Error deleting record. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
 });
 
 /*
@@ -106,21 +135,6 @@ serviceRouter.put('/land', function(request, response) {
         console.error('Service Land: Error updating record by id. Exception occured: ' + ex.message);
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }    
-});
-
-serviceRouter.delete('/land/:id', function(request, response) {
-    console.log('Service Land: Client requested deletion of record, id=' + request.params.id);
-
-    const landDao = new LandDao(request.app.locals.dbConnection);
-    try {
-        var obj = landDao.loadById(request.params.id);
-        landDao.delete(request.params.id);
-        console.log('Service Land: Deletion of record successfull, id=' + request.params.id);
-        response.status(200).json({ 'gelöscht': true, 'eintrag': obj });
-    } catch (ex) {
-        console.error('Service Land: Error deleting record. Exception occured: ' + ex.message);
-        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
-    }
 });
 */
 
