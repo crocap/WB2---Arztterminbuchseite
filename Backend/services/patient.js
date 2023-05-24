@@ -69,6 +69,58 @@ serviceRouter.post('/patient', function(request, response) {
     }    
 });
 
+serviceRouter.put('/patient', function(request, response) {
+    console.log('Service Patient: Client requested update of existing record');
+
+    var errorMsgs=[];
+    if (helper.isUndefined(request.body.vorname)) 
+        errorMsgs.push('vorname fehlt');
+    if (helper.isUndefined(request.body.nachname)) 
+        errorMsgs.push('nachname fehlt');
+    if (helper.isUndefined(request.body.plz)) 
+        errorMsgs.push('plz fehlt');
+    if (helper.isUndefined(request.body.strasse)) 
+        errorMsgs.push('strasse fehlt');
+    if (helper.isUndefined(request.body.email)) 
+        errorMsgs.push('email fehlt');
+    if (helper.isUndefined(request.body.telefonnummer)) 
+        errorMsgs.push('telefonnummer fehlt');
+    if (helper.isUndefined(request.body.beschwerde)) 
+        errorMsgs.push('beschwerde fehlt');
+
+    if (errorMsgs.length > 0) {
+        console.log('Service Patient: Update not possible, data missing');
+        response.status(400).json({ 'fehler': true, 'nachricht': 'Funktion nicht möglich. Fehlende Daten: ' + helper.concatArray(errorMsgs) });
+        return;
+    }
+
+    const patientDao = new PatientDao(request.app.locals.dbConnection);
+    try {
+        var obj = patientDao.update(request.body.vorname, request.body.nachname, request.body.plz, request.body.strasse, request.body.email, request.body.telefonnummer, request.body.beschwerde);
+        console.log('Service Patient: Record updated, id=' + request.body.id);
+        response.status(200).json(obj);
+    } catch (ex) {
+        console.error('Service Patient: Error updating record by id. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }    
+});
+
+serviceRouter.delete('/patient/:id', function(request, response) {
+    console.log('Service Patient: Client requested deletion of record, id=' + request.params.id);
+
+    const patientDao = new PatientDao(request.app.locals.dbConnection);
+    try {
+        var obj = patienteDao.loadById(request.params.id);
+        patientDao.delete(request.params.id);
+        console.log('Service Patient: Deletion of record successfull, id=' + request.params.id);
+        response.status(200).json({ 'gelöscht': true, 'eintrag': obj });
+    } catch (ex) {
+        console.error('Service Patient: Error deleting record. Exception occured: ' + ex.message);
+        response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
+    }
+});
+
+
 /*
 serviceRouter.get('/land/existiert/:id', function(request, response) {
     console.log('Service Land: Client requested check, if record exists, id=' + request.params.id);
