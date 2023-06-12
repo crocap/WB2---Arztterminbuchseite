@@ -24,7 +24,7 @@ class GeschlechtDao {
 
     loadAll() {
         var sql = 'SELECT * FROM Geschlecht';
-        var statement = this._conn.prepare(sql);
+        var statement = this._conn.prepare(sql); 
         var result = statement.all();
 
         if (helper.isArrayEmpty(result)) 
@@ -33,7 +33,7 @@ class GeschlechtDao {
         return result;
     }
 
-/*
+ 
     exists(id) {
         var sql = 'SELECT COUNT(id) AS cnt FROM Geschlecht WHERE id=?';
         var statement = this._conn.prepare(sql);
@@ -45,22 +45,22 @@ class GeschlechtDao {
         return false;
     }
 
-    create(kennzeichnung = '', bezeichnung = '') {
-        var sql = 'INSERT INTO Geschlecht (kennzeichnung,bezeichnung) VALUES (?,?)';
+    create(Beschreibung = '') {
+        var sql = 'INSERT INTO Geschlecht (Beschreibung) VALUES (?)';
         var statement = this._conn.prepare(sql);
-        var params = [kennzeichnung, bezeichnung];
-        var result = statement.run(params);
+        var params = [Beschreibung];
+        var result = statement.run(params); 
 
         if (result.changes != 1) 
             throw new Error('Could not insert new Record. Data: ' + params);
 
         return this.loadById(result.lastInsertRowid);
     }
-
-    update(id, kennzeichnung = '', bezeichnung = '') {
-        var sql = 'UPDATE Geschlecht SET kennzeichnung=?,bezeichnung=? WHERE id=?';
+    
+    update(id, Beschreibung = '') {
+        var sql = 'UPDATE Geschlecht SET Beschreibung=? WHERE id=?';
         var statement = this._conn.prepare(sql);
-        var params = [kennzeichnung, bezeichnung, id];
+        var params = [Beschreibung, id];
         var result = statement.run(params);
 
         if (result.changes != 1) 
@@ -83,7 +83,7 @@ class GeschlechtDao {
             throw new Error('Could not delete Record by id=' + id + '. Reason: ' + ex.message);
         }
     }
-*/
+
     toString() {
         console.log('GeschlechtDao [_conn=' + this._conn + ']');
     }
