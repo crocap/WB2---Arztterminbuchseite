@@ -5,7 +5,6 @@ var serviceRouter = express.Router();
 
 console.log('- Service Kontakt');
 
-
 serviceRouter.get('/kontakt/gib/:id', function(request, response) {
     console.log('Service Kontakt: Client requested one record, id=' + request.params.id);
 
