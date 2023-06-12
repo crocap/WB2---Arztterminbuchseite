@@ -19,11 +19,10 @@ serviceRouter.get('/geschlecht/gib/:id', function(request, response) {
     }
 });
 
-
-serviceRouter.get('/Geschlecht/alle', function(request, response) {
+serviceRouter.get('/geschlecht/alle', function(request, response) {
     console.log('Service Geschlecht: Client requested all records');
 
-    const geschlechtDao = new geschlechtDao(request.app.locals.dbConnection);
+    const geschlechtDao = new GeschlechtDao(request.app.locals.dbConnection);
     try {
         var arr = geschlechtDao.loadAll();
         console.log('Service Geschlecht: Records loaded, count=' + arr.length);
@@ -34,13 +33,12 @@ serviceRouter.get('/Geschlecht/alle', function(request, response) {
     }
 });
 
-/*
-serviceRouter.get('/Geschlecht/existiert/:id', function(request, response) {
+serviceRouter.get('/geschlecht/existiert/:id', function(request, response) {
     console.log('Service Geschlecht: Client requested check, if record exists, id=' + request.params.id);
 
     console.log('go');
 
-    const geschlechtDao = new geschlechtDao(request.app.locals.dbConnection);
+    const geschlechtDao = new GeschlechtDao(request.app.locals.dbConnection);
     try {
         var exists = geschlechtDao.exists(request.params.id);
         console.log('Service Geschlecht: Check if record exists by id=' + request.params.id + ', exists=' + exists);
@@ -51,14 +49,12 @@ serviceRouter.get('/Geschlecht/existiert/:id', function(request, response) {
     }
 });
 
-serviceRouter.post('/Geschlecht', function(request, response) {
+serviceRouter.post('/geschlecht', function(request, response) {
     console.log('Service Geschlecht: Client requested creation of new record');
 
     var errorMsgs=[];
-    if (helper.isUndefined(request.body.kennzeichnung)) 
-        errorMsgs.push('kennzeichnung fehlt');
-    if (helper.isUndefined(request.body.bezeichnung)) 
-        errorMsgs.push('bezeichnung fehlt');
+    if (helper.isUndefined(request.body.Beschreibung)) 
+        errorMsgs.push('Beschreibung fehlt');
     
     if (errorMsgs.length > 0) {
         console.log('Service Geschlecht: Creation not possible, data missing');
@@ -66,9 +62,11 @@ serviceRouter.post('/Geschlecht', function(request, response) {
         return;
     }
 
+    
+
     const geschlechtDao = new geschlechtDao(request.app.locals.dbConnection);
     try {
-        var obj = geschlechtDao.create(request.body.kennzeichnung, request.body.bezeichnung);
+        var obj = geschlechtDao.create(request.body.Beschreibung);
         console.log('Service Geschlecht: Record inserted');
         response.status(200).json(obj);
     } catch (ex) {
@@ -77,16 +75,14 @@ serviceRouter.post('/Geschlecht', function(request, response) {
     }    
 });
 
-serviceRouter.put('/Geschlecht', function(request, response) {
+serviceRouter.put('/geschlecht', function(request, response) {
     console.log('Service Geschlecht: Client requested update of existing record');
 
     var errorMsgs=[];
     if (helper.isUndefined(request.body.id)) 
         errorMsgs.push('id fehlt');
-    if (helper.isUndefined(request.body.kennzeichnung)) 
-        errorMsgs.push('kennzeichnung fehlt');
-    if (helper.isUndefined(request.body.bezeichnung)) 
-        errorMsgs.push('bezeichnung fehlt');
+    if (helper.isUndefined(request.body.Beschreibung)) 
+        errorMsgs.push('Beschreibung fehlt');
 
     if (errorMsgs.length > 0) {
         console.log('Service Geschlecht: Update not possible, data missing');
@@ -96,7 +92,7 @@ serviceRouter.put('/Geschlecht', function(request, response) {
 
     const geschlechtDao = new geschlechtDao(request.app.locals.dbConnection);
     try {
-        var obj = geschlechtDao.update(request.body.id, request.body.kennzeichnung, request.body.bezeichnung);
+        var obj = geschlechtDao.update(request.body.id, request.body.Beschreibung);
         console.log('Service Geschlecht: Record updated, id=' + request.body.id);
         response.status(200).json(obj);
     } catch (ex) {
@@ -105,7 +101,7 @@ serviceRouter.put('/Geschlecht', function(request, response) {
     }    
 });
 
-serviceRouter.delete('/Geschlecht/:id', function(request, response) {
+serviceRouter.delete('/geschlecht/:id', function(request, response) {
     console.log('Service Geschlecht: Client requested deletion of record, id=' + request.params.id);
 
     const geschlechtDao = new geschlechtDao(request.app.locals.dbConnection);
@@ -119,6 +115,6 @@ serviceRouter.delete('/Geschlecht/:id', function(request, response) {
         response.status(400).json({ 'fehler': true, 'nachricht': ex.message });
     }
 });
-*/
+
 
 module.exports = serviceRouter;
